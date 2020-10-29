@@ -7,11 +7,16 @@ import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Commands {
+    public static String HELP;
+
     private static final Map<String, Command> commands = new HashMap<>();
+    private static final Map<Category, List<Command>> categories = new HashMap<>();
 
     public static void init() {
         Reflections reflections = new Reflections(new ConfigurationBuilder()
@@ -30,12 +35,14 @@ public class Commands {
         }
 
         OkInsults.init();
+        generateHelp();
 
         MeteorBot.LOG.info("Loaded {} commands", commands.size());
     }
 
     public static void add(Command command) {
         commands.put(command.name, command);
+        categories.computeIfAbsent(command.category, category -> new ArrayList<>()).add(command);
     }
 
     public static void onMessage(MessageReceivedEvent event) {
@@ -47,5 +54,23 @@ public class Commands {
             Command command = commands.get(name);
             if (command != null) command.run(event);
         }
+    }
+
+    private static void generateHelp() {
+        StringBuilder sb = new StringBuilder();
+
+        int i = 0;
+        for (Category category : Category.values()) {
+            if (i > 0) sb.append("\n");
+            sb.append("\n**").append(category).append(":**");
+
+            for (Command command : categories.get(category)) {
+                sb.append("\n - *").append(command.name).append(":* ").append(command.description);
+            }
+
+            i++;
+        }
+
+        HELP = sb.toString();
     }
 }
