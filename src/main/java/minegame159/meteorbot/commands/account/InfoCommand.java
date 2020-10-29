@@ -19,8 +19,29 @@ public class InfoCommand extends Command {
             Db.USERS.add(user);
         }
 
-        StringBuilder sb = new StringBuilder("**Donator:** %s\n**Cape:** %s\n**Max mc accounts:** %d");
+        StringBuilder sb = new StringBuilder("**Donator:** %s\n**Cape:** %s");
+
         if (user.mcAccounts.isEmpty()) sb.append("\n\n*You have no minecraft accounts linked, do `.link <username>`.*");
+        else {
+            boolean update = false;
+
+            sb.append("\n\n*").append("You have linked ").append(user.mcAccounts.size()).append(" out of maximum ").append(user.maxMcAccounts).append(" ").append(user.maxMcAccounts == 1 ? "account" : "accounts").append(".*\n");
+
+            for (int i = 0; i < user.mcAccounts.size(); i++) {
+                String username = Utils.getMcUsername(user.mcAccounts.get(i));
+
+                if (username == null) {
+                    user.mcAccounts.remove(i);
+                    i--;
+                    update = true;
+                    continue;
+                }
+
+                sb.append("\n**").append(i + 1).append("**. ").append(username);
+            }
+
+            if (update) Db.USERS.update(user);
+        }
 
         event.getChannel().sendMessage(Utils.embed(sb.toString(), user.donator, user.cape, user.maxMcAccounts).build()).queue();
     }

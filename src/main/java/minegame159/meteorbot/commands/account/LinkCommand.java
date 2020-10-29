@@ -41,7 +41,7 @@ public class LinkCommand extends Command {
             Db.USERS.update(user);
             event.getChannel().sendMessage(Utils.embed("Replaced your previously linked account with `" + username + "`.").build()).queue();
         } else {
-            event.getChannel().sendMessage(Utils.embed("Your %d slots are full, use `.unlink <username>` and `.linked` to see your linked minecraft accounts.").build()).queue();
+            event.getChannel().sendMessage(Utils.embed("Your %d slots are full, use `.unlink <username>` and `.info` to see your linked minecraft accounts.").build()).queue();
         }
     }
 }

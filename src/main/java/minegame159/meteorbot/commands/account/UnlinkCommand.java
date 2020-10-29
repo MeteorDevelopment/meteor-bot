@@ -15,7 +15,7 @@ public class UnlinkCommand extends Command {
     public void run(MessageReceivedEvent event) {
         String[] split = event.getMessage().getContentRaw().split(" ");
         if (split.length < 2) {
-            event.getChannel().sendMessage(Utils.embed("Specify your minecraft username.").build()).queue();
+            event.getChannel().sendMessage(Utils.embed("Specify your minecraft username, check your linked accounts with `.info`.").build()).queue();
             return;
         }
 
