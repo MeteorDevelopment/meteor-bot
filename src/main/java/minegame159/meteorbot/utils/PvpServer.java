@@ -11,7 +11,7 @@ public class PvpServer {
     }
 
     public static void giveDonator(String uuid) {
-        Unirest.post("http://mc.meteorclient.com:8115/adddonator")
+        Unirest.post("http://pvp.meteorclient.com:8115/adddonator")
                 .queryString("token", TOKEN)
                 .queryString("uuid", Utils.newUUID(uuid))
                 .asEmpty();
@@ -22,7 +22,7 @@ public class PvpServer {
     }
 
     public static void removeDonator(String uuid) {
-        Unirest.post("http://mc.meteorclient.com:8115/removedonator")
+        Unirest.post("http://pvp.meteorclient.com:8115/removedonator")
                 .queryString("token", TOKEN)
                 .queryString("uuid", Utils.newUUID(uuid))
                 .asEmpty();
