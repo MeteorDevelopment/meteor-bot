@@ -1,5 +1,10 @@
 package minegame159.meteorbot;
 
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
+import kong.unirest.json.JSONArray;
+import kong.unirest.json.JSONObject;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.JoinStats;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -64,5 +69,44 @@ public class Utils {
         }
 
         return null;
+    }
+
+    public static String getMcUuid(String username) {
+        HttpResponse<JsonNode> response = Unirest
+                .post("https://api.mojang.com/profiles/minecraft")
+                .header("Content-Type", "application/json")
+                .body(new JSONArray().put(username))
+                .asJson();
+
+        try {
+            return response.getBody().getArray().getJSONObject(0).getString("id");
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    public static String getMcUsername(String uuid) {
+        HttpResponse<JsonNode> response = Unirest
+                .get("https://api.mojang.com/user/profiles/" + uuid + "/names")
+                .asJson();
+
+        try {
+            String username = null;
+            int time = 0;
+
+            JSONArray array = response.getBody().getArray();
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject o = array.getJSONObject(i);
+
+                if (!o.has("changedToAt") || o.getInt("changedToAt") > time) {
+                    username = o.getString("name");
+                    if (o.has("changedToAt")) time = o.getInt("changedToAt");
+                }
+            }
+
+            return username;
+        } catch (Exception ignored) {
+            return null;
+        }
     }
 }

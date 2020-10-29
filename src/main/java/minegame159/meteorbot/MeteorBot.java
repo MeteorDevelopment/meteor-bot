@@ -1,6 +1,9 @@
 package minegame159.meteorbot;
 
 import minegame159.meteorbot.commands.*;
+import minegame159.meteorbot.commands.account.LinkCommand;
+import minegame159.meteorbot.commands.account.LinkedCommand;
+import minegame159.meteorbot.commands.account.UnlinkCommand;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
 import net.dv8tion.jda.api.JDABuilder;
@@ -20,9 +23,6 @@ import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import static com.mongodb.client.model.Updates.combine;
-import static com.mongodb.client.model.Updates.inc;
 
 public class MeteorBot extends ListenerAdapter {
     public static final Logger LOG = JDALogger.getLog("MeteorBot");
@@ -49,6 +49,7 @@ public class MeteorBot extends ListenerAdapter {
         event.getJDA().getPresence().setActivity(Activity.playing("Meteor on Crack!"));
 
         OkInsults.init(commands);
+
         commands.add(new NWordCommand());
         commands.add(new NiggerboardCommand());
         commands.add(new StatsCommand());
@@ -59,6 +60,10 @@ public class MeteorBot extends ListenerAdapter {
         commands.add(new BaritoneCommand());
         commands.add(new FpsCommand());
         commands.add(new MountBypassDupeCommand());
+
+        commands.add(new LinkCommand());
+        commands.add(new LinkedCommand());
+        commands.add(new UnlinkCommand());
 
         Db.init();
         Audio.init();
@@ -95,13 +100,12 @@ public class MeteorBot extends ListenerAdapter {
             User user = Db.USERS.get(event.getAuthor());
 
             if (user != null) {
-                Db.USERS.update(event.getAuthor(), combine(
-                        inc("niggerCount", niggerCount),
-                        inc("niggaCount", niggaCount),
-                        inc("nwords", niggerCount + niggaCount)
-                ));
+                user.updateNwords(niggerCount, niggaCount);
+                Db.USERS.update(user);
             } else {
-                Db.USERS.add(new User(event.getAuthor(), niggerCount, niggaCount));
+                user = new User(event.getAuthor());
+                user.updateNwords(niggerCount, niggaCount);
+                Db.USERS.add(user);
             }
         }
     }

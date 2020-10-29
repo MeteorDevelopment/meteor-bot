@@ -30,4 +30,9 @@ public class JoinStats implements ISerializable {
                 .append("joins", joins)
                 .append("leaves", leaves);
     }
+
+    @Override
+    public String getId() {
+        return date;
+    }
 }

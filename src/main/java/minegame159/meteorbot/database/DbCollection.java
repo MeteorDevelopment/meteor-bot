@@ -25,7 +25,7 @@ public class DbCollection<T extends ISerializable> {
     }
 
     public T get(String id) {
-        Document document = collection.find(and(eq("id", id))).first();
+        Document document = collection.find(eq("id", id)).first();
         if (document == null) return null;
         return factory.apply(document);
     }
@@ -42,5 +42,9 @@ public class DbCollection<T extends ISerializable> {
     }
     public void update(ISnowflake id, Bson update) {
         update(id.getId(), update);
+    }
+
+    public void update(T obj) {
+        collection.replaceOne(eq("id", obj.getId()), obj.serialize());
     }
 }
