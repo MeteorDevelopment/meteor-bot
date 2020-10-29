@@ -15,7 +15,8 @@ public class User implements ISerializable {
     public List<String> mcAccounts;
     public int maxMcAccounts;
 
-    public boolean donator, cape;
+    public boolean donator;
+    public String cape;
 
     public User(Document document) {
         id = document.getString("id");
@@ -28,7 +29,7 @@ public class User implements ISerializable {
         maxMcAccounts = document.getInteger("maxMcAccounts", 1);
 
         donator = document.getBoolean("donator", false);
-        cape = document.getBoolean("cape", false);
+        cape = document.getString("cape");
     }
 
     public User(ISnowflake id) {
@@ -42,13 +43,17 @@ public class User implements ISerializable {
         this.maxMcAccounts = 1;
 
         this.donator = false;
-        this.cape = false;
+        this.cape = "";
     }
 
     public void updateNwords(int niggerCount, int niggaCount) {
         this.niggerCount += niggerCount;
         this.niggaCount += niggaCount;
         this.nwords += niggerCount + niggaCount;
+    }
+
+    public boolean hasCape() {
+        return !cape.isEmpty();
     }
 
     @Override

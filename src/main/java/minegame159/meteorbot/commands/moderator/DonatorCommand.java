@@ -37,7 +37,7 @@ public class DonatorCommand extends Command {
         else if (user.donator && !bool) PvpServer.removeDonatorFromAll(user);
 
         user.donator = bool;
-        user.cape = bool;
+        user.cape = "donator";
         Db.USERS.update(user);
 
         if (bool) {
