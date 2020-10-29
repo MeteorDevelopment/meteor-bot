@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '6.0.0'
+}
+
+group 'minegame159.meteorbot'
+version '0.1.0'
+mainClassName = group + '.MeteorBot'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    implementation 'net.dv8tion:JDA:4.2.0_168'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'org.mongodb:mongodb-driver-sync:4.1.0-beta2'
+    implementation 'com.sedmelluq:lavaplayer:1.3.50'
+}
+
+shadowJar {
+    classifier = ''
+}
+
+jar {
+    manifest.attributes.put('Main-Class', mainClassName)
+}
