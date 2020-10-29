@@ -92,15 +92,17 @@ public class Utils {
 
         try {
             String username = null;
-            int time = 0;
+            long time = 0;
 
             JSONArray array = response.getBody().getArray();
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = array.getJSONObject(i);
 
-                if (!o.has("changedToAt") || o.getInt("changedToAt") > time) {
+                if (!o.has("changedToAt")) o.put("changedToAt", 1);
+
+                if (o.getLong("changedToAt") > time) {
                     username = o.getString("name");
-                    if (o.has("changedToAt")) time = o.getInt("changedToAt");
+                    time = o.getLong("changedToAt");
                 }
             }
 
