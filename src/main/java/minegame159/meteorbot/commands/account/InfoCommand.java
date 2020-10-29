@@ -44,6 +44,6 @@ public class InfoCommand extends Command {
             if (update) Db.USERS.update(user);
         }
 
-        event.getChannel().sendMessage(Utils.embed(sb.toString(), Utils.boolToString(user.donator), user.hasCape() ? user.cape : "none", user.maxMcAccounts).build()).queue();
+        event.getChannel().sendMessage(Utils.embed("Account info: " + event.getMember().getEffectiveName(), sb.toString(), Utils.boolToString(user.donator), user.hasCape() ? user.cape : "none", user.maxMcAccounts).build()).queue();
     }
 }

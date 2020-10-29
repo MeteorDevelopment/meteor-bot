@@ -27,10 +27,15 @@ import static com.mongodb.client.model.Updates.inc;
 public class Utils {
     private static final Color EMBED_COLOR = new Color(204, 0, 0);
 
-    public static EmbedBuilder embed(String format, Object... args) {
+    public static EmbedBuilder embed(String title, String format, Object... args) {
         return new EmbedBuilder()
                 .setColor(EMBED_COLOR)
+                .setTitle(title)
                 .setDescription(String.format(format, args));
+    }
+
+    public static EmbedBuilder embed(String format, Object... args) {
+        return embed(null, format, args);
     }
 
     public static int count(String str, Pattern pattern) {
