@@ -1,14 +1,15 @@
 package minegame159.meteorbot.commands.account;
 
-import minegame159.meteorbot.Command;
-import minegame159.meteorbot.Utils;
+import minegame159.meteorbot.commands.Category;
+import minegame159.meteorbot.commands.Command;
+import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class InfoCommand extends Command {
     public InfoCommand() {
-        super("info");
+        super(Category.Accounts, "Displays info about your account.", "info");
     }
 
     @Override

@@ -19,6 +19,7 @@ dependencies {
     implementation 'org.mongodb:mongodb-driver-sync:4.1.0-beta2'
     implementation 'com.sedmelluq:lavaplayer:1.3.50'
     implementation 'com.konghq:unirest-java:3.11.02'
+    implementation 'org.reflections:reflections:0.9.12'
 }
 
 shadowJar {

@@ -1,7 +1,8 @@
-package minegame159.meteorbot.commands;
+package minegame159.meteorbot.commands.normal;
 
-import minegame159.meteorbot.Command;
-import minegame159.meteorbot.Utils;
+import minegame159.meteorbot.commands.Category;
+import minegame159.meteorbot.commands.Command;
+import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -10,7 +11,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class NWordCommand extends Command {
     public NWordCommand() {
-        super("nword");
+        super(Category.Normal, "Displays your's or pinged person's nword count.", "nword");
     }
 
     @Override

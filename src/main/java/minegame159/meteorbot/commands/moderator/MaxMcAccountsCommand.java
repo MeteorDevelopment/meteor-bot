@@ -1,16 +1,16 @@
-package minegame159.meteorbot.commands.account;
+package minegame159.meteorbot.commands.moderator;
 
-import minegame159.meteorbot.Command;
-import minegame159.meteorbot.Utils;
+import minegame159.meteorbot.commands.Category;
+import minegame159.meteorbot.commands.Command;
+import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MaxMcAccountsCommand extends Command {
     public MaxMcAccountsCommand() {
-        super("maxmcaccounts");
+        super(Category.Moderator, "Sets max minecraft accounts field for an account.", "maxmcaccounts");
     }
 
     @Override

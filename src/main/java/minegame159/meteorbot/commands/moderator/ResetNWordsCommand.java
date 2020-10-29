@@ -1,7 +1,8 @@
-package minegame159.meteorbot.commands;
+package minegame159.meteorbot.commands.moderator;
 
-import minegame159.meteorbot.Command;
-import minegame159.meteorbot.Utils;
+import minegame159.meteorbot.commands.Category;
+import minegame159.meteorbot.commands.Command;
+import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -11,7 +12,7 @@ import static com.mongodb.client.model.Updates.set;
 
 public class ResetNWordsCommand extends Command {
     public ResetNWordsCommand() {
-        super("resetnwords");
+        super(Category.Moderator, "Resets pinged person's nword count.", "resetnwords");
     }
 
     @Override

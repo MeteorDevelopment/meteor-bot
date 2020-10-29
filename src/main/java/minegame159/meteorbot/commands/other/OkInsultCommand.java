@@ -1,13 +1,14 @@
-package minegame159.meteorbot.commands;
+package minegame159.meteorbot.commands.other;
 
-import minegame159.meteorbot.Command;
+import minegame159.meteorbot.commands.Category;
+import minegame159.meteorbot.commands.Command;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class OkInsultCommand extends Command {
     private String name;
 
     public OkInsultCommand(String name) {
-        super(name);
+        super(Category.Other, "Ok insult.", name);
 
         this.name = name;
         if (name.equals("oksquid")) this.name += ".gif";

@@ -1,8 +1,9 @@
-package minegame159.meteorbot.commands;
+package minegame159.meteorbot.commands.normal;
 
 import com.mongodb.client.model.Sorts;
-import minegame159.meteorbot.Command;
-import minegame159.meteorbot.Utils;
+import minegame159.meteorbot.commands.Category;
+import minegame159.meteorbot.commands.Command;
+import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
@@ -11,7 +12,7 @@ import org.bson.Document;
 
 public class NiggerboardCommand extends Command {
     public NiggerboardCommand() {
-        super("niggerboard", "niggaboard");
+        super(Category.Normal, "Display nword leaderboard.", "nwordboard");
     }
 
     @Override

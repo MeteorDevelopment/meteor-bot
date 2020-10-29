@@ -1,8 +1,9 @@
-package minegame159.meteorbot.commands.account;
+package minegame159.meteorbot.commands.moderator;
 
-import minegame159.meteorbot.Command;
-import minegame159.meteorbot.PvpServer;
-import minegame159.meteorbot.Utils;
+import minegame159.meteorbot.commands.Category;
+import minegame159.meteorbot.commands.Command;
+import minegame159.meteorbot.utils.PvpServer;
+import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
 import net.dv8tion.jda.api.entities.Member;
@@ -10,7 +11,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class DonatorCommand extends Command {
     public DonatorCommand() {
-        super("donator");
+        super(Category.Moderator, "Set's donator and cape flag for accounts.", "donator");
     }
 
     @Override

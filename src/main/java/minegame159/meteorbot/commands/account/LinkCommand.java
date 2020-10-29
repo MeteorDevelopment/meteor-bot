@@ -1,15 +1,16 @@
 package minegame159.meteorbot.commands.account;
 
-import minegame159.meteorbot.Command;
-import minegame159.meteorbot.PvpServer;
-import minegame159.meteorbot.Utils;
+import minegame159.meteorbot.commands.Category;
+import minegame159.meteorbot.commands.Command;
+import minegame159.meteorbot.utils.PvpServer;
+import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class LinkCommand extends Command {
     public LinkCommand() {
-        super("link");
+        super(Category.Accounts, "Links a minecraft account to your account.", "link");
     }
 
     @Override

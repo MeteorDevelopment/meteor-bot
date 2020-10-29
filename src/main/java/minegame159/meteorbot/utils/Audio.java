@@ -1,4 +1,4 @@
-package minegame159.meteorbot;
+package minegame159.meteorbot.utils;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;

@@ -1,9 +1,10 @@
 package minegame159.meteorbot;
 
-import minegame159.meteorbot.commands.*;
-import minegame159.meteorbot.commands.account.*;
+import minegame159.meteorbot.commands.Commands;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
+import minegame159.meteorbot.utils.Audio;
+import minegame159.meteorbot.utils.Utils;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -18,8 +19,6 @@ import org.slf4j.Logger;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class MeteorBot extends ListenerAdapter {
@@ -40,37 +39,15 @@ public class MeteorBot extends ListenerAdapter {
         }
     }
 
-    private final List<Command> commands = new ArrayList<>();
-
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
         event.getJDA().getPresence().setActivity(Activity.playing("Meteor on Crack!"));
 
-        OkInsults.init(commands);
-
-        commands.add(new NWordCommand());
-        commands.add(new NiggerboardCommand());
-        commands.add(new StatsCommand());
-        commands.add(new ResetNWordsCommand());
-        commands.add(new AirhornCommand());
-        commands.add(new MulticonnectCommand());
-        commands.add(new FabricCommand());
-        commands.add(new BaritoneCommand());
-        commands.add(new FpsCommand());
-        commands.add(new MountBypassDupeCommand());
-        commands.add(new BenefitsCommand());
-
-        commands.add(new LinkCommand());
-        commands.add(new UnlinkCommand());
-        commands.add(new InfoCommand());
-        commands.add(new MaxMcAccountsCommand());
-        commands.add(new DonatorCommand());
-
         Db.init();
         Audio.init();
+        Commands.init();
 
         LOG.info("Meteor Bot started");
-        LOG.info("Loaded {} commands", commands.size());
     }
 
     @Override
@@ -79,16 +56,7 @@ public class MeteorBot extends ListenerAdapter {
         String str = event.getMessage().getContentRaw();
 
         // Commands
-        if (str.startsWith(".")) {
-            String name = str.substring(1).split(" ")[0];
-
-            for (Command command : commands) {
-                if (command.isName(name)) {
-                    command.run(event);
-                    return;
-                }
-            }
-        }
+        Commands.onMessage(event);
 
         // Count nwords
         int niggerCount = Utils.count(str, NIGGER_PATTERN);

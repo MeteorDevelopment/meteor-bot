@@ -1,12 +1,13 @@
-package minegame159.meteorbot.commands;
+package minegame159.meteorbot.commands.Help;
 
-import minegame159.meteorbot.Command;
-import minegame159.meteorbot.Utils;
+import minegame159.meteorbot.commands.Category;
+import minegame159.meteorbot.commands.Command;
+import minegame159.meteorbot.utils.Utils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MountBypassDupeCommand extends Command {
     public MountBypassDupeCommand() {
-        super("mountbypassdupe", "donkeydupe");
+        super(Category.Help, "Displays help about illegalstacks mount bypass dupe.", "mountbypassdupe");
     }
 
     @Override

@@ -1,4 +1,4 @@
-package minegame159.meteorbot;
+package minegame159.meteorbot.utils;
 
 import kong.unirest.Unirest;
 import minegame159.meteorbot.database.documents.User;
