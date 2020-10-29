@@ -1,6 +1,7 @@
 package minegame159.meteorbot.commands.account;
 
 import minegame159.meteorbot.Command;
+import minegame159.meteorbot.PvpServer;
 import minegame159.meteorbot.Utils;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
@@ -29,6 +30,7 @@ public class UnlinkCommand extends Command {
 
         boolean update = false;
         boolean found = false;
+        String uuid = null;
 
         for (int i = 0; i < user.mcAccounts.size(); i++) {
             String name = Utils.getMcUsername(user.mcAccounts.get(i));
@@ -41,14 +43,18 @@ public class UnlinkCommand extends Command {
             }
 
             if (username.equals(name)) {
-                user.mcAccounts.remove(i);
+                uuid = user.mcAccounts.remove(i);
                 found = true;
-                event.getChannel().sendMessage(Utils.embed("Unlinked `" + username + "`.").build()).queue();
                 break;
             }
         }
 
         if (update || found) Db.USERS.update(user);
-        if (!found) event.getChannel().sendMessage(Utils.embed("You don't have linked minecraft account with name `" + username + "`.").build()).queue();
+        if (found) {
+            event.getChannel().sendMessage(Utils.embed("Unlinked `" + username + "`.").build()).queue();
+            if (user.donator) PvpServer.removeDonator(uuid);
+        } else {
+            event.getChannel().sendMessage(Utils.embed("You don't have linked minecraft account with name `" + username + "`.").build()).queue();
+        }
     }
 }

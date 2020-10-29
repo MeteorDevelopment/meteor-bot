@@ -1,10 +1,7 @@
 package minegame159.meteorbot;
 
 import minegame159.meteorbot.commands.*;
-import minegame159.meteorbot.commands.account.InfoCommand;
-import minegame159.meteorbot.commands.account.LinkCommand;
-import minegame159.meteorbot.commands.account.MaxMcAccountsCommand;
-import minegame159.meteorbot.commands.account.UnlinkCommand;
+import minegame159.meteorbot.commands.account.*;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
 import net.dv8tion.jda.api.JDABuilder;
@@ -61,11 +58,13 @@ public class MeteorBot extends ListenerAdapter {
         commands.add(new BaritoneCommand());
         commands.add(new FpsCommand());
         commands.add(new MountBypassDupeCommand());
+        commands.add(new BenefitsCommand());
 
         commands.add(new LinkCommand());
         commands.add(new UnlinkCommand());
         commands.add(new InfoCommand());
         commands.add(new MaxMcAccountsCommand());
+        commands.add(new DonatorCommand());
 
         Db.init();
         Audio.init();

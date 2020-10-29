@@ -8,13 +8,17 @@ import kong.unirest.json.JSONObject;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.JoinStats;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -110,5 +114,38 @@ public class Utils {
         } catch (Exception ignored) {
             return null;
         }
+    }
+
+    public static String boolToString(boolean bool) {
+        return bool ? "yes" : "no";
+    }
+
+    public static boolean stringToBool(String str) {
+        return str.equalsIgnoreCase("yes") || str.equalsIgnoreCase("true");
+    }
+
+    public static Member onlyModWithPing(MessageReceivedEvent event, String[] split) {
+        if (!event.getMember().hasPermission(Permission.MANAGE_ROLES)) {
+            event.getChannel().sendMessage(Utils.embed("Only for mods ;)").build()).queue();
+            return null;
+        }
+
+        Member member = null;
+
+        if (split.length > 1 && split[1].startsWith("<@!") && split[1].endsWith(">")) {
+            String id = split[1].substring(3, split[1].length() - 1);
+            member = event.getGuild().retrieveMemberById(id).complete();
+        }
+
+        if (member == null) {
+            event.getChannel().sendMessage(Utils.embed("You need to ping the person.").build()).queue();
+            return null;
+        }
+
+        return member;
+    }
+
+    public static UUID newUUID(String uuid) {
+        return UUID.fromString(uuid.replaceAll("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5"));
     }
 }

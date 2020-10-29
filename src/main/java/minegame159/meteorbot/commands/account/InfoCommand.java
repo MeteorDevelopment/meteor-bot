@@ -43,6 +43,6 @@ public class InfoCommand extends Command {
             if (update) Db.USERS.update(user);
         }
 
-        event.getChannel().sendMessage(Utils.embed(sb.toString(), user.donator, user.cape, user.maxMcAccounts).build()).queue();
+        event.getChannel().sendMessage(Utils.embed(sb.toString(), Utils.boolToString(user.donator), Utils.boolToString(user.cape), user.maxMcAccounts).build()).queue();
     }
 }

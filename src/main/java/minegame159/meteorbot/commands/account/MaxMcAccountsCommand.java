@@ -15,23 +15,9 @@ public class MaxMcAccountsCommand extends Command {
 
     @Override
     public void run(MessageReceivedEvent event) {
-        if (!event.getMember().hasPermission(Permission.MANAGE_ROLES)) {
-            event.getChannel().sendMessage(Utils.embed("Only for mods ;)").build()).queue();
-            return;
-        }
-
         String[] split = event.getMessage().getContentRaw().split(" ");
-        Member member = null;
-
-        if (split.length > 1 && split[1].startsWith("<@!") && split[1].endsWith(">")) {
-            String id = split[1].substring(3, split[1].length() - 1);
-            member = event.getGuild().retrieveMemberById(id).complete();
-        }
-
-        if (member == null) {
-            event.getChannel().sendMessage(Utils.embed("You need to ping the person.").build()).queue();
-            return;
-        }
+        Member member = Utils.onlyModWithPing(event, split);
+        if (member == null) return;
 
         int maxMcAccounts = -1;
         if (split.length > 2) {
