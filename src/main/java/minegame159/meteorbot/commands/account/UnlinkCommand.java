@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class UnlinkCommand extends Command {
     public UnlinkCommand() {
-        super(Category.Accounts, "Unlinks minecraft account from your account.", "unlink");
+        super(Category.Account, "Unlinks minecraft account from your account.", "unlink");
     }
 
     @Override

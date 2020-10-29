@@ -47,4 +47,8 @@ public class DbCollection<T extends ISerializable> {
     public void update(T obj) {
         collection.replaceOne(eq("id", obj.getId()), obj.serialize());
     }
+
+    public void delete(String id) {
+        collection.deleteOne(eq("id", id));
+    }
 }

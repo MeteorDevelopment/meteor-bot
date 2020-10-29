@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.managers.AudioManager;
 
 public class AirhornCommand extends Command {
     public AirhornCommand() {
-        super(Category.Normal, "Plays airhorn sound effct in the voice channel you are in.", "airhorn");
+        super(Category.Normal, "Plays airhorn sound effect in the voice channel you are in.", "airhorn");
     }
 
 

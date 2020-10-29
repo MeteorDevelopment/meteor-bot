@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class LinkCommand extends Command {
     public LinkCommand() {
-        super(Category.Accounts, "Links a minecraft account to your account.", "link");
+        super(Category.Account, "Links a minecraft account to your account.", "link");
     }
 
     @Override

@@ -27,7 +27,7 @@ import static com.mongodb.client.model.Updates.inc;
 public class Utils {
     private static final Color EMBED_COLOR = new Color(204, 0, 0);
 
-    public static EmbedBuilder embed(String title, String format, Object... args) {
+    public static EmbedBuilder embedTitle(String title, String format, Object... args) {
         return new EmbedBuilder()
                 .setColor(EMBED_COLOR)
                 .setTitle(title)
@@ -35,7 +35,7 @@ public class Utils {
     }
 
     public static EmbedBuilder embed(String format, Object... args) {
-        return embed(null, format, args);
+        return embedTitle(null, format, args);
     }
 
     public static int count(String str, Pattern pattern) {
@@ -127,6 +127,19 @@ public class Utils {
 
     public static boolean stringToBool(String str) {
         return str.equalsIgnoreCase("yes") || str.equalsIgnoreCase("true");
+    }
+
+    public static boolean isMod(Member member) {
+        return member.hasPermission(Permission.MANAGE_ROLES);
+    }
+
+    public static boolean onlyMod(MessageReceivedEvent event) {
+        if (!event.getMember().hasPermission(Permission.MANAGE_ROLES)) {
+            event.getChannel().sendMessage(Utils.embed("Only for mods ;)").build()).queue();
+            return false;
+        }
+
+        return true;
     }
 
     public static Member onlyModWithPing(MessageReceivedEvent event, String[] split) {

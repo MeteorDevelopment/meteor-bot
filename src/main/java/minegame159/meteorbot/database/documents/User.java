@@ -17,6 +17,7 @@ public class User implements ISerializable {
 
     public boolean donator;
     public String cape;
+    public boolean hasCustomCape;
 
     public User(Document document) {
         id = document.getString("id");
@@ -30,6 +31,7 @@ public class User implements ISerializable {
 
         donator = document.getBoolean("donator", false);
         cape = document.getString("cape");
+        hasCustomCape = document.getBoolean("hasCustomCape", false);
     }
 
     public User(ISnowflake id) {
@@ -44,6 +46,7 @@ public class User implements ISerializable {
 
         this.donator = false;
         this.cape = "";
+        this.hasCustomCape = false;
     }
 
     public void updateNwords(int niggerCount, int niggaCount) {
@@ -66,7 +69,8 @@ public class User implements ISerializable {
                 .append("mcAccounts", mcAccounts)
                 .append("maxMcAccounts", maxMcAccounts)
                 .append("donator", donator)
-                .append("cape", cape);
+                .append("cape", cape)
+                .append("hasCustomCape", hasCustomCape);
     }
 
     @Override
