@@ -24,7 +24,7 @@ public class LinkedCommand extends Command {
         boolean update = false;
         boolean found = false;
 
-        sb.append("*").append("You have linked ").append(user.mcAccounts.size()).append(" out of maximum ").append(user.maxMcAccounts).append(" ").append(user.maxMcAccounts == 1 ? "account" : "accounts").append(".*");
+        sb.append("*").append("You have linked ").append(user.mcAccounts.size()).append(" out of maximum ").append(user.maxMcAccounts).append(" ").append(user.maxMcAccounts == 1 ? "account" : "accounts").append(".*\n");
 
         for (int i = 0; i < user.mcAccounts.size(); i++) {
             String username = Utils.getMcUsername(user.mcAccounts.get(i));

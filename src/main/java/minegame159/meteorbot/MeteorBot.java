@@ -1,6 +1,7 @@
 package minegame159.meteorbot;
 
 import minegame159.meteorbot.commands.*;
+import minegame159.meteorbot.commands.account.InfoCommand;
 import minegame159.meteorbot.commands.account.LinkCommand;
 import minegame159.meteorbot.commands.account.LinkedCommand;
 import minegame159.meteorbot.commands.account.UnlinkCommand;
@@ -64,6 +65,7 @@ public class MeteorBot extends ListenerAdapter {
         commands.add(new LinkCommand());
         commands.add(new LinkedCommand());
         commands.add(new UnlinkCommand());
+        commands.add(new InfoCommand());
 
         Db.init();
         Audio.init();
