@@ -11,6 +11,7 @@ public class Cape implements ISerializable {
 
     public Cape(Document document) {
         name = document.getString("id");
+        url = document.getString("url");
 
         selfAssignable = document.getBoolean("selfAssignable", false);
     }

@@ -1,5 +1,6 @@
 package minegame159.meteorbot.commands.account;
 
+import minegame159.meteorbot.WebServer;
 import minegame159.meteorbot.commands.Category;
 import minegame159.meteorbot.commands.Command;
 import minegame159.meteorbot.database.Db;
@@ -52,6 +53,7 @@ public class SetCapeCommand extends Command {
 
             if (cape.equals(c.name)) ok1 = true;
         }
+        if (cape.equals("none")) ok1 = true;
         if (cape.equals("custom") && (user.hasCustomCape || Utils.isMod(event.getMember()))) ok2 = true;
         if (!ok1 && !ok2) {
             event.getChannel().sendMessage(Utils.embed("Wrong cape. Use `.capes` to view which capes you can use.").build()).queue();
@@ -63,5 +65,7 @@ public class SetCapeCommand extends Command {
         Db.USERS.update(user);
 
         event.getChannel().sendMessage(Utils.embed("Changed " + (member == null ? event.getMember() : member).getEffectiveName() + " cape to `" + cape + "`.").build()).queue();
+
+        WebServer.updateCapes();
     }
 }

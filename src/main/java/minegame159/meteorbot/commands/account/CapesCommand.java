@@ -21,6 +21,7 @@ public class CapesCommand extends Command {
         StringBuilder sb = new StringBuilder();
         sb.append("**Capes you can use:**");
 
+        sb.append("\n - none");
         if (user != null && user.hasCustomCape) sb.append("\n - custom");
 
         for (Document document : Db.CAPES.getAll()) {

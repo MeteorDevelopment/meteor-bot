@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.ShutdownEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -46,8 +47,14 @@ public class MeteorBot extends ListenerAdapter {
         Db.init();
         Audio.init();
         Commands.init();
+        WebServer.init();
 
         LOG.info("Meteor Bot started");
+    }
+
+    @Override
+    public void onShutdown(@Nonnull ShutdownEvent event) {
+        WebServer.close();
     }
 
     @Override
