@@ -43,6 +43,7 @@ public class WebServer {
 
             if (!uuids.isEmpty()) {
                 String cape = document.getString("cape");
+                if (cape.equals("custom")) cape = document.getString("id");
 
                 for (String uuid : uuids) {
                     if (i > 0) sb.append("\n");
