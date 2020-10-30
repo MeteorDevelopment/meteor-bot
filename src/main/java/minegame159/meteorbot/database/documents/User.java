@@ -34,8 +34,8 @@ public class User implements ISerializable {
         hasCustomCape = document.getBoolean("hasCustomCape", false);
     }
 
-    public User(ISnowflake id) {
-        this.id = id.getId();
+    public User(String id) {
+        this.id = id;
 
         this.niggerCount = 0;
         this.niggaCount = 0;
@@ -47,6 +47,10 @@ public class User implements ISerializable {
         this.donator = false;
         this.cape = "";
         this.hasCustomCape = false;
+    }
+
+    public User(ISnowflake id) {
+        this(id.getId());
     }
 
     public void updateNwords(int niggerCount, int niggaCount) {

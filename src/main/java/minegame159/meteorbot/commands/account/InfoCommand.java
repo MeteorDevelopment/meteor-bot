@@ -2,9 +2,10 @@ package minegame159.meteorbot.commands.account;
 
 import minegame159.meteorbot.commands.Category;
 import minegame159.meteorbot.commands.Command;
-import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
+import minegame159.meteorbot.utils.Utils;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class InfoCommand extends Command {
@@ -14,9 +15,33 @@ public class InfoCommand extends Command {
 
     @Override
     public void run(MessageReceivedEvent event) {
-        User user = Db.USERS.get(event.getAuthor());
+        String[] split = event.getMessage().getContentRaw().split(" ");
+        String id = event.getAuthor().getId();
+        Member member = event.getMember();
+
+        if (split.length > 1) {
+            if (split[1].startsWith("<@!") && split[1].endsWith(">")) id = split[1].substring(3, split[1].length() - 1);
+            else {
+                boolean ok = true;
+                try {
+                    id = split[1];
+                    member = event.getGuild().retrieveMemberById(id).complete();
+
+                    if (member == null) ok = false;
+                } catch (Exception ignored) {
+                    ok = false;
+                }
+
+                if (!ok) {
+                    event.getChannel().sendMessage(Utils.embed("Not a valid user id.").build()).queue();
+                    return;
+                }
+            }
+        }
+
+        User user = Db.USERS.get(id);
         if (user == null) {
-            user = new User(event.getAuthor());
+            user = new User(id);
             Db.USERS.add(user);
         }
 
@@ -44,6 +69,6 @@ public class InfoCommand extends Command {
             if (update) Db.USERS.update(user);
         }
 
-        event.getChannel().sendMessage(Utils.embedTitle("Account info: " + event.getMember().getEffectiveName(), sb.toString(), Utils.boolToString(user.donator), user.hasCape() ? user.cape : "none", Utils.boolToString(user.hasCustomCape)).build()).queue();
+        event.getChannel().sendMessage(Utils.embedTitle("Account info: " + member.getEffectiveName(), sb.toString(), Utils.boolToString(user.donator), user.hasCape() ? user.cape : "none", Utils.boolToString(user.hasCustomCape)).build()).queue();
     }
 }
