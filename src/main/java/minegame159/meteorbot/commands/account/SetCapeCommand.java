@@ -51,6 +51,11 @@ public class SetCapeCommand extends Command {
             Db.USERS.add(user);
         }
 
+        if (!user.capeAccess) {
+            event.getChannel().sendMessage(Utils.embed("%s cannot have a cape.", (member == null ? event.getMember() : member).getEffectiveName()).build()).queue();
+            return;
+        }
+
         boolean ok1 = false;
         boolean ok2 = false;
         for (Document document : Db.CAPES.getAll()) {

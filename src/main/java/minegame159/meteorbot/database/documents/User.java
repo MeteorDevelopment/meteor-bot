@@ -16,6 +16,7 @@ public class User implements ISerializable {
     public int maxMcAccounts;
 
     public boolean donator;
+    public boolean capeAccess;
     public String cape;
     public boolean hasCustomCape;
 
@@ -30,6 +31,7 @@ public class User implements ISerializable {
         maxMcAccounts = document.getInteger("maxMcAccounts", 1);
 
         donator = document.getBoolean("donator", false);
+        capeAccess = document.getBoolean("capeAccess", false);
         cape = document.getString("cape");
         hasCustomCape = document.getBoolean("hasCustomCape", false);
     }
@@ -45,6 +47,7 @@ public class User implements ISerializable {
         this.maxMcAccounts = 1;
 
         this.donator = false;
+        this.capeAccess = false;
         this.cape = "";
         this.hasCustomCape = false;
     }
@@ -60,7 +63,7 @@ public class User implements ISerializable {
     }
 
     public boolean hasCape() {
-        return !cape.isEmpty();
+        return !cape.isEmpty() && capeAccess;
     }
 
     @Override
@@ -73,6 +76,7 @@ public class User implements ISerializable {
                 .append("mcAccounts", mcAccounts)
                 .append("maxMcAccounts", maxMcAccounts)
                 .append("donator", donator)
+                .append("capeAccess", capeAccess)
                 .append("cape", cape)
                 .append("hasCustomCape", hasCustomCape);
     }

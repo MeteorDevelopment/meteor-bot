@@ -41,6 +41,7 @@ public class LinkCommand extends Command {
             event.getChannel().sendMessage(Utils.embed("Linked `" + username + "` to your account.").build()).queue();
             ok = true;
         } else if (user.mcAccounts.size() == user.maxMcAccounts && user.maxMcAccounts == 1) {
+            if (user.donator) PvpServer.removeDonator(user.mcAccounts.get(0));
             user.mcAccounts.set(0, uuid);
             Db.USERS.update(user);
             event.getChannel().sendMessage(Utils.embed("Replaced your previously linked account with `" + username + "`.").build()).queue();

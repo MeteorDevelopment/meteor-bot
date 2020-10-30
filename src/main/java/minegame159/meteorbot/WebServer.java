@@ -2,10 +2,9 @@ package minegame159.meteorbot;
 
 import com.mongodb.client.model.Filters;
 import minegame159.meteorbot.database.Db;
+import minegame159.meteorbot.database.documents.User;
 import minegame159.meteorbot.utils.Utils;
 import org.bson.Document;
-
-import java.util.List;
 
 import static spark.Spark.*;
 
@@ -39,13 +38,14 @@ public class WebServer {
         // CAPE OWNERS
         int i = 0;
         for (Document document : Db.USERS.getAll().filter(Filters.ne("cape", ""))) {
-            List<String> uuids = document.getList("mcAccounts", String.class);
+            User user = new User(document);
+            if (!user.hasCape()) continue;
 
-            if (!uuids.isEmpty()) {
-                String cape = document.getString("cape");
-                if (cape.equals("custom")) cape = document.getString("id");
+            if (!user.mcAccounts.isEmpty()) {
+                String cape = user.cape;
+                if (cape.equals("custom")) cape = user.id;
 
-                for (String uuid : uuids) {
+                for (String uuid : user.mcAccounts) {
                     if (i > 0) sb.append("\n");
                     sb.append(Utils.newUUID(uuid)).append(" ").append(cape);
                     i++;

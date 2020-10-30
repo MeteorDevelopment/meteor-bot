@@ -45,7 +45,7 @@ public class InfoCommand extends Command {
             Db.USERS.add(user);
         }
 
-        StringBuilder sb = new StringBuilder("**Donator:** %s\n**Cape:** %s\n**Has custom cape:** %s");
+        StringBuilder sb = new StringBuilder("**Donator:** %s\n**Cape Access:** %s\n**Cape:** %s (use `.cape <name>` to preview it)\n**Has custom cape:** %s");
 
         if (user.mcAccounts.isEmpty()) sb.append("\n\n*You have no minecraft accounts linked, do `.link <username>`.*");
         else {
@@ -69,6 +69,6 @@ public class InfoCommand extends Command {
             if (update) Db.USERS.update(user);
         }
 
-        event.getChannel().sendMessage(Utils.embedTitle("Account info: " + member.getEffectiveName(), sb.toString(), Utils.boolToString(user.donator), user.hasCape() ? user.cape : "none", Utils.boolToString(user.hasCustomCape)).build()).queue();
+        event.getChannel().sendMessage(Utils.embedTitle("Account info: " + member.getEffectiveName(), sb.toString(), Utils.boolToString(user.donator), Utils.boolToString(user.capeAccess), user.hasCape() ? user.cape : "none", Utils.boolToString(user.hasCustomCape)).build()).queue();
     }
 }
