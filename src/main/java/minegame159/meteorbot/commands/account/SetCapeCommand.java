@@ -21,11 +21,18 @@ public class SetCapeCommand extends Command {
         String[] split = event.getMessage().getContentRaw().split(" ");
 
         Member member = null;
-        if (split.length > 1 && split[1].startsWith("<@!") && split[1].endsWith(">")) {
-            String id = split[1].substring(3, split[1].length() - 1);
-            member = event.getGuild().retrieveMemberById(id).complete();
+        if (split.length > 1) {
+            if (split[1].startsWith("<@!") && split[1].endsWith(">")) {
+                String id = split[1].substring(3, split[1].length() - 1);
+                member = event.getGuild().retrieveMemberById(id).complete();
+            } else {
+                try {
+                    String id = Long.toString(Long.parseLong(split[1]));
+                    member = event.getGuild().retrieveMemberById(id).complete();
+                } catch (Exception ignored) {}
+            }
 
-            if (!Utils.isMod(event.getMember())) {
+            if (member != null && !Utils.isMod(event.getMember())) {
                 event.getChannel().sendMessage(Utils.embed("Only mods can change other account's capes.").build()).queue();
                 return;
             }
