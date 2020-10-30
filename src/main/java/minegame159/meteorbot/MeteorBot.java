@@ -28,6 +28,8 @@ public class MeteorBot extends ListenerAdapter {
     private static final Pattern NIGGER_PATTERN = Pattern.compile("nigger", Pattern.CASE_INSENSITIVE);
     private static final Pattern NIGGA_PATTERN = Pattern.compile("nigga", Pattern.CASE_INSENSITIVE);
 
+    public static boolean PROCESS_DISCORD_EVENTS = true;
+
     public static void main(String[] args) {
         try {
             JDABuilder.createDefault("NzQyMDkyMTM3MjE4MTc5MTcy.XzBFKA.oRU_nMfuMgXGXFvmwSLBRD_H-0s")
@@ -59,6 +61,7 @@ public class MeteorBot extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
+        if (!PROCESS_DISCORD_EVENTS) return;
         if (event.getAuthor().isBot() || !event.isFromType(ChannelType.TEXT)) return;
         String str = event.getMessage().getContentRaw();
 
@@ -88,11 +91,13 @@ public class MeteorBot extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
+        if (!PROCESS_DISCORD_EVENTS) return;
         Utils.updateMemberCount(event.getGuild(), true);
     }
 
     @Override
     public void onGuildMemberRemove(@Nonnull GuildMemberRemoveEvent event) {
+        if (!PROCESS_DISCORD_EVENTS) return;
         Utils.updateMemberCount(event.getGuild(), false);
     }
 }

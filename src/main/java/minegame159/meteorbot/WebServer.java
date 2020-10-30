@@ -20,6 +20,12 @@ public class WebServer {
 
         get("/capeowners", (request, response) -> CAPE_OWNERS);
         get("/capes", (request, response) -> CAPES);
+
+        get("/togglediscord", (request, response) -> {
+            MeteorBot.PROCESS_DISCORD_EVENTS = !MeteorBot.PROCESS_DISCORD_EVENTS;
+            MeteorBot.LOG.info("Process discord events set to " + MeteorBot.PROCESS_DISCORD_EVENTS);
+            return "Process discord events set to " + MeteorBot.PROCESS_DISCORD_EVENTS;
+        });
     }
 
     public static void updateCapes() {
