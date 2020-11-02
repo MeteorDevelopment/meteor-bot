@@ -2,10 +2,9 @@ package minegame159.meteorbot.commands.account;
 
 import minegame159.meteorbot.commands.Category;
 import minegame159.meteorbot.commands.Command;
-import minegame159.meteorbot.utils.PvpServer;
-import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
+import minegame159.meteorbot.utils.Utils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class LinkCommand extends Command {
@@ -34,22 +33,16 @@ public class LinkCommand extends Command {
             Db.USERS.add(user);
         }
 
-        boolean ok = false;
         if (user.mcAccounts.size() < user.maxMcAccounts) {
             user.mcAccounts.add(uuid);
             Db.USERS.update(user);
             event.getChannel().sendMessage(Utils.embed("Linked `" + username + "` to your account.").build()).queue();
-            ok = true;
         } else if (user.mcAccounts.size() == user.maxMcAccounts && user.maxMcAccounts == 1) {
-            if (user.donator) PvpServer.removeDonator(user.mcAccounts.get(0));
             user.mcAccounts.set(0, uuid);
             Db.USERS.update(user);
             event.getChannel().sendMessage(Utils.embed("Replaced your previously linked account with `" + username + "`.").build()).queue();
-            ok = true;
         } else {
             event.getChannel().sendMessage(Utils.embed("Your %d slots are full, use `.unlink <username>` and `.info` to see your linked minecraft accounts.").build()).queue();
         }
-
-        if (ok && user.donator) PvpServer.giveDonator(uuid);
     }
 }

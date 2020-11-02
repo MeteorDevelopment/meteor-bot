@@ -2,10 +2,9 @@ package minegame159.meteorbot.commands.moderator;
 
 import minegame159.meteorbot.commands.Category;
 import minegame159.meteorbot.commands.Command;
-import minegame159.meteorbot.utils.PvpServer;
-import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
+import minegame159.meteorbot.utils.Utils;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -32,9 +31,6 @@ public class DonatorCommand extends Command {
             user = new User(member);
             Db.USERS.add(user);
         }
-
-        if (!user.donator && bool) PvpServer.giveDonatorToAll(user);
-        else if (user.donator && !bool) PvpServer.removeDonatorFromAll(user);
 
         user.donator = bool;
         user.cape = "donator";
