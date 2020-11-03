@@ -9,8 +9,6 @@ import org.bson.Document;
 import static spark.Spark.*;
 
 public class WebServer {
-    private static final String TOKEN = "omgpoggers159";
-
     private static String CAPE_OWNERS;
     private static String CAPES;
 
@@ -24,7 +22,7 @@ public class WebServer {
 
         get("/togglediscord", (request, response) -> {
             String token = request.queryParams("token");
-            if (token == null || !token.equals(TOKEN)) halt(401);
+            if (token == null || !token.equals(Config.SERVER_TOKEN)) halt(401);
 
             MeteorBot.PROCESS_DISCORD_EVENTS = !MeteorBot.PROCESS_DISCORD_EVENTS;
             MeteorBot.LOG.info("Process discord events set to " + MeteorBot.PROCESS_DISCORD_EVENTS);

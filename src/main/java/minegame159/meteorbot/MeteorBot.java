@@ -32,7 +32,9 @@ public class MeteorBot extends ListenerAdapter {
 
     public static void main(String[] args) {
         try {
-            JDABuilder.createDefault("NzQyMDkyMTM3MjE4MTc5MTcy.XzBFKA.oRU_nMfuMgXGXFvmwSLBRD_H-0s")
+            Config.init();
+
+            JDABuilder.createDefault(Config.DISCORD_TOKEN)
                     .enableIntents(GatewayIntent.GUILD_MEMBERS)
                     .addEventListeners(new MeteorBot())
                     .build();
