@@ -29,6 +29,7 @@ public class WebServer {
         updateCapes();
 
         staticFiles.location("public");
+        staticFiles.expireTime(600);
         
         get("/", (request, response) -> {
             VelocityContext context = new VelocityContext();
@@ -40,10 +41,10 @@ public class WebServer {
             return render(context, "views/index.vm");
         });
 
-        get("/capeowners", (request, response) -> CAPE_OWNERS);
-        get("/capes", (request, response) -> CAPES);
+        get("/api/capeowners", (request, response) -> CAPE_OWNERS);
+        get("/api/capes", (request, response) -> CAPES);
 
-        get("/togglediscord", (request, response) -> {
+        get("/api/togglediscord", (request, response) -> {
             String token = request.queryParams("token");
             if (token == null || !token.equals(Config.SERVER_TOKEN)) halt(401);
 
