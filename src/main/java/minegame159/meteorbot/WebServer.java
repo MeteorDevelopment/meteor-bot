@@ -9,6 +9,9 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.bson.Document;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringWriter;
 import java.util.Properties;
 
@@ -30,15 +33,36 @@ public class WebServer {
 
         staticFiles.location("public");
         staticFiles.expireTime(600);
+
+        get("/download", (request, response) -> {
+            response.header("Content-Disposition", "attachment; filename=meteor-client-0.3.6.jar");
+            response.type("application/java-archive");
+
+            try {
+                OutputStream out = response.raw().getOutputStream();
+                InputStream in = WebServer.class.getResourceAsStream("/meteor-client-0.3.6.jar");
+
+                byte[] bytes = new byte[1024];
+                int read;
+                while ((read = in.read(bytes)) > 0) out.write(bytes, 0, read);
+
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return response.raw();
+        });
         
-        get("/", (request, response) -> {
+        get("/user", (request, response) -> {
             VelocityContext context = new VelocityContext();
 
             String userId = request.queryParams("userId");
             User user = Db.USERS.get(userId);
 
             if (user != null) context.put("user", new UserModel(user));
-            return render(context, "views/index.vm");
+            return render(context, "views/user.vm");
         });
 
         get("/api/capeowners", (request, response) -> CAPE_OWNERS);
