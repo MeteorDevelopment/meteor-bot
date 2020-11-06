@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buttercake@4.0.0/dist/css/butterCake.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Meteor Bot</title>
+  </head>
+  <body>
+    <form action="/" method="get">
+      <input type="text" size="40" placeholder="Discord user id" name="userId">
+      <input type="submit" value="Search">
+    </form>
+
+    #if($user)
+      <table style="margin-top: 1em;">
+        <tr>
+          <th>Name</th>
+          <td>$user.name</td>
+        </tr>
+        <tr>
+          <th>Nigger Count</th>
+          <td>$user.niggerCount</td>
+        </tr>
+        <tr>
+          <th>Nigga Count</th>
+          <td>$user.niggaCount</td>
+        </tr>
+        <tr>
+          <th>Minecraft Accounts</th>
+          <td>
+            <ul>
+              #foreach($mcAccount in $user.mcAccounts)
+                <li>$mcAccount</li>
+              #end
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th>Donator</th>
+          <td>$user.donator</td>
+        </tr>
+        <tr>
+          <th>Cape Access</th>
+          <td>$user.capeAccess</td>
+        </tr>
+        <tr>
+          <th>Cape</th>
+          <td><a href=$user.capeUrl>$user.capeName</a></td>
+        </tr>
+        <tr>
+          <th>Has Custom Cape</th>
+          <td>$user.hasCustomCape</td>
+        </tr>
+      </table>
+    #end
+
+    <script src="index.js"></script>
+  </body>
+</html>

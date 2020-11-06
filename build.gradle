@@ -21,6 +21,7 @@ dependencies {
     implementation 'com.konghq:unirest-java:3.11.02'
     implementation 'org.reflections:reflections:0.9.12'
     implementation 'com.sparkjava:spark-core:2.9.3'
+    implementation 'com.sparkjava:spark-template-velocity:2.7.1'
 }
 
 shadowJar {

@@ -5,6 +5,7 @@ import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
 import minegame159.meteorbot.utils.Audio;
 import minegame159.meteorbot.utils.Utils;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -24,6 +25,8 @@ import java.util.regex.Pattern;
 
 public class MeteorBot extends ListenerAdapter {
     public static final Logger LOG = JDALogger.getLog("MeteorBot");
+
+    public static JDA JDA;
 
     private static final Pattern NIGGER_PATTERN = Pattern.compile("nigger", Pattern.CASE_INSENSITIVE);
     private static final Pattern NIGGA_PATTERN = Pattern.compile("nigga", Pattern.CASE_INSENSITIVE);
@@ -46,6 +49,7 @@ public class MeteorBot extends ListenerAdapter {
 
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
+        JDA = event.getJDA();
         event.getJDA().getPresence().setActivity(Activity.playing("Meteor on Crack!"));
 
         Db.init();
