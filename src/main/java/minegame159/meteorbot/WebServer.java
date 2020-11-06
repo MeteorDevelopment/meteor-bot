@@ -40,7 +40,7 @@ public class WebServer {
 
             try {
                 OutputStream out = response.raw().getOutputStream();
-                InputStream in = WebServer.class.getResourceAsStream("/meteor-client-0.3.6.jar");
+                InputStream in = WebServer.class.getResourceAsStream("/meteor-client-0.3.6.mjar");
 
                 byte[] bytes = new byte[1024];
                 int read;
