@@ -59,7 +59,7 @@
                                         <a class="page-scroll" href="#devs">Dev Team</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="info.html">Changelog & FAQ</a>
+                                        <a class="page-scroll" href="info">Changelog & FAQ</a>
                                     </li>
                                     <li class="nav-item"></li>
                                     <li class="nav-item"></li>
@@ -79,8 +79,8 @@
                         <div class="header-hero-content text-center">
                             <h3 class="header-sub-title wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.2s">Welcome to</h3>
                             <h2 class="header-title wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.5s">Meteor Client</h2>
-                            <p class="text wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.8s">A Minecraft Utility Mod for latest Fabric.<br>Latest version is 0.3.6. Look in Faq if you need help installing Meteor.</p>
-                            <a href="/download" rel="nofollow" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Download for 1.16.3</a>
+                            <p class="text wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.8s">A Minecraft Utility Mod for latest Fabric.<br>Latest version is $version. Look in Faq if you need help installing Meteor.</p>
+                            <a href="/download" rel="nofollow" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Download for $mcVersion</a>
                         </div>
                     </div>
                 </div>

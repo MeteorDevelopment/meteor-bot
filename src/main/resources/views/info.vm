@@ -14,38 +14,11 @@
   <div class="card border-0 shadow my-5">
     <div class="card-body p-5">
       <h1 class="font-weight-light text-center">Changelog</h1>
-      <p class="text wow text-center">Version 0.3.6.</p>
+      <p class="text wow text-center">Version $version.</p>
       <ul>
-        <li>Fixed Spam crash when you had no messages set</li>
-        <li>Added multiple modes to InventoryViewer</li>
-        <li>Improved AutoAnvil targeting and fixed crash</li>
-        <li>Spam now shouldnt add quotation marks after restart</li>
-        <li>Added player model to HUD</li>
-        <li>Added SelfTrap</li>
-        <li>Added packet mode Elytra+</li>
-        <li>Fixed some crashes</li>
-        <li>Added self toggle to AutoTrap</li>
-        <li>Added auto button placement to AutoAnvil</li>
-        <li>Added feet block and mad AutoTrap place underwater</li>
-        <li>Added item only setting to KillAura</li>
-        <li>Added air place to Scaffold</li>
-        <li>Added auto move to BedAura</li>
-        <li>Added maintain level to AirJump</li>
-        <li>Added place block to NoFall</li>
-        <li>Improved InventoryViewer</li>
-        <li>Added OffhandCrash</li>
-        <li>Fixed AirJump jumping when in Freecam</li>
-        <li>Added top and bottom modes to AutoTrap</li>
-        <li>Added NoBreakDelay</li>
-        <li>Fixed AutoEat resuming when it was not the one that paused baritone</li>
-        <li>Fixed MiniJump Criticals crash</li>
-        <li>Fixed Offhand crash</li>
-        <li>Added status effect icons and no armor stands to NoRender</li>
-        <li>Changed default Tracers colors to be transparent</li>
-        <li>Fixed crash with AutoWalk</li>
-        <li>Fixed InvMove crash when you have keybinds bound to nothing</li>
-        <li>Fixed outline ESP being active at all times</li>
-        <li>Improved GUI</li>
+        #foreach($change in $changelog)
+          <li>$change</li>
+        #end
 			</ul>
       
       <h1 class="font-weight-light text-center">Faq</h1>

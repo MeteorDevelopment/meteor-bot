@@ -2,4 +2,4 @@
 .idea
 build
 
-config.properties
+private-config.properties

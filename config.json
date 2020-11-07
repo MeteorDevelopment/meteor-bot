@@ -1,0 +1,37 @@
+{
+  "version": "0.3.6",
+  "mcVersion": "1.16.3",
+  
+  "changelog": [
+    "Fixed Spam crash when you had no messages set",
+    "Added multiple modes to InventoryViewer",
+    "Improved AutoAnvil targeting and fixed crash",
+    "Spam now shouldnt add quotation marks after restart",
+    "Added player model to HUD",
+    "Added SelfTrap",
+    "Added packet mode Elytra+",
+    "Fixed some crashes",
+    "Added self toggle to AutoTrap",
+    "Added auto button placement to AutoAnvil",
+    "Added feet block and mad AutoTrap place underwater",
+    "Added item only setting to KillAura",
+    "Added air place to Scaffold",
+    "Added auto move to BedAura",
+    "Added maintain level to AirJump",
+    "Added place block to NoFall",
+    "Improved InventoryViewer",
+    "Added OffhandCrash",
+    "Fixed AirJump jumping when in Freecam",
+    "Added top and bottom modes to AutoTrap",
+    "Added NoBreakDelay",
+    "Fixed AutoEat resuming when it was not the one that paused baritone",
+    "Fixed MiniJump Criticals crash",
+    "Fixed Offhand crash",
+    "Added status effect icons and no armor stands to NoRender",
+    "Changed default Tracers colors to be transparent",
+    "Fixed crash with AutoWalk",
+    "Fixed InvMove crash when you have keybinds bound to nothing",
+    "Fixed outline ESP being active at all times",
+    "Improved GUI"
+  ]
+}

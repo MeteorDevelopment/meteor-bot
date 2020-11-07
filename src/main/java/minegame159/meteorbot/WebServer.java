@@ -34,6 +34,24 @@ public class WebServer {
         staticFiles.location("public");
         staticFiles.expireTime(600);
 
+        get("/", (request, response) -> {
+            VelocityContext context = new VelocityContext();
+
+            context.put("version", Config.VERSION);
+            context.put("mcVersion", Config.MC_VERSION);
+
+            return render(context, "views/index.vm");
+        });
+
+        get("/info", (request, response) -> {
+            VelocityContext context = new VelocityContext();
+
+            context.put("version", Config.VERSION);
+            context.put("changelog", Config.CHANGELOG);
+
+            return render(context, "views/info.vm");
+        });
+
         get("/download", (request, response) -> {
             response.header("Content-Disposition", "attachment; filename=meteor-client-0.3.6.jar");
             response.type("application/java-archive");
@@ -54,7 +72,8 @@ public class WebServer {
 
             return response.raw();
         });
-        
+
+
         get("/user", (request, response) -> {
             VelocityContext context = new VelocityContext();
 
@@ -65,6 +84,7 @@ public class WebServer {
             return render(context, "views/user.vm");
         });
 
+        get("/api/version", (request, response) -> Config.VERSION);
         get("/api/capeowners", (request, response) -> CAPE_OWNERS);
         get("/api/capes", (request, response) -> CAPES);
 
