@@ -2,6 +2,7 @@ package minegame159.meteorbot;
 
 import com.mongodb.client.model.Filters;
 import minegame159.meteorbot.database.Db;
+import minegame159.meteorbot.database.documents.Stats;
 import minegame159.meteorbot.database.documents.User;
 import minegame159.meteorbot.models.UserModel;
 import minegame159.meteorbot.utils.Utils;
@@ -21,7 +22,11 @@ public class WebServer {
     private static String CAPE_OWNERS;
     private static String CAPES;
 
+    private static int DOWNLOADS;
+
     public static void init() {
+        DOWNLOADS = Db.GLOBAL.get(Stats.class, Stats.ID).downloads;
+
         Properties velocityProperties = new Properties();
         velocityProperties.put("resource.loader", "class");
         velocityProperties.put("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
@@ -39,6 +44,7 @@ public class WebServer {
 
             context.put("version", Config.VERSION);
             context.put("mcVersion", Config.MC_VERSION);
+            context.put("downloads", DOWNLOADS);
 
             return render(context, "views/index.vm");
         });
@@ -53,6 +59,11 @@ public class WebServer {
         });
 
         get("/download", (request, response) -> {
+            Stats stats = Db.GLOBAL.get(Stats.class, Stats.ID);
+            stats.downloads++;
+            DOWNLOADS++;
+            Db.GLOBAL.update(stats);
+
             response.header("Content-Disposition", "attachment; filename=meteor-client-0.3.6.jar");
             response.type("application/java-archive");
 
@@ -73,6 +84,8 @@ public class WebServer {
             return response.raw();
         });
 
+        get("/discord", (request, response) -> { response.redirect("https://discord.gg/bBGQZvd"); return ""; });
+        get("/donate", (request, response) -> { response.redirect("https://paypal.me/MineGame159"); return ""; });
 
         get("/user", (request, response) -> {
             VelocityContext context = new VelocityContext();

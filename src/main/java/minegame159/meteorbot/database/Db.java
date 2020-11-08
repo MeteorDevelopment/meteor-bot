@@ -8,6 +8,7 @@ import minegame159.meteorbot.Config;
 import minegame159.meteorbot.MeteorBot;
 import minegame159.meteorbot.database.documents.Cape;
 import minegame159.meteorbot.database.documents.JoinStats;
+import minegame159.meteorbot.database.documents.Stats;
 import minegame159.meteorbot.database.documents.User;
 import org.bson.Document;
 
@@ -17,6 +18,7 @@ public class Db {
     public static DbCollection<User> USERS;
     public static DbCollection<JoinStats> JOIN_STATS;
     public static DbCollection<Cape> CAPES;
+    public static DbMultiCollection GLOBAL;
 
     public static void init() {
         MongoClient client = MongoClients.create(Config.MONGO_URL);
@@ -25,6 +27,9 @@ public class Db {
         USERS = new DbCollection<>("users", User::new);
         JOIN_STATS = new DbCollection<>("join-stats", JoinStats::new);
         CAPES = new DbCollection<>("capes", Cape::new);
+        GLOBAL = new DbMultiCollection("global");
+
+        GLOBAL.register(Stats.class, Stats::new);
 
         MeteorBot.LOG.info("Connected to database");
     }
