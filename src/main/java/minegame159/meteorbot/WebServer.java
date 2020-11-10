@@ -86,6 +86,7 @@ public class WebServer {
 
         get("/discord", (request, response) -> { response.redirect("https://discord.gg/bBGQZvd"); return ""; });
         get("/donate", (request, response) -> { response.redirect("https://paypal.me/MineGame159"); return ""; });
+        get("/youtube", (request, response) -> { response.redirect("https://www.youtube.com/channel/UCqrwGisb68E2N-hA5IpyssA"); return ""; });
 
         get("/user", (request, response) -> {
             VelocityContext context = new VelocityContext();
