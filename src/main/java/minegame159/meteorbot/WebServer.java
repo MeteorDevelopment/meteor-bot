@@ -46,16 +46,17 @@ public class WebServer {
             context.put("mcVersion", Config.MC_VERSION);
             context.put("downloads", DOWNLOADS);
 
-            return render(context, "views/index.vm");
+            return render(context, "views/index.html");
         });
 
         get("/info", (request, response) -> {
             VelocityContext context = new VelocityContext();
 
             context.put("version", Config.VERSION);
+            context.put("mcVersion", Config.MC_VERSION);
             context.put("changelog", Config.CHANGELOG);
 
-            return render(context, "views/info.vm");
+            return render(context, "views/info.html");
         });
 
         get("/download", (request, response) -> {
@@ -64,12 +65,12 @@ public class WebServer {
             DOWNLOADS++;
             Db.GLOBAL.update(stats);
 
-            response.header("Content-Disposition", "attachment; filename=meteor-client-0.3.6.jar");
+            response.header("Content-Disposition", "attachment; filename=meteor-client-" + Config.VERSION + ".jar");
             response.type("application/java-archive");
 
             try {
                 OutputStream out = response.raw().getOutputStream();
-                InputStream in = WebServer.class.getResourceAsStream("/meteor-client-0.3.6.mjar");
+                InputStream in = WebServer.class.getResourceAsStream("/meteor-client-" + Config.VERSION + ".mjar");
 
                 byte[] bytes = new byte[1024];
                 int read;
@@ -87,6 +88,7 @@ public class WebServer {
         get("/discord", (request, response) -> { response.redirect("https://discord.gg/bBGQZvd"); return ""; });
         get("/donate", (request, response) -> { response.redirect("https://paypal.me/MineGame159"); return ""; });
         get("/youtube", (request, response) -> { response.redirect("https://www.youtube.com/channel/UCqrwGisb68E2N-hA5IpyssA"); return ""; });
+        get("/github", (request, response) -> { response.redirect("https://www.github.com/MeteorDevelopment"); return ""; });
 
         get("/user", (request, response) -> {
             VelocityContext context = new VelocityContext();
@@ -95,7 +97,7 @@ public class WebServer {
             User user = Db.USERS.get(userId);
 
             if (user != null) context.put("user", new UserModel(user));
-            return render(context, "views/user.vm");
+            return render(context, "views/user.html");
         });
 
         get("/api/version", (request, response) -> Config.VERSION);

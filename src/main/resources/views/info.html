@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Meteor Development | Home</title>
+
+    <!--Discord-Meta-->
+    <meta name="og:type" content="object">
+    <meta name="og:site_name" content="Meteor Development">
+    <meta name="og:image" content="https://raw.githubusercontent.com/MeteorDevelopment/meteor-server/master/src/main/resources/public/icon.png">
+    <meta name="og:title" content="Meteor Development | FAQ">
+    <meta name="og:url" content="https://www.meteorclient.com">
+    <meta name="theme-color" content="#cc0000">
+    <meta name="og:description" content="The website of the Meteor Development group. Made by seasnail8169.">
+
+    <!--Other-Meta--> 
+    <meta name="keywords" content="Minecraft, minecraft, utility, mod, utility mod, client, utility client, Utility Mod, Utility Client, Mod, Utility, Client, minecraft utility mod, Minecraft utility mod, Meteor, meteor, Meteor Client, meteor client, Meteor utlity mod, meteor utility mod">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/d5536945b2.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/png">
+
+    <!--Stylesheets-->
+    <link rel="stylesheet" href="/classes.css"/>
+    <link rel="stylesheet" href="/main.css"/>
+    <link rel="stylesheet" href="/faq.css"/>
+  </head>
+  <body>
+    
+    <!--Navbar-Begin-->
+    <nav>
+      <p class="name">Meteor Development</p>
+      <ul class="nav-links">
+        <li><a href="/#home" class="nav-text">Home</a></li>
+        <li><a href="/#client-link" class="nav-text">Client</a></li>
+        <li><a href="/#server-link" class="nav-text">Server</a></li>
+        <li><a href="/#dev-team" class="nav-text">Dev Team</a></li>
+        <li><a href="/info" class="nav-text">Faq</a></li>
+        <li><a class="fab fa-discord" href="/discord" target="_blank"></a></li>
+        <li><a class="fab fa-github" href="/github" target="_blank"></a></li>
+        <li><a class="fab fa-youtube" href="/youtube" target="_blank"></a></li>
+        <li><a class="fab fa-paypal" href="/donate" target="_blank"></a></li>
+      </ul>
+      <div class="burger">
+        <div class="lin1"></div>
+        <div class="lin2"></div>
+        <div class="lin3"></div>
+      </div>
+    </nav>
+    <!--Navbar-End-->
+
+    <!--FAQ-Begin-->
+    <div id="FAQ">
+      <div class="section-body">
+        <h1 class="section-title" id="main-title">FAQ</h1>
+        <i id="main-desc">As of Meteor Client version $version.</i>
+        <i class="lower" id="main-desc">Minecraft version $mcVersion.</i>
+        <div class="faq-section">
+          <h3>Installation:</h3>
+          <ol>
+            <li>Download the <a href="https://fabricmc.net/use">Fabric Loader</a> and install it or use <a href="https://multimc.org/#Download">MultiMC</a> and create a new instance and install fabric using the built in installer.</li>
+            <li>Download the <a href="https://www.curseforge.com/minecraft/mc-mods/fabric-api/files">Fabric API</a> and put it in your mods folder.</li>
+            <li>Download Meteor Client <a href="https://meteorclient.com/">Stable</a> <a href="https://discord.com/channels/689197705683140636/756782622662721536">Dev</a> and put it in your .minecraft/mods folder (If the dev link doesn&#39;t work join the <a href="/discord">Discord server</a>).</li>
+          </ol>
+        </div>
+        <div class="faq-section">
+          <h3>How do I use the client?</h3>
+          <p>If you want to open the GUI, the default key is <code>RIGHT_SHIFT</code>. You can change this via the Minecraft controls menu by scrolling all the way to the bottom and changing it like any other key bind. Once open you can right click all of the headings to open and close all the categories. The same can be done for all the modules to access their settings.</p>
+        </div>
+        <div class="faq-section">
+          <h3>Donations:</h3>
+          <p>This client is completely free so we would be very thankful if you gave us a little donation <a href="/donate">here</a> and you will be rewarded with special role here on discord, an in game cape and more kit slots + colored name on pvp server. Make sure to include your discord tag and your ign so we can give you your rewards. Minimum amount to get donator benefits is 5$.</p>
+        </div>
+        <div class="faq-section">
+          <h3>Contributions:</h3>
+          <p>The client is open source and accepts contributions from anyone as long as the additions are useful and well written. You can fork the <a href="/github">repo</a> and submit pull requests to contribute features/changes.</p>
+        </div>
+        <div class="faq-section">
+          <h3>Can i use this client on versions other than $mcVersion?</h3>
+          <p>Meteor Client is only made for minecraft version $mcVersion. You can use <a href="https://www.curseforge.com/minecraft/mc-mods/multiconnect">Multiconnect</a> if you want to connect to servers running older versions of minecraft</p>
+        </div>
+        <div class="faq-section">
+          <h3>Can i use optifine?</h3>
+          <p>Optfine is not supported as it can cause many bugs with the client. Instead we recommend using <a href="https://www.curseforge.com/minecraft/mc-mods/sodium">Sodium</a>, <a href="https://www.curseforge.com/minecraft/mc-mods/phosphor">Phosphor</a> and <a href="https://www.curseforge.com/minecraft/mc-mods/lithium">Lithium</a> to improve your games performance.</p>
+        </div>
+        <div class="faq-section">
+          <h3>Does this client come with baritone?</h3>
+          <p>Meteor Client has <a href="https://gitlab.com/CDAGaming/fabritone">Fabritone</a> (the fabric fork of <a href="https://github.com/cabaletta/baritone">Baritone</a>) built in. Fabritone&#39;s default prefix is <code>@</code> but in Meteor Client you can use the <code>.b</code> command. Visit the <a href="https://github.com/cabaletta/baritone/blob/master/USAGE.md">Docs</a> for usage help.</p>
+        </div>
+        <div class="faq-section">
+          <h3>Reporting bugs/issues</h3>
+          <p>If you cannot see the client or you get a crash, please check that you are running the correct versions of everything (Including <a href="https://www.oracle.com/uk/java/technologies/javase/javase-jdk8-downloads.html">JDK 8</a>!), the mods are in the <code>.minecraft/mods</code> folder, you have the <a href="https://www.curseforge.com/minecraft/mc-mods/fabric-api/">Fabric API</a> and it it the correct version, your <a href="https://fabricmc.net/">Fabric</a> installation is up to date (re-install it if you are unsure) and you are actually running the right instance in your Minecraft launcher (it should have the fabric icon as its image).</p>
+          <p>If all of these are correct then you can post your crash in <a href="https://discord.com/channels/689197705683140636/689202674876547295">#bugs</a> making sure you are posting it <strong>along with your crash report</strong> that can be found in <code>.minecraft/crash-reports</code>.</p>
+        </div>
+      </div>
+    </div>
+    <!--FAQ-End-->
+
+    <!--Changelog-Begin-->
+    <div id="changelog">
+      <div class="section-body">
+        <h1 class="section-title">Changelog</h1>
+        <div class="faq-section" id="changelog-container">
+          <ul id="changelog-list">
+            #foreach($change in $changelog)
+              <li>$change</li>
+            #end
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--Changelog-End-->
+    
+    <!--Footer-Begin-->
+    <div id="footer">
+      <div class="footer-body">
+        <div class="footer-section">
+          <h3>About Us</h3>
+          <p>Meteor Development is a development group responsible for the creation and maintenance of Meteor Client and the various related projects. We are most active on our <a href="https://meteorclient.com/discord">Discord Server</a> so if you need to contact us, join the server.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <div class="button-container">
+            <div class="button-outer">
+              <a href="/discord" target="_blank" class="button">
+                <i class="fab fa-discord"></i>
+                Discord
+              </a>
+            </div>
+            <div class="button-outer">
+              <a href="/github" target="_blank" class="button">
+                <i class="fab fa-github"></i>
+                Github
+              </a>
+            </div>
+            <div class="button-outer">
+              <a href="/youtube" target="_blank" class="button">
+                <i class="fab fa-youtube"></i>
+                YouTube
+              </a>
+            </div>
+            <div class="button-outer">
+              <a href="/donate" target="_blank" class="button">
+                <i class="fab fa-paypal"></i>
+                Donate
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; meteorclient.com | Designed by <a href="https://github.com/seasnail8169" target="_blank">seasnail8169</a>.
+      </div>
+    </div>
+    <!--Footer-End-->
+
+    <!--Navbar-Js-->
+    <script src="/main.js"></script>
+  </body>
+</html>
