@@ -6,7 +6,6 @@
   overflow: visible;
   animation: fill 0.5s ease forwards 3s;
   width: 30%;
-  margin-bottom: 20px;
 }
 
 .title-animation path:nth-child(1) {
@@ -56,7 +55,7 @@
     fill: transparent;
   }
   to {
-    fill: #eaeaea;
+    fill: var(--text-light);
   }
 }
 
@@ -65,7 +64,7 @@
     fill: transparent;
   }
   to {
-    fill: #a00505;
+    fill: var(--meteor-alt);
   }
 }
 
@@ -111,7 +110,7 @@
 /* HOME BEGINS */
 
 #home {
-  background-color: #3e3e3e;
+  background-color: var(--background-dark);
   padding-top: 8vh;
 }
 
@@ -119,7 +118,7 @@
   padding-top: 3vh;
   padding-bottom: 3vh;
   width: 70%;
-  color: #eaeaea;
+  color: var(--text-light);
 }
 
 #home .section-body h3 {
@@ -130,7 +129,7 @@
 #home .section-body p {
   font-weight: 550;
   font-size: 16px;
-  color: #b3b3b3;
+  color: var(--text-alt);
   margin: 0 auto;
   width: 40%;
 }
@@ -145,26 +144,26 @@
 }
 
 #home .section-body .button-container #discord {
-  color: #eaeaea;
-  background-color: #5771dc;
+  color: var(--text-light);
+  background-color: var(--discord);
 }
 #home .section-body .button-container #discord:hover {
-  background-color: #6f86e2;
+  background-color: var(--discord-hovered);
 }
 
 #home .section-body .button-container #paypal {
-  color: #eaeaea;
-  background-color: #9a03ff;
+  color: var(--text-light);
+  background-color: var(--accent);
 }
 #home .section-body .button-container #paypal:hover {
-  background-color: #a82dfa;
+  background-color: var(--accent-hovered);
 }
 
 /* HOME ENDS */
 /* CLIENT BEGINS */
 
 #client {
-  background-color: #eaeaea;
+  background-color: var(--background-light);
   display: flex;
   justify-content: space-evenly;
   height: fit-content;
@@ -187,42 +186,42 @@
 }
 
 #client .section-body .download .button-container #download {
-  color: #ffffff;
-  background-color: #a00505;
+  color: var(--text-light);
+  background-color: var(--meteor-alt);
 }
 #client .section-body .download .button-container #download:hover {
-  background-color: #c52525;
-}
-
-#client .section-body .card-container .card-outer #combat {
-  background-color: #bebebe;
+  background-color: var(--meteor-main);
 }
 
 #client .section-body .card-container .card-outer #GUI {
-  background-color: #686868;
-  color: #eaeaea;
+  background-color: var(--card1);
+}
+
+#client .section-body .card-container .card-outer #combat {
+  background-color: var(--card2);
+  color: var(--text-dark);
 }
 
 #client .section-body .card-container .card-outer #render {
-  background-color: #a0a0a0;
+  background-color: var(--card3);
+  color: var(--text-alt);
 }
 
 #client .section-body .card-container .card-outer #utility {
-  background-color: #404040;
-  color: #eaeaea;
+  background-color: var(--card4);
+  color: var(--text-light);
 }
 
 /* SERVER BEGINS */
 
 #server {
-  background-color: #3e3e3e;
+  background-color: var(--background-dark);
   display: flex;
   justify-content: center;
 }
 
 #server .section-body {
-  background-color: #3e3e3e;
-  color: #eaeaea;
+  color: var(--text-light);
   width: 70%;
   text-align: center;
 }
@@ -246,7 +245,7 @@
   overflow: hidden;
   margin-bottom: 5vh;
   box-shadow: 0px 0px 50px 1px rgba(0, 0, 0, 0.693);
-  border: #9a03ff;
+  border: var(--accent);
   border-style: solid;
 }
 
@@ -310,7 +309,7 @@
 /* DEV-TEAM BEGINS */
 
 #dev-team {
-  background: #b3b3b3;
+  background: back;
 }
 
 #dev-team .section-body {
@@ -319,7 +318,8 @@
 }
 
 #dev-team .section-body .card-container .card-outer .card-inner {
-  background: white;
+  background: var(--card2);
+  color: var(--text-dark);
 }
 
 #dev-team .card-container .card-outer .card-inner .card-img {
@@ -329,173 +329,3 @@
 }
 
 /* DEV-TEAM ENDS */
-/* FOOTER BEGINS */
-
-#footer {
-  background: #686868;
-  color: #333333;
-}
-
-#footer .footer-body {
-  width: 70%;
-  display: flex;
-  margin: 0 auto;
-  justify-content: center;
-}
-
-#footer .footer-body .footer-section {
-  flex: 1;
-  color: #eaeaea;
-  padding: 40px;
-}
-
-#footer .footer-body .footer-section p {
-  padding-top: 10px;
-}
-
-#footer .footer-body .footer-section .button-container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  overflow: visible;
-}
-
-#footer .footer-body .footer-section .button-container .button-outer {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin: 3px;
-}
-
-#footer .footer-body .footer-section .button-container .button-outer .button {
-  background: #eaeaea;
-  color: #333333;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-right: 8px;
-  padding-left: 8px;
-  font-size: 14px;
-}
-
-#footer .footer-bottom {
-  background: #3e3e3e;
-  color: #eaeaea;
-  text-align: center;
-  padding: 6px;
-}
-
-#footer .footer-bottom a {
-  color: #fff791;
-}
-
-/* FOOTER ENDS */
-/* RESCALING FOR MOBILE */
-
-@media screen and (max-width: 1150px) {
-  #home .section-body .button-container {
-    width: 40%;
-  }
-}
-
-@media screen and (max-width: 1300px) {
-  #footer .footer-body {
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 1100px) {
-  .card-container {
-    width: 70%;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 auto;
-  }
-  .card-outer {
-    width: 100%;
-    min-height: 150px;
-  }
-  .card-inner {
-    padding: 25px;
-  }
-}
-
-@media screen and (max-width: 850px) {
-  #home .section-body .button-container {
-    width: 50%;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  body {
-    overflow-x: hidden;
-  }
-  .name {
-    display: block;
-  }
-  .title-animation {
-    width: 60%;
-  }
-  .section-desc {
-    width: 80%;
-  }
-  #home .section-body p {
-    width: 70%;
-  }
-  #home .section-body .button-container {
-    width: 60%;
-  }
-  #client .section-body .section-desc {
-    width: 80%;
-  }
-  #client .section-body .card-container .card-outer .card-inner p {
-    font-size: 13px;
-  }
-  #client .section-body .card-container .card-outer .card-inner h1 {
-    font-size: 20px;
-  }
-  .waves {
-    height: 80px;
-    min-height: 40px;
-  }
-  #server .section-body .section-desc {
-    width: 80%;
-  }
-  #server .section-body .server-iframe {
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 550px) {
-  #home .section-body .button-container {
-    width: 80%;
-  }
-  #dev-team .section-body .card-container .card-outer .card-inner h1 {
-    font-size: 20px;
-  }
-  #footer .footer-body .footer-section {
-    padding: 20px;
-    font-size: 13px;
-  }
-}
-
-@media screen and (max-width: 430px) {
-  #home .section-body .button-container {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-  }
-  #home .section-body .button-container #discord {
-    margin-bottom: 10px;
-  }
-}
-
-@media screen and (max-width: 403px) {
-  .button {
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 350px) {
-  #home .section-body .button-container {
-    width: 80%;
-  }
-}

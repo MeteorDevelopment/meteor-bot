@@ -12,9 +12,11 @@ import java.util.Properties;
 public class Config {
     // Private
     public static String DISCORD_TOKEN;
+    public static String DISCORD_SECRET;
     public static String MONGO_URL;
     public static String SERVER_TOKEN;
     public static String PVP_SERVER_TOKEN;
+    public static String GMAIL_PASSWORD;
 
     // Public
     public static String VERSION;
@@ -31,9 +33,11 @@ public class Config {
             in.close();
 
             DISCORD_TOKEN = properties.getProperty("discord_token");
+            DISCORD_SECRET = properties.getProperty("discord_secret");
             MONGO_URL = properties.getProperty("mongo_url");
             SERVER_TOKEN = properties.getProperty("server_token");
             PVP_SERVER_TOKEN = properties.getProperty("pvp_server_token");
+            GMAIL_PASSWORD = properties.getProperty("gmail_password");
 
             // Public config
             Reader reader = new FileReader("config.json");

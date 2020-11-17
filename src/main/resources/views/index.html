@@ -4,30 +4,30 @@
     <meta charset="UTF-8" />
     <title>Meteor Development | Home</title>
     <!--Discord Meta-->
-    <meta name="og:type" content="object">
     <meta name="og:site_name" content="Meteor Development">
-    <meta name="og:image" content="https://raw.githubusercontent.com/MeteorDevelopment/meteor-server/master/src/main/resources/public/icon.png">
-    <meta name="og:title" content="Meteor Development | Home">
-    <meta name="og:url" content="https://www.meteorclient.com">
+    <meta name="og:type" content="object">
+	  <meta name="og:image" content="https://raw.githubusercontent.com/MeteorDevelopment/meteor-server/master/src/main/resources/public/icon.png">
+    <meta name="og:title" content="Home">
+    <meta name="og:url" content="https://meteorclient.com">
     <meta name="theme-color" content="#cc0000">
     <meta name="og:description" content="The website of the Meteor Development group. Made by seasnail8169.">
     <!--Other Meta-->
-    <meta name="keywords" content="Minecraft, minecraft, utility, mod, utility mod, client, utility client, Utility Mod, Utility Client, Mod, Utility, Client, minecraft utility mod, Minecraft utility mod, Meteor, meteor, Meteor Client, meteor client, Meteor utlity mod, meteor utility mod">
+    <meta name="keywords" content="Minecraft, Minecraft, utility, mod, utility mod, client, utility client, Utility Mod, Utility Client, Mod, Utility, Client, Minecraft utility mod, Minecraft utility mod, Meteor, meteor, Meteor Client, meteor client, Meteor utlity mod, meteor utility mod">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--Stylesheets-->
     <script src="https://kit.fontawesome.com/d5536945b2.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/png">
-    <link rel="stylesheet" href="/classes.css"/>
-    <link rel="stylesheet" href="/main.css"/>
+    <link rel="stylesheet" href="/css/defaults.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
   </head>
   <body>
     <!--Navbar-Begin-->
     <nav>
       <p class="name">Meteor Development</p>
       <ul class="nav-links">
-        <li><a href="/#home" class="nav-text">Home</a></li>
-        <li><a href="/#client-link" class="nav-text">Client</a></li>
-        <li><a href="/#server-link" class="nav-text">Server</a></li>
+        <li><a href="/" class="nav-text">Home</a></li>
+        <li><a href="/#client" class="nav-text">Client</a></li>
+        <li><a href="/#server" class="nav-text">Server</a></li>
         <li><a href="/#dev-team" class="nav-text">Dev Team</a></li>
         <li><a href="/info" class="nav-text">Faq</a></li>
         <li><a class="fab fa-discord" href="/discord" target="_blank"></a></li>
@@ -56,7 +56,7 @@
           <path d="M388.661 120.503C393.958 123.501 399.817 125 406.24 125C412.728 125 418.621 123.501 423.918 120.503C429.215 117.439 433.386 113.208 436.432 107.812C439.477 102.416 441 96.2872 441 89.4254C441 82.5637 439.477 76.4347 436.432 71.0386C433.386 65.6424 421.215 57.4454 415.918 54.4476L336.5 0L375.048 101.812C378 112 383.364 117.439 388.661 120.503Z" stroke="#cc0000" stroke-width="5"/>
         </svg> 
         <p class="section-desc">Creators of Meteor Client and the Meteor pvp server. Join our discord server to find out more information.</p>
-        <div class="button-container" id="client-link">
+        <div class="button-container">
             <a href="/discord" target="_blank" class="button" id="discord">
               <i class="fab fa-discord"></i>
               Discord
@@ -102,7 +102,7 @@
           <div class="card-outer">
             <div class="card-inner" id="render">
               <h1>Render</h1>
-              <p>Meteor Client has extremely high customizability as well as being powered by clean and efficient rendering systems, giving precise and high quality overlays making the client feel very modern and smooth. </p>
+              <p>Meteor Client features extremely customizable render modules that are powered by clean and efficient rendering systems, in turn giving precise and high quality overlays that make the client feel incredibly modern and smooth.</p>
             </div>
           </div>
           <div class="card-outer">
@@ -112,7 +112,7 @@
             </div>
           </div>
         </div>
-        <div class="wave-transition" id="server-link">
+        <div class="wave-transition">
           <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
               <defs>
                   <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
@@ -133,7 +133,7 @@
     <div id="server">
       <div class="section-body">
         <h1 class="section-title">Meteor PvP</h1>
-        <p class="section-desc">The meteor pvp server is a crystal/bed/anchor pvp server for players on 1.14+. The server has custom kits and duels. Available are both nether and overworld as well as many ow and nether duel arenas.</p>
+        <p class="section-desc">The Meteor PvP server is a 1.16 style combat server that features anchor, bed, and crystal PvP styles accessible to players on versions 1.14 and newer. This server also features a custom kit and duel plugin. The Nether and Overworld dimensions are also available as well as the numerous arenas in the said dimensions.</p>
         <iframe class="section-iframe" src="https://namemc.com/server/pvp.meteorclient.com/embed"></iframe>
         <div class="section-image-slider">
           <figure>
@@ -156,18 +156,22 @@
         <h1 class="section-title">Dev Team</h1>
         <div class="card-container">
           <div class="card-outer">
-            <div class="card-inner">
-              <h1>MineGame159</h1>
-              <p>Owner/Head Developer</p>
-              <img class="card-img" src="/assets/minegame.png">
-            </div>
+            <a href="https://github.com/MineGame159">
+              <div class="card-inner">
+                <h1>MineGame159</h1>
+                <p>Owner/Head Developer</p>
+                <img class="card-img" src="/assets/minegame.png">
+              </div>
+            </a>
           </div>
           <div class="card-outer">
-            <div class="card-inner">
-              <h1>squidoodly</h1>
-              <p>Developer</p>
-              <img class="card-img" src="/assets/squid.png">
-            </div>
+            <a href="https://github.com/squidoodly">
+              <div class="card-inner">
+                <h1>squidoodly</h1>
+                <p>Developer</p>
+                <img class="card-img" src="/assets/squid.png">
+              </div>
+            </a>
           </div>
         </div>
       </div>

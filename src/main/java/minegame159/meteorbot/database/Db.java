@@ -6,10 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import minegame159.meteorbot.Config;
 import minegame159.meteorbot.MeteorBot;
-import minegame159.meteorbot.database.documents.Cape;
-import minegame159.meteorbot.database.documents.JoinStats;
-import minegame159.meteorbot.database.documents.Stats;
-import minegame159.meteorbot.database.documents.User;
+import minegame159.meteorbot.database.documents.*;
 import org.bson.Document;
 
 public class Db {
@@ -18,6 +15,7 @@ public class Db {
     public static DbCollection<User> USERS;
     public static DbCollection<JoinStats> JOIN_STATS;
     public static DbCollection<Cape> CAPES;
+    public static DbCollection<Account> ACCOUNTS;
     public static DbMultiCollection GLOBAL;
 
     public static void init() {
@@ -27,6 +25,7 @@ public class Db {
         USERS = new DbCollection<>("users", User::new);
         JOIN_STATS = new DbCollection<>("join-stats", JoinStats::new);
         CAPES = new DbCollection<>("capes", Cape::new);
+        ACCOUNTS = new DbCollection<>("accounts", Account::new);
         GLOBAL = new DbMultiCollection("global");
 
         GLOBAL.register(Stats.class, Stats::new);

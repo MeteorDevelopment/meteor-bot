@@ -5,6 +5,7 @@ import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.User;
 import minegame159.meteorbot.utils.Audio;
 import minegame159.meteorbot.utils.Utils;
+import minegame159.meteorbot.webserver.WebServer;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -36,6 +37,10 @@ public class MeteorBot extends ListenerAdapter {
     public static void main(String[] args) {
         try {
             Config.init();
+            Db.init();
+            Audio.init();
+            Commands.init();
+            WebServer.init();
 
             JDABuilder.createDefault(Config.DISCORD_TOKEN)
                     .enableIntents(GatewayIntent.GUILD_MEMBERS)
@@ -51,11 +56,6 @@ public class MeteorBot extends ListenerAdapter {
     public void onReady(@Nonnull ReadyEvent event) {
         JDA = event.getJDA();
         event.getJDA().getPresence().setActivity(Activity.playing("Meteor on Crack!"));
-
-        Db.init();
-        Audio.init();
-        Commands.init();
-        WebServer.init();
 
         LOG.info("Meteor Bot started");
     }

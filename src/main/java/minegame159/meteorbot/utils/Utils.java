@@ -15,6 +15,11 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -26,6 +31,27 @@ import static com.mongodb.client.model.Updates.inc;
 
 public class Utils {
     private static final Color EMBED_COLOR = new Color(204, 0, 0);
+
+    public static void copyStream(InputStream in, OutputStream out) {
+        try {
+            byte[] bytes = new byte[1024];
+            int read;
+            while ((read = in.read(bytes)) > 0) out.write(bytes, 0, read);
+
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String generateToken() {
+        UUID id = UUID.randomUUID();
+        long hi = id.getMostSignificantBits();
+        long lo = id.getLeastSignificantBits();
+        byte[] bytes = ByteBuffer.allocate(16).putLong(hi).putLong(lo).array();
+        BigInteger big = new BigInteger(bytes);
+        return big.toString().replace('-','1');
+    }
 
     public static EmbedBuilder embedTitle(String title, String format, Object... args) {
         return new EmbedBuilder()

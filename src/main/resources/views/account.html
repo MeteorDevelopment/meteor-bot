@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteor Development | Account</title>
+  </head>
+  <body>
+    <h2>General</h2>
+    <p>Logged in as <b>$username</b> <button onclick="logout()">Logout</button></p>
+    <button onclick="changeUsername()">Change Username</button>
+    <button onclick="changeEmail()">Change Email</button>
+    <button onclick="changePassword()">Change Password</button>
+
+    #if($donator)
+      <p>You are a donator</p>
+    #else
+      <p>You are not a donator</p>
+    #end
+
+    #if($discordName)
+      <p>Discord <img src="$discordAvatar" style="width: 2em;" alt="discord avatar"> <b>$discordName#$discordNumber</b> <button onclick="unlinkDiscord()">Unlink</button></p>
+    #else
+      <p>Discord <button onclick="linkDiscord()">Link</button></p>
+    #end
+
+    <h2>Minecraft Accounts</h2>
+    <ul>
+      #foreach($mcAccount in $mcAccounts)
+        <li><img src="https://crafatar.com/renders/head/${mcAccount.uuid}?scale=2&overlay" alt="head"> $mcAccount.name <button class="remove-mc-account" uuid="$mcAccount.uuid">Remove</button></li>
+      #end
+    </ul>
+
+    #if($mcAccounts.size() < $maxMcAccounts)
+      <form action="/addMcAccount" method="post">
+        <input type="text" size="30" placeholder="Username" name="username">
+        <input type="submit" value="Add Mc Account">
+      </form>
+    #end
+
+    <h2>Capes</h2>
+    <ul>
+      #foreach($cape in $capes)
+        <li>
+          #if($cape.current) <b> #end
+          
+          <img src="$cape.url" style="width: 5em;">
+          $cape.title
+          
+          #if(!$cape.current) <button class="select-cape" name="$cape.name">Select</button>
+          #else </b> #end
+        </li>
+      #end
+    </ul>
+
+    #if($canHaveCustomCape)
+      <form action="/capes/uploadCustom" method="post" enctype="multipart/form-data">
+        <label for="file">Upload custom cape</label>
+        <input type="file" name="file" id="file">
+        <input type="submit" value="Upload">
+      </form>
+      
+      #if($custoMCapeError)
+        <p style="color: red;">$custoMCapeError</p>
+      #end
+    #end
+
+    <script>
+      document.querySelectorAll(".remove-mc-account").forEach(btn => {
+        btn.onclick = () => {
+          fetch("/removeMcAccount?uuid=" + btn.getAttribute("uuid"), { method: "POST" }).then(res => authRequest(res))
+        }
+      })
+
+      document.querySelectorAll(".select-cape").forEach(btn => {
+        btn.onclick = () => {
+          fetch("/selectCape?cape=" + btn.getAttribute("name"), { method: "POST" }).then(res => authRequest(res))
+        }
+      })
+
+      function changeUsername() {
+        window.location.href = "/changeUsername"
+      }
+
+      function changeEmail() {
+        window.location.href = "/changeEmail"
+      }
+
+      function changePassword() {
+        window.location.href = "/changePassword"
+      }
+
+      function logout() {
+        fetch("/logout", { method: "POST" }).then(res => window.location.reload())
+      }
+
+      function linkDiscord() {
+        window.location.href = "/discordAuth"
+      }
+
+      function unlinkDiscord() {
+        fetch("/unlinkDiscord", { method: "POST" }).then(res => authRequest(res))
+      }
+
+      function authRequest(res) {
+        if (res.status === 401) window.location.href = "/login"
+        else window.location.reload()
+      }
+    </script>
+  </body>
+</html>

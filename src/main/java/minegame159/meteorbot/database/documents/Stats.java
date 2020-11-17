@@ -7,16 +7,19 @@ public class Stats implements ISerializable {
     public static final String ID = "Stats";
 
     public int downloads;
+    public int totalAccounts;
 
     public Stats(Document document) {
         downloads = document.getInteger("downloads", 0);
+        totalAccounts = document.getInteger("totalAccounts", 0);
     }
 
     @Override
     public Document serialize() {
         return new Document()
                 .append("id", ID)
-                .append("downloads", downloads);
+                .append("downloads", downloads)
+                .append("totalAccounts", totalAccounts);
     }
 
     @Override
