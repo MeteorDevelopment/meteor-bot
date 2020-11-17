@@ -74,7 +74,7 @@ public class Utils {
     }
 
     public static void updateMemberCount(Guild guild, boolean joined) {
-        VoiceChannel channel = findMemberCount(guild);
+        VoiceChannel channel = findVoiceChannel(guild, "Member Count: ");
         if (channel != null) channel.getManager().setName("Member Count: " + guild.getMemberCount()).queue();
 
         String date = getDateString();
@@ -98,9 +98,9 @@ public class Utils {
         return String.format("%d-%02d-%02d", calendar.get(Calendar.YEAR), calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH) + 1);
     }
 
-    private static VoiceChannel findMemberCount(Guild guild) {
+    public static VoiceChannel findVoiceChannel(Guild guild, String startsWith) {
         for (VoiceChannel channel : guild.getVoiceChannelCache()) {
-            if (channel.getName().startsWith("Member Count: ")) return channel;
+            if (channel.getName().startsWith(startsWith)) return channel;
         }
 
         return null;

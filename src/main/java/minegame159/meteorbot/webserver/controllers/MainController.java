@@ -1,10 +1,12 @@
 package minegame159.meteorbot.webserver.controllers;
 
 import minegame159.meteorbot.Config;
+import minegame159.meteorbot.MeteorBot;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.Stats;
 import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.webserver.WebServer;
+import net.dv8tion.jda.api.entities.VoiceChannel;
 import org.apache.velocity.VelocityContext;
 import spark.Route;
 
@@ -43,6 +45,9 @@ public class MainController {
         stats.downloads++;
         DOWNLOADS++;
         Db.GLOBAL.update(stats);
+
+        VoiceChannel channel = Utils.findVoiceChannel(MeteorBot.JDA.getGuildById("689197705683140636"), "Downloads: ");
+        if (channel != null) channel.getManager().setName("Downloads: " + DOWNLOADS).queue();
 
         response.header("Content-Disposition", "attachment; filename=meteor-client-" + Config.VERSION + ".jar");
         response.type("application/java-archive");
