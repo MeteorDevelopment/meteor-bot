@@ -49,13 +49,19 @@ public class MainController {
         VoiceChannel channel = Utils.findVoiceChannel(MeteorBot.JDA.getGuildById("689197705683140636"), "Downloads: ");
         if (channel != null) channel.getManager().setName("Downloads: " + DOWNLOADS).queue();
 
-        response.header("Content-Disposition", "attachment; filename=meteor-client-" + Config.VERSION + ".jar");
-        response.type("application/java-archive");
+        String devBuild = request.queryParams("devBuild");
+        if (devBuild != null) {
+            response.redirect("https://" + devBuild + "-309730396-gh.circle-artifacts.com/0/build/libs/meteor-client-" + Config.VERSION + "-" + devBuild + ".jar");
+            return null;
+        } else {
+            response.header("Content-Disposition", "attachment; filename=meteor-client-" + Config.VERSION + ".jar");
+            response.type("application/java-archive");
 
-        OutputStream out = response.raw().getOutputStream();
-        InputStream in = WebServer.class.getResourceAsStream("/meteor-client-" + Config.VERSION + ".mjar");
-        Utils.copyStream(in, out);
+            OutputStream out = response.raw().getOutputStream();
+            InputStream in = WebServer.class.getResourceAsStream("/meteor-client-" + Config.VERSION + ".mjar");
+            Utils.copyStream(in, out);
 
-        return response.raw();
+            return response.raw();
+        }
     };
 }
