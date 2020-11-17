@@ -15,6 +15,7 @@ import java.io.OutputStream;
 
 public class MainController {
     private static int DOWNLOADS;
+    private static int updateDownloadsChannelCounter = 0;
 
     public static void init() {
         DOWNLOADS = Db.GLOBAL.get(Stats.class, Stats.ID).downloads;
@@ -46,8 +47,12 @@ public class MainController {
         DOWNLOADS++;
         Db.GLOBAL.update(stats);
 
-        VoiceChannel channel = Utils.findVoiceChannel(MeteorBot.JDA.getGuildById("689197705683140636"), "Downloads: ");
-        if (channel != null) channel.getManager().setName("Downloads: " + DOWNLOADS).queue();
+        updateDownloadsChannelCounter++;
+        if (updateDownloadsChannelCounter > 10) {
+            VoiceChannel channel = Utils.findVoiceChannel(MeteorBot.JDA.getGuildById("689197705683140636"), "Downloads: ");
+            if (channel != null) channel.getManager().setName("Downloads: " + DOWNLOADS).queue();
+            updateDownloadsChannelCounter = 0;
+        }
 
         String devBuild = request.queryParams("devBuild");
         if (devBuild != null) {
