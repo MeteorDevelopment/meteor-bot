@@ -202,6 +202,7 @@ public class LoginController {
 
         if (minutes > 1.0) {
             clearOldTokens();
+            ApiController.validateOnlinePlayers();
             lastClearTimestamp = timestamp;
         }
     }

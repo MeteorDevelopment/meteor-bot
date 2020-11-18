@@ -1,16 +1,9 @@
 package minegame159.meteorbot.webserver;
 
-import com.mongodb.client.model.Filters;
-import minegame159.meteorbot.Config;
-import minegame159.meteorbot.MeteorBot;
-import minegame159.meteorbot.database.Db;
-import minegame159.meteorbot.database.documents.User;
-import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.webserver.controllers.*;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
-import org.bson.Document;
 
 import java.io.File;
 import java.io.StringWriter;
@@ -19,11 +12,9 @@ import java.util.Properties;
 import static spark.Spark.*;
 
 public class WebServer {
-    private static String CAPE_OWNERS;
-    private static String CAPES;
-
     public static void init() {
         MainController.init();
+        ApiController.updateCapes();
 
         Properties velocityProperties = new Properties();
         if (System.getenv("MY_PC") == null) {
@@ -43,8 +34,6 @@ public class WebServer {
         Mail.init();
 
         port(8082);
-
-        updateCapes();
 
         before((request, response) -> LoginController.onRequest());
 
@@ -83,59 +72,18 @@ public class WebServer {
         get("/capes/:name", CapesController.SERVE_CAPES);
         post("/capes/uploadCustom", CapesController.HANDLE_UPLOAD_CUSTOM);
 
-        get("/api/version", (request, response) -> Config.VERSION);
-        get("/api/capeowners", (request, response) -> CAPE_OWNERS);
-        get("/api/capes", (request, response) -> CAPES);
-
-        get("/api/togglediscord", (request, response) -> {
-            String token = request.queryParams("token");
-            if (token == null || !token.equals(Config.SERVER_TOKEN)) halt(401);
-
-            MeteorBot.PROCESS_DISCORD_EVENTS = !MeteorBot.PROCESS_DISCORD_EVENTS;
-            MeteorBot.LOG.info("Process discord events set to " + MeteorBot.PROCESS_DISCORD_EVENTS);
-            return "Process discord events set to " + MeteorBot.PROCESS_DISCORD_EVENTS;
-        });
+        get("/api/version", ApiController.HANDLE_VERSION);
+        get("/api/capeowners", ApiController.HANDLE_CAPE_OWNERS);
+        get("/api/capes", ApiController.HANDLE_CAPES);
+        get("/api/togglediscord", ApiController.HANDLE_TOGGLE_DISCORD);
+        get("/api/online/ping", ApiController.HANDLE_ONLINE_PING);
+        get("/api/online/leave", ApiController.HANDLE_ONLINE_LEAVE);
     }
 
     public static String render(VelocityContext context, String template) {
         StringWriter writer = new StringWriter();
         Velocity.getTemplate(template).merge(context, writer);
         return writer.toString();
-    }
-
-    public static void updateCapes() {
-        StringBuilder sb = new StringBuilder();
-
-        // CAPE OWNERS
-        int i = 0;
-        for (Document document : Db.USERS.getAll().filter(Filters.ne("cape", ""))) {
-            User user = new User(document);
-            if (!user.hasCape()) continue;
-
-            if (!user.mcAccounts.isEmpty()) {
-                String cape = user.cape;
-                if (cape.equals("custom")) cape = user.id;
-
-                for (String uuid : user.mcAccounts) {
-                    if (i > 0) sb.append("\n");
-                    sb.append(Utils.newUUID(uuid)).append(" ").append(cape);
-                    i++;
-                }
-            }
-        }
-
-        CAPE_OWNERS = sb.toString();
-        sb.setLength(0);
-
-        // CAPES
-        i = 0;
-        for (Document document : Db.CAPES.getAll()) {
-            if (i > 0) sb.append("\n");
-            sb.append(document.getString("id")).append(" ").append(document.getString("url"));
-            i++;
-        }
-
-        CAPES = sb.toString();
     }
 
     public static void close() {
