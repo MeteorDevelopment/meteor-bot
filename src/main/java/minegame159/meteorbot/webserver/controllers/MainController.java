@@ -42,16 +42,23 @@ public class MainController {
     };
 
     public static Route HANDLE_DOWNLOAD = (request, response) -> {
-        Stats stats = Db.GLOBAL.get(Stats.class, Stats.ID);
-        stats.downloads++;
-        DOWNLOADS++;
-        Db.GLOBAL.update(stats);
+        Long lastDownloadTime = request.session().attribute("lastDownloadTime");
+        long time = System.currentTimeMillis();
+        
+        if (lastDownloadTime == null || time - lastDownloadTime > 60 * 1000) {
+            Stats stats = Db.GLOBAL.get(Stats.class, Stats.ID);
+            stats.downloads++;
+            DOWNLOADS++;
+            Db.GLOBAL.update(stats);
 
-        updateDownloadsChannelCounter++;
-        if (updateDownloadsChannelCounter > 10) {
-            VoiceChannel channel = Utils.findVoiceChannel(MeteorBot.JDA.getGuildById("689197705683140636"), "Downloads: ");
-            if (channel != null) channel.getManager().setName("Downloads: " + DOWNLOADS).queue();
-            updateDownloadsChannelCounter = 0;
+            updateDownloadsChannelCounter++;
+            if (updateDownloadsChannelCounter > 10) {
+                VoiceChannel channel = Utils.findVoiceChannel(MeteorBot.JDA.getGuildById("689197705683140636"), "Downloads: ");
+                if (channel != null) channel.getManager().setName("Downloads: " + DOWNLOADS).queue();
+                updateDownloadsChannelCounter = 0;
+            }
+            
+            request.session().attribute("lastDownloadTime", time);
         }
 
         String devBuild = request.queryParams("devBuild");
