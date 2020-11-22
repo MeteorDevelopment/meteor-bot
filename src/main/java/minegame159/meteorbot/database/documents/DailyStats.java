@@ -3,20 +3,23 @@ package minegame159.meteorbot.database.documents;
 import minegame159.meteorbot.database.ISerializable;
 import org.bson.Document;
 
-public class JoinStats implements ISerializable {
+public class DailyStats implements ISerializable {
     public String date;
     public int joins, leaves;
+    public int downloads;
 
-    public JoinStats(Document document) {
+    public DailyStats(Document document) {
         date = document.getString("id");
         joins = document.getInteger("joins", 0);
         leaves = document.getInteger("leaves", 0);
+        downloads = document.getInteger("downloads", 0);
     }
 
-    public JoinStats(String date, int joins, int leaves) {
+    public DailyStats(String date, int joins, int leaves) {
         this.date = date;
         this.joins = joins;
         this.leaves = leaves;
+        this.downloads = 0;
     }
 
     public int getTotalJoins() {
@@ -28,7 +31,8 @@ public class JoinStats implements ISerializable {
         return new Document()
                 .append("id", date)
                 .append("joins", joins)
-                .append("leaves", leaves);
+                .append("leaves", leaves)
+                .append("downloads", downloads);
     }
 
     @Override

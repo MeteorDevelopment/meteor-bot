@@ -6,7 +6,7 @@ import kong.unirest.Unirest;
 import kong.unirest.json.JSONArray;
 import kong.unirest.json.JSONObject;
 import minegame159.meteorbot.database.Db;
-import minegame159.meteorbot.database.documents.JoinStats;
+import minegame159.meteorbot.database.documents.DailyStats;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
@@ -78,16 +78,16 @@ public class Utils {
         if (channel != null) channel.getManager().setName("Member Count: " + guild.getMemberCount()).queue();
 
         String date = getDateString();
-        JoinStats joinStats = Db.JOIN_STATS.get(date);
+        DailyStats dailyStats = Db.DAILY_STATS.get(date);
 
-        if (joinStats != null) {
+        if (dailyStats != null) {
             if (joined) {
-                Db.JOIN_STATS.update(date, inc("joins", 1));
+                Db.DAILY_STATS.update(date, inc("joins", 1));
             } else {
-                Db.JOIN_STATS.update(date, inc("leaves", 1));
+                Db.DAILY_STATS.update(date, inc("leaves", 1));
             }
         } else {
-            Db.JOIN_STATS.add(new JoinStats(date, joined ? 1 : 0, joined ? 0 : 1));
+            Db.DAILY_STATS.add(new DailyStats(date, joined ? 1 : 0, joined ? 0 : 1));
         }
     }
 

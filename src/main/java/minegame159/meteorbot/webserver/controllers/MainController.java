@@ -3,6 +3,7 @@ package minegame159.meteorbot.webserver.controllers;
 import minegame159.meteorbot.Config;
 import minegame159.meteorbot.MeteorBot;
 import minegame159.meteorbot.database.Db;
+import minegame159.meteorbot.database.documents.DailyStats;
 import minegame159.meteorbot.database.documents.Stats;
 import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.webserver.WebServer;
@@ -49,8 +50,13 @@ public class MainController {
         if (lastDownloadTime == null || time - lastDownloadTime > 60 * 1000) {
             Stats stats = Db.GLOBAL.get(Stats.class, Stats.ID);
             stats.downloads++;
-            DOWNLOADS++;
             Db.GLOBAL.update(stats);
+
+            DailyStats dailyStats = Db.DAILY_STATS.get(Utils.getDateString());
+            if (dailyStats == null) dailyStats = new DailyStats(Utils.getDateString(), 0, 0);
+            dailyStats.downloads++;
+            Db.DAILY_STATS.update(dailyStats);
+            DOWNLOADS++;
 
             updateDownloadsChannelCounter++;
             if (updateDownloadsChannelCounter > 10) {

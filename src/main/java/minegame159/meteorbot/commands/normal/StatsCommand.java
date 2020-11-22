@@ -4,7 +4,7 @@ import minegame159.meteorbot.commands.Category;
 import minegame159.meteorbot.commands.Command;
 import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
-import minegame159.meteorbot.database.documents.JoinStats;
+import minegame159.meteorbot.database.documents.DailyStats;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.regex.Pattern;
@@ -24,17 +24,18 @@ public class StatsCommand extends Command {
         if (split.length >= 2 && DATE_PATTERN.matcher(split[1]).matches()) date = split[1];
         else date = Utils.getDateString();
 
-        JoinStats joinStats = Db.JOIN_STATS.get(date);
+        DailyStats dailyStats = Db.DAILY_STATS.get(date);
 
-        if (joinStats == null) {
-            joinStats = new JoinStats(date, 0, 0);
+        if (dailyStats == null) {
+            dailyStats = new DailyStats(date, 0, 0);
         }
 
         event.getChannel().sendMessage(Utils.embed(
-                "**Date**: " + joinStats.date +
-                "\n**Joins**: " + joinStats.joins +
-                "\n**Leaves**: " + joinStats.leaves +
-                "\n**Total**: " + joinStats.getTotalJoins()
+                "**Date**: " + dailyStats.date +
+                "\n**Joins**: " + dailyStats.joins +
+                "\n**Leaves**: " + dailyStats.leaves +
+                "\n**Total**: " + dailyStats.getTotalJoins() +
+                "\n**Downloads**: " + dailyStats.downloads
         ).build()).queue();
     }
 }

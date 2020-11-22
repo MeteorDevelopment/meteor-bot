@@ -2,6 +2,7 @@ package minegame159.meteorbot.database;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.ReplaceOptions;
 import net.dv8tion.jda.api.entities.ISnowflake;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -45,7 +46,7 @@ public class DbCollection<T extends ISerializable> {
     }
 
     public void update(T obj) {
-        collection.replaceOne(eq("id", obj.getId()), obj.serialize());
+        collection.replaceOne(eq("id", obj.getId()), obj.serialize(), new ReplaceOptions().upsert(true));
     }
 
     public void delete(String id) {

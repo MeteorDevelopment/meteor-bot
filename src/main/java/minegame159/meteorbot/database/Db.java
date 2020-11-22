@@ -13,7 +13,7 @@ public class Db {
     private static MongoDatabase db;
 
     public static DbCollection<User> USERS;
-    public static DbCollection<JoinStats> JOIN_STATS;
+    public static DbCollection<DailyStats> DAILY_STATS;
     public static DbCollection<Cape> CAPES;
     public static DbCollection<Account> ACCOUNTS;
     public static DbMultiCollection GLOBAL;
@@ -23,7 +23,7 @@ public class Db {
         db = client.getDatabase("meteor-bot");
 
         USERS = new DbCollection<>("users", User::new);
-        JOIN_STATS = new DbCollection<>("join-stats", JoinStats::new);
+        DAILY_STATS = new DbCollection<>("join-stats", DailyStats::new);
         CAPES = new DbCollection<>("capes", Cape::new);
         ACCOUNTS = new DbCollection<>("accounts", Account::new);
         GLOBAL = new DbMultiCollection("global");
