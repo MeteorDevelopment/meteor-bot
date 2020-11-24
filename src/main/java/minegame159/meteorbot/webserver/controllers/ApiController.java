@@ -4,7 +4,7 @@ import com.mongodb.client.model.Filters;
 import minegame159.meteorbot.Config;
 import minegame159.meteorbot.MeteorBot;
 import minegame159.meteorbot.database.Db;
-import minegame159.meteorbot.database.documents.User;
+import minegame159.meteorbot.database.documents.Account;
 import minegame159.meteorbot.utils.Utils;
 import org.bson.Document;
 import spark.Route;
@@ -57,15 +57,15 @@ public class ApiController {
 
         // CAPE OWNERS
         int i = 0;
-        for (Document document : Db.USERS.getAll().filter(Filters.ne("cape", ""))) {
-            User user = new User(document);
-            if (!user.hasCape()) continue;
+        for (Document document : Db.ACCOUNTS.getAll().filter(Filters.ne("cape", ""))) {
+            Account account = new Account(document);
+            if (!account.hasCape()) continue;
 
-            if (!user.mcAccounts.isEmpty()) {
-                String cape = user.cape;
-                if (cape.equals("custom")) cape = user.id;
+            if (!account.mcAccounts.isEmpty()) {
+                String cape = account.cape;
+                if (cape.equals("custom")) cape = account.id;
 
-                for (String uuid : user.mcAccounts) {
+                for (String uuid : account.mcAccounts) {
                     if (i > 0) sb.append("\n");
                     sb.append(Utils.newUUID(uuid)).append(" ").append(cape);
                     i++;

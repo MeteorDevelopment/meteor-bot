@@ -2,7 +2,6 @@ package minegame159.meteorbot;
 
 import minegame159.meteorbot.commands.Commands;
 import minegame159.meteorbot.database.Db;
-import minegame159.meteorbot.database.documents.User;
 import minegame159.meteorbot.utils.Audio;
 import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.webserver.WebServer;
@@ -69,30 +68,8 @@ public class MeteorBot extends ListenerAdapter {
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         if (!PROCESS_DISCORD_EVENTS) return;
         if (event.getAuthor().isBot() || !event.isFromType(ChannelType.TEXT)) return;
-        String str = event.getMessage().getContentRaw();
 
-        // Commands
         Commands.onMessage(event);
-
-        // Count nwords
-        int niggerCount = Utils.count(str, NIGGER_PATTERN);
-        int niggaCount = Utils.count(str, NIGGA_PATTERN);
-
-        if (niggerCount > 2) niggerCount = 0;
-        if (niggaCount > 2) niggaCount = 0;
-
-        if (niggerCount > 0 || niggaCount > 0) {
-            User user = Db.USERS.get(event.getAuthor());
-
-            if (user != null) {
-                user.updateNwords(niggerCount, niggaCount);
-                Db.USERS.update(user);
-            } else {
-                user = new User(event.getAuthor());
-                user.updateNwords(niggerCount, niggaCount);
-                Db.USERS.add(user);
-            }
-        }
     }
 
     @Override

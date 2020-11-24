@@ -90,6 +90,8 @@ public class AccountController {
             if (ok) {
                 account.cape = capeName;
                 Db.ACCOUNTS.update(account);
+
+                ApiController.updateCapes();
             }
         }
 

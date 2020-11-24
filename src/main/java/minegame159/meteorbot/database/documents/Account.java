@@ -77,6 +77,10 @@ public class Account implements ISerializable {
         return member.hasPermission(Permission.ADMINISTRATOR) || member.getRoles().contains(guild.getRoleById("689197893340758022"));
     }
 
+    public boolean hasCape() {
+        return !cape.isEmpty();
+    }
+
     @Override
     public Document serialize() {
         return new Document()

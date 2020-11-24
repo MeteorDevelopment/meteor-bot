@@ -64,8 +64,11 @@ public class Commands {
             if (i > 0) sb.append("\n");
             sb.append("\n**").append(category).append(":**");
 
-            for (Command command : categories.get(category)) {
-                sb.append("\n - *").append(command.name).append(":* ").append(command.description);
+            List<Command> commands = categories.get(category);
+            if (commands != null) {
+                for (Command command : commands) {
+                    sb.append("\n - *").append(command.name).append(":* ").append(command.description);
+                }
             }
 
             i++;

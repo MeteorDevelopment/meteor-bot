@@ -58,6 +58,8 @@ public class CapesController {
                     if (cape == null) {
                         cape = new Cape(name, "http://meteorclient.com:8082/capes/" + name + ".png");
                         Db.CAPES.add(cape);
+
+                        ApiController.updateCapes();
                     }
                 } else {
                     file.delete();

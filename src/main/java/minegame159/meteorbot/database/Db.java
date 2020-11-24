@@ -6,13 +6,15 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import minegame159.meteorbot.Config;
 import minegame159.meteorbot.MeteorBot;
-import minegame159.meteorbot.database.documents.*;
+import minegame159.meteorbot.database.documents.Account;
+import minegame159.meteorbot.database.documents.Cape;
+import minegame159.meteorbot.database.documents.DailyStats;
+import minegame159.meteorbot.database.documents.Stats;
 import org.bson.Document;
 
 public class Db {
     private static MongoDatabase db;
 
-    public static DbCollection<User> USERS;
     public static DbCollection<DailyStats> DAILY_STATS;
     public static DbCollection<Cape> CAPES;
     public static DbCollection<Account> ACCOUNTS;
@@ -22,7 +24,6 @@ public class Db {
         MongoClient client = MongoClients.create(Config.MONGO_URL);
         db = client.getDatabase("meteor-bot");
 
-        USERS = new DbCollection<>("users", User::new);
         DAILY_STATS = new DbCollection<>("join-stats", DailyStats::new);
         CAPES = new DbCollection<>("capes", Cape::new);
         ACCOUNTS = new DbCollection<>("accounts", Account::new);
