@@ -27,45 +27,48 @@
     <!--Stylesheets-->
     <script src="https://kit.fontawesome.com/d5536945b2.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/png">
-    <link rel="stylesheet" href="/css/defaults.css"/>
-    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/elements/button.css"/>
+    <link rel="stylesheet" href="/css/elements/card.css"/>
+    <link rel="stylesheet" href="/css/elements/footer.css"/>
+    <link rel="stylesheet" href="/css/elements/logo-anim.css"/>
+    <link rel="stylesheet" href="/css/elements/navbar.css"/>
+    <link rel="stylesheet" href="/css/elements/section.css"/>
+    <link rel="stylesheet" href="/css/elements/waves.css"/>
+    <link rel="stylesheet" href="/css/pages/index.css"/>
   </head>
   <body>
-    <!--Navbar-Begin-->
-    <nav>
-      <p class="name">Meteor Development</p>
+    <nav class="navbar">
+      <h1 class="nav-title">METEOR</h1>
       <ul class="nav-links">
-        <li><a href="/" class="nav-text">Home</a></li>
-        <li><a href="/#client" class="nav-text">Client</a></li>
-        <li><a href="/#server" class="nav-text">Server</a></li>
-        <li><a href="/#dev-team" class="nav-text">Dev Team</a></li>
-        <li><a href="/info" class="nav-text">Faq</a></li>
-        <li><a class="fab fa-discord" href="/discord" target="_blank"></a></li>
-        <li><a class="fab fa-github" href="/github" target="_blank"></a></li>
-        <li><a class="fab fa-youtube" href="/youtube" target="_blank"></a></li>
-        <li><a class="fab fa-paypal" href="/donate" target="_blank"></a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="/info">Faq</a></li>
+        <li><a href="/account">Account</a></li>
       </ul>
       <div class="burger">
-        <div class="lin1"></div>
-        <div class="lin2"></div>
-        <div class="lin3"></div>
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
       </div>
     </nav>
-    <!--Navbar-End-->
-    
+    <script src="/main.js"></script>
     <!--Home-Begin-->
-    <div id="home">
+    <div class="section-container" id="home">
       <div class="section-body">
-        <h3>Welcome to</h3>
-        <svg class="title-animation" viewBox="0 0 532 125" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M101.896 25.352V125H88.792V50.696L55.672 125H46.456L13.192 50.552V125H0.0880127V25.352H14.2L51.064 107.72L87.928 25.352H101.896Z" stroke="#eaeaea" stroke-width="5"/>
-          <path d="M137.223 35.288V68.84H173.799V79.64H137.223V114.2H178.119V125H124.119V24.488H178.119V35.288H137.223Z" stroke="#eaeaea" stroke-width="5"/>
-          <path d="M259.723 24.632V35.288H232.363V125H219.259V35.288H191.755V24.632H259.723Z" stroke="#eaeaea" stroke-width="5"/>
-          <path d="M288.958 35.288V68.84H325.534V79.64H288.958V114.2H329.854V125H275.854V24.488H329.854V35.288H288.958Z" stroke="#eaeaea" stroke-width="5"/>
-          <path d="M515.733 125L491.829 83.96H475.989V125H462.885V24.632H495.285C502.869 24.632 509.253 25.928 514.437 28.52C519.717 31.112 523.653 34.616 526.245 39.032C528.837 43.448 530.133 48.488 530.133 54.152C530.133 61.064 528.117 67.16 524.085 72.44C520.149 77.72 514.197 81.224 506.229 82.952L531.429 125H515.733ZM475.989 73.448H495.285C502.389 73.448 507.717 71.72 511.269 68.264C514.821 64.712 516.597 60.008 516.597 54.152C516.597 48.2 514.821 43.592 511.269 40.328C507.813 37.064 502.485 35.432 495.285 35.432H475.989V73.448Z" stroke="#eaeaea" stroke-width="5"/>
-          <path d="M388.661 120.503C393.958 123.501 399.817 125 406.24 125C412.728 125 418.621 123.501 423.918 120.503C429.215 117.439 433.386 113.208 436.432 107.812C439.477 102.416 441 96.2872 441 89.4254C441 82.5637 439.477 76.4347 436.432 71.0386C433.386 65.6424 421.215 57.4454 415.918 54.4476L336.5 0L375.048 101.812C378 112 383.364 117.439 388.661 120.503Z" stroke="#cc0000" stroke-width="5"/>
-        </svg> 
-        <p class="section-desc">Creators of Meteor Client and the Meteor pvp server. Join our discord server to find out more information.</p>
+        <div class="section-title">Welcome to</div>
+        <div class="logo-container">
+          <svg class="meteor-logo" viewBox="0 0 532 125" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M101.896 25.352V125H88.792V50.696L55.672 125H46.456L13.192 50.552V125H0.0880127V25.352H14.2L51.064 107.72L87.928 25.352H101.896Z" stroke="#eaeaea" stroke-width="5"/>
+            <path d="M137.223 35.288V68.84H173.799V79.64H137.223V114.2H178.119V125H124.119V24.488H178.119V35.288H137.223Z" stroke="#eaeaea" stroke-width="5"/>
+            <path d="M259.723 24.632V35.288H232.363V125H219.259V35.288H191.755V24.632H259.723Z" stroke="#eaeaea" stroke-width="5"/>
+            <path d="M288.958 35.288V68.84H325.534V79.64H288.958V114.2H329.854V125H275.854V24.488H329.854V35.288H288.958Z" stroke="#eaeaea" stroke-width="5"/>
+            <path d="M515.733 125L491.829 83.96H475.989V125H462.885V24.632H495.285C502.869 24.632 509.253 25.928 514.437 28.52C519.717 31.112 523.653 34.616 526.245 39.032C528.837 43.448 530.133 48.488 530.133 54.152C530.133 61.064 528.117 67.16 524.085 72.44C520.149 77.72 514.197 81.224 506.229 82.952L531.429 125H515.733ZM475.989 73.448H495.285C502.389 73.448 507.717 71.72 511.269 68.264C514.821 64.712 516.597 60.008 516.597 54.152C516.597 48.2 514.821 43.592 511.269 40.328C507.813 37.064 502.485 35.432 495.285 35.432H475.989V73.448Z" stroke="#eaeaea" stroke-width="5"/>
+            <path d="M388.661 120.503C393.958 123.501 399.817 125 406.24 125C412.728 125 418.621 123.501 423.918 120.503C429.215 117.439 433.386 113.208 436.432 107.812C439.477 102.416 441 96.2872 441 89.4254C441 82.5637 439.477 76.4347 436.432 71.0386C433.386 65.6424 421.215 57.4454 415.918 54.4476L336.5 0L375.048 101.812C378 112 383.364 117.439 388.661 120.503Z" stroke="#cc0000" stroke-width="5"/>
+          </svg> 
+        </div>
+        <div class="section-desc">Creators of the Meteor Network.</div>
         <div class="button-container">
             <a href="/discord" target="_blank" class="button" id="discord">
               <i class="fab fa-discord"></i>
@@ -81,7 +84,8 @@
     <!--Home-End-->
 
     <!--Client-Begin-->
-    <div id="client">
+    <div id="projects"></div>
+    <div class="section-container" id="client">
       <div class="section-body">
         <h1 class="section-title">Meteor Client</h1>
         <div class="download">
@@ -95,7 +99,6 @@
             </a>
           </div>
         </div>
-        <p class="section-desc"><b>Meteor Client</b>, Comes with everything you need packed into a beautiful GUI.</p>
         <div class="card-container">
           <div class="card-outer">
             <div class="card-inner" id="GUI">
@@ -122,28 +125,28 @@
             </div>
           </div>
         </div>
-        <div class="wave-transition">
-          <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-              <defs>
-                  <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-              </defs>
-              <g class="parallax">
-                  <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(62,62,62,0.7" />
-                  <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(62,62,62,0.5)" />
-                  <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(62,62,62,0.3)" />
-                  <use xlink:href="#gentle-wave" x="48" y="7" fill="#3e3e3e" />
-              </g>
-          </svg>
-        </div>
       </div>
+    </div>
+    <div class="wave-transition">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+          <defs>
+              <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+          </defs>
+          <g class="parallax">
+              <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(62,62,62,0.7" />
+              <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(62,62,62,0.5)" />
+              <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(62,62,62,0.3)" />
+              <use xlink:href="#gentle-wave" x="48" y="7" fill="#3e3e3e" />
+          </g>
+      </svg>
     </div>
     <!--Client-End-->
 
     <!--Server-Begin-->
-    <div id="server">
+    <div class="section-container" id="server">
       <div class="section-body">
-        <h1 class="section-title">Meteor PvP</h1>
-        <p class="section-desc">The Meteor PvP server is a 1.16 style combat server that features anchor, bed, and crystal PvP styles accessible to players on versions 1.14 and newer. This server also features a custom kit and duel plugin. The Nether and Overworld dimensions are also available as well as the numerous arenas in the said dimensions.</p>
+        <di class="section-title">Meteor PvP</di>
+        <div class="section-desc">The Meteor PvP server is a 1.16 style combat server that features anchor, bed, and crystal PvP styles accessible to players on versions 1.14 and newer. This server also features a custom kit and duel plugin. The Nether and Overworld dimensions are also available as well as the numerous arenas in the said dimensions.</div>
         <iframe class="section-iframe" src="https://namemc.com/server/pvp.meteorclient.com/embed"></iframe>
         <div class="section-image-slider">
           <figure>
@@ -161,76 +164,56 @@
     <!--Server-End-->
 
     <!--Dev-Team-Begin-->
-    <div id="dev-team">
+    <div id="about"></div>
+    <div class="section-container" id="dev-team">
       <div class="section-body">
         <h1 class="section-title">Dev Team</h1>
         <div class="card-container">
           <div class="card-outer">
             <a href="https://github.com/MineGame159">
               <div class="card-inner">
+                <img class="card-img" src="/assets/minegame.png">
                 <h1>MineGame159</h1>
                 <p>Owner/Head Developer</p>
-                <img class="card-img" src="/assets/minegame.png">
               </div>
             </a>
           </div>
           <div class="card-outer">
             <a href="https://github.com/squidoodly">
               <div class="card-inner">
+                <img class="card-img" src="/assets/squid.png">
                 <h1>squidoodly</h1>
                 <p>Developer</p>
-                <img class="card-img" src="/assets/squid.png">
               </div>
             </a>
           </div>
         </div>
+        <div class="button-container">
+          <a href="/discord" target="_blank" class="button" id="discord">
+            <i class="fab fa-discord"></i>
+            Discord
+          </a>
+          <a href="/github" target="_blank" class="button" id="github">
+            <i class="fab fa-github"></i>
+            Github
+          </a>
+          <a href="/youtube" target="_blank" class="button" id="youtube">
+            <i class="fab fa-youtube"></i>
+            Youtube
+          </a>
+          <a href="/donate" target="_blank" class="button" id="paypal">
+            <i class="fab fa-paypal"></i>
+            Donate
+          </a>
+      </div>
       </div>
     </div>
     <!--Dev-Team-End-->
 
-    <!--Footer-Begin-->
-    <div id="footer">
-      <div class="footer-body">
-        <div class="footer-section">
-          <h3>About Us</h3>
-          <p>Meteor Development is a development group responsible for the creation and maintenance of Meteor Client and the various related projects. We are most active on our <a href="https://meteorclient.com/discord">Discord Server</a> so if you need to contact us, join the server.</p>
-        </div>
-        <div class="footer-section">
-          <h3>Quick Links</h3>
-          <div class="button-container">
-            <div class="button-outer">
-              <a href="/discord" target="_blank" class="button">
-                <i class="fab fa-discord"></i>
-                Discord
-              </a>
-            </div>
-            <div class="button-outer">
-              <a href="/github" target="_blank" class="button">
-                <i class="fab fa-github"></i>
-                Github
-              </a>
-            </div>
-            <div class="button-outer">
-              <a href="/youtube" target="_blank" class="button">
-                <i class="fab fa-youtube"></i>
-                YouTube
-              </a>
-            </div>
-            <div class="button-outer">
-              <a href="/donate" target="_blank" class="button">
-                <i class="fab fa-paypal"></i>
-                PayPal
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        &copy; meteorclient.com | Designed by <a href="https://github.com/seasnail8169" target="_blank">seasnail8169</a>.
-      </div>
+    <div class="footer">
+      <div class="footer-sec-1">Copyright &copy; 2020 meteorclient.com | All Rights Reserved.</div>
+      <div class="footer-sec-3">Designed by <a href="https://github.com/seasnail8169" target="_blank">seasnail8169</a>.</div>
     </div>
-    <!--Footer-End-->
 
-    <script src="/main.js"></script>
   </body>
 </html>
