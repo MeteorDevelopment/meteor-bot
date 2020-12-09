@@ -6,7 +6,7 @@
     <!--Discord Meta-->
     <meta name="og:site_name" content="Meteor Development">
     <meta name="og:type" content="object">
-	  <meta name="og:image" content="https://raw.githubusercontent.com/MeteorDevelopment/meteor-server/master/src/main/resources/public/icon.png">
+    <meta name="og:image" content="https://raw.githubusercontent.com/MeteorDevelopment/meteor-server/master/src/main/resources/public/icon.png">
     <meta name="og:title" content="Info">
     <meta name="og:url" content="https://meteorclient.com/info">
     <meta name="theme-color" content="#cc0000">
@@ -17,45 +17,42 @@
     <!--Stylesheets-->
     <script src="https://kit.fontawesome.com/d5536945b2.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/png">
-    <link rel="stylesheet" href="/css/defaults.css"/>
-    <link rel="stylesheet" href="/css/info.css"/>
-  </head>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/elements/section.css"/>
+    <link rel="stylesheet" href="/css/elements/navbar.css"/>
+    <link rel="stylesheet" href="/css/elements/footer.css"/>
+    <link rel="stylesheet" href="/css/pages/info.css"/>
   <body>
     
     <!--Navbar-Begin-->
-    <nav>
-      <p class="name">Meteor Development</p>
+    <nav class="navbar">
+      <h1 class="nav-title">METEOR</h1>
       <ul class="nav-links">
-        <li><a href="/" class="nav-text">Home</a></li>
-        <li><a href="/#client" class="nav-text">Client</a></li>
-        <li><a href="/#server" class="nav-text">Server</a></li>
-        <li><a href="/#dev-team" class="nav-text">Dev Team</a></li>
-        <li><a href="/info" class="nav-text">Faq</a></li>
-        <li><a class="fab fa-discord" href="/discord" target="_blank"></a></li>
-        <li><a class="fab fa-github" href="/github" target="_blank"></a></li>
-        <li><a class="fab fa-youtube" href="/youtube" target="_blank"></a></li>
-        <li><a class="fab fa-paypal" href="/donate" target="_blank"></a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="/info">Faq</a></li>
+        <li><a href="/account">Account</a></li>
       </ul>
       <div class="burger">
-        <div class="lin1"></div>
-        <div class="lin2"></div>
-        <div class="lin3"></div>
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
       </div>
     </nav>
     <!--Navbar-End-->
 
     <!--FAQ-Begin-->
-    <div id="FAQ">
+    <div class="section-container" id="FAQ">
       <div class="section-body">
         <h1 class="section-title" id="main-title">FAQ</h1>
         <i id="main-desc">As of Meteor Client version $version.</i>
-        <i class="lower" id="main-desc">Minecraft version $mcVersion.</i>
         <div class="faq-section">
           <h3>Installation:</h3>
           <ol>
             <li>Download the <a href="https://fabricmc.net/use">Fabric Loader</a> and install it or use <a href="https://multimc.org/#Download">MultiMC</a> and create a new instance and install fabric using the built in installer.</li>
             <li>Download the <a href="https://www.curseforge.com/Minecraft/mc-mods/fabric-api/files">Fabric API</a> and put it in your mods folder.</li>
-            <li>Download Meteor Client <a href="https://meteorclient.com/">Stable</a> <a href="https://discord.com/channels/689197705683140636/756782622662721536">Dev</a> and put it in your .Minecraft/mods folder (If the dev link doesn&#39;t work join the <a href="/discord">Discord server</a>).</li>
+            <li>Download Meteor Client <a href="https://meteorclient.com/">Stable</a>/<a href="https://discord.com/channels/689197705683140636/756782622662721536">Dev</a> and put it in your .Minecraft/mods folder (If the dev link doesn&#39;t work join the <a href="/discord">Discord server</a>).</li>
           </ol>
         </div>
         <div class="faq-section">
@@ -89,10 +86,11 @@
         </div>
       </div>
     </div>
+  </div>
     <!--FAQ-End-->
 
     <!--Changelog-Begin-->
-    <div id="changelog">
+    <div class="section-container" id="changelog">
       <div class="section-body">
         <h1 class="section-title">Changelog</h1>
         <div class="faq-section" id="changelog-container">
@@ -105,51 +103,11 @@
       </div>
     </div>
     <!--Changelog-End-->
-    
-    <!--Footer-Begin-->
-    <div id="footer">
-      <div class="footer-body">
-        <div class="footer-section">
-          <h3>About Us</h3>
-          <p>Meteor Development is a development group responsible for the creation and maintenance of Meteor Client and the various related projects. We are most active on our <a href="https://meteorclient.com/discord">Discord Server</a> so if you need to contact us, join the server.</p>
-        </div>
-        <div class="footer-section">
-          <h3>Quick Links</h3>
-          <div class="button-container">
-            <div class="button-outer">
-              <a href="/discord" target="_blank" class="button">
-                <i class="fab fa-discord"></i>
-                Discord
-              </a>
-            </div>
-            <div class="button-outer">
-              <a href="/github" target="_blank" class="button">
-                <i class="fab fa-github"></i>
-                Github
-              </a>
-            </div>
-            <div class="button-outer">
-              <a href="/youtube" target="_blank" class="button">
-                <i class="fab fa-youtube"></i>
-                YouTube
-              </a>
-            </div>
-            <div class="button-outer">
-              <a href="/donate" target="_blank" class="button">
-                <i class="fab fa-paypal"></i>
-                Donate
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        &copy; meteorclient.com | Designed by <a href="https://github.com/seasnail8169" target="_blank">seasnail8169</a>.
-      </div>
-    </div>
-    <!--Footer-End-->
 
-    <!--Navbar-Js-->
+    <div class="footer">
+      <div class="footer-sec-1">Copyright &copy; 2020 meteorclient.com | All Rights Reserved.</div>
+      <div class="footer-sec-3">Designed by <a href="https://github.com/seasnail8169" target="_blank">seasnail8169</a>.</div>
+    </div>
     <script src="/main.js"></script>
   </body>
 </html>

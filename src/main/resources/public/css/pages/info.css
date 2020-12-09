@@ -1,7 +1,5 @@
 #FAQ {
-  padding-top: 8vh;
   background-color: var(--background-light);
-  padding-bottom: 8vh;
 }
 
 #FAQ .section-body {
@@ -28,11 +26,6 @@
   color: var(--links);
 }
 
-#FAQ .section-desc {
-  padding-top: 0vh;
-  padding-bottom: 0vh;
-}
-
 #main-title {
   padding-top: 3vh;
   padding-bottom: 10px;
@@ -50,7 +43,7 @@
 }
 
 #changelog {
-  background-color: var(--background-dark);
+  background-color: var(--background-grey);
   color: var(--text-light);
 }
 
@@ -64,4 +57,22 @@
 #changelog-container {
   margin: 0 auto;
   width: 60%;
+}
+
+@media screen and (max-width: 700px) {
+  #FAQ .section-body {
+    width: 80%;
+  }
+  #changelog-container {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  #FAQ .section-body {
+    width: 90%;
+  }
+  #changelog-container {
+    width: 90%;
+  }
 }
