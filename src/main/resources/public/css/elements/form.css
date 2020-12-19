@@ -35,6 +35,11 @@ input {
   justify-content: space-between;
 }
 
+.section-form .section-title {
+  text-align: center;
+  margin-bottom: 2vh;
+}
+
 .form-button {
   background-color: var(--accent);
   color: var(--text-light);
