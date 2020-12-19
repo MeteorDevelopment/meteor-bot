@@ -11,7 +11,7 @@ body {
   padding: 20px;
   background-color: var(--background-light-grey);
   color: var(--text-darker);
-  box-shadow: 0px 0px 50px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 50px 1px rgba(0, 0, 0, 0.25);
 }
 
 .form-container a {
@@ -37,4 +37,14 @@ input {
 .section-form .form-footer {
   display: flex;
   justify-content: space-between;
+}
+
+.footer {
+  position: absolute !important;
+  width: 100% !important;
+  bottom: 0;
+  text-align: center;
+  background: var(--background-dark);
+  color: var(--text-light);
+  padding: 1vh;
 }
