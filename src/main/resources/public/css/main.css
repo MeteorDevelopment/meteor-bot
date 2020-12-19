@@ -58,10 +58,6 @@ body {
   height: 100%;
 }
 
-body {
-  margin-top: 8vh;
-}
-
 *::-webkit-scrollbar {
   display: none;
 }
