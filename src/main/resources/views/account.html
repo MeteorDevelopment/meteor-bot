@@ -30,8 +30,8 @@
       <h1 class="nav-title">METEOR</h1>
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="/#projects">Projects</a></li>
+        <li><a href="/#about">About</a></li>
         <li><a href="/info">Faq</a></li>
         <li><a href="/account">Account</a></li>
       </ul>
@@ -51,7 +51,7 @@
                 <h1>Discord</h1>
                 <p>
                   #if($discordName)
-                  <img src="https://cdn.discordapp.com/avatars/736954747122352208/b1afa8929f24265fa46beff3b5cdfc04.png?size=4096" style="width: 2em;" alt="discord avatar"> <b>$discordName#$discordNumber</b>
+                  <img src="$discordAvatar" style="width: 2em;" alt="discord avatar"> <b>$discordName#$discordNumber</b>
                   #if($donator)
                   (donator :D)
                   #end
@@ -105,11 +105,11 @@
               <ul>
                 #foreach($cape in $capes)
                   <li class="cape-item">
-                    <img src="$cape.url" style="width: 5em;">
+                    <img src="$cape.url" style="width: 10em;">
                     #if($cape.current)
                     <strong>$cape.title</strong>
                     #else
-                    <p>$cape.title</p>
+                    <p id="cape-title">$cape.title</p>
                     #end
                     #if(!$cape.current)
                     <button class="select-cape" name="$cape.name">Select</button>
