@@ -13,38 +13,77 @@ input {
 .footer {
     position: absolute !important;
     width: 100% !important;
-    bottom: 0;
-    text-align: center;
-    background: var(--background-dark);
-    color: var(--text-light);
-    padding: 1vh;
 }
 
 .remove {
     color: red;
+    background-color: transparent;
+    border: none;
 }
 
-.card-container {
-    background-color: var(--meteor-main);
-    display: flex;
-    justify-content: center;
+.select-cape {
+    color: var(--text-light);
+    background-color: var(--text-dark);
+    border: none;
+    margin-left: 1.5em;
+    padding: 5px;
+    border-radius: 3px;
 }
+
+
+.card-container {
+    display: flex !important;
+    justify-content: center !important;
+}
+
 .card-outer {
-    width: 65% !important;
+    width: 90% !important;
 }
 
 #discord-accounts {
-    padding: 35px;
     background-color: var(--discord);
     color: var(--text-light);
-    align-items: center;
 }
 
-#discord-accounts h1 {
+.card-inner h1 {
     text-align: center;
     margin-bottom: 1vh;
 }
 
-#discord-accounts p {
+.card-inner p {
     margin-bottom: 2vh;
+}
+
+.card-inner ul {
+    list-style: none;
+}
+
+.section-body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+@media screen and (max-width: 800px) {
+    .card-container {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+}
+
+.section-title {
+    padding-top: 3vh;
+}
+
+.section-sub-head {
+    margin-top: 3vh;
+    font-size: 120%;
+    font-weight: bolder;
+}
+
+.cape-item {
+    display: flex;
+    align-items: center;
+    margin-top: 1vh;
+    justify-content: center;
 }
