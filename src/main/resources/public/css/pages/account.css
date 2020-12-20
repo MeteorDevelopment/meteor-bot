@@ -83,7 +83,15 @@ input {
 
 .cape-item {
     display: flex;
-    align-items: center;
-    margin-top: 1vh;
     justify-content: center;
+    align-items: center;
+}
+
+.cape-item #cape-title {
+    margin: 0;
+    padding: 0;
+}
+
+.cape-item img {
+    margin-top: 2vh;
 }
