@@ -12,7 +12,7 @@
     <meta name="theme-color" content="#cc0000">
     <meta name="og:description" content="The website of the Meteor Development group. Made by seasnail8169.">
     <!--Other Meta-->
-    <meta name="keywords" content="Minecraft, Minecraft, utility, mod, utility mod, client, utility client, Utility Mod, Utility Client, Mod, Utility, Client, Minecraft utility mod, Minecraft utility mod, Meteor, meteor, Meteor Client, meteor client, Meteor utlity mod, meteor utility mod">
+    <meta name="keywords" content="Minecraft, Minecraft, utility, mod, utility mod, client, utility client, Utility Mod, Utility Client, Mod, Utility, Client, Minecraft utility mod, Minecraft utility mod, Meteor, meteor, Meteor Client, meteor client, Meteor utility mod, meteor utility mod">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--Stylesheets-->
     <script src="https://kit.fontawesome.com/d5536945b2.js" crossorigin="anonymous"></script>
@@ -26,45 +26,171 @@
     <link rel="stylesheet" href="/css/pages/account.css"/>
   </head>
   <body>
-  <nav class="navbar">
-    <h1 class="nav-title">METEOR</h1>
-    <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="/info">Faq</a></li>
-      <li><a href="/account">Account</a></li>
-    </ul>
-    <div class="burger">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
-    </div>
-  </nav>
-  <script src="/main.js"></script>
-
-  <div class="card-container">
-    <div class="card-outer">
-      <div clas="card-inner" id="discord-accounts">
-        <h1>Discord</h1>
-        <p>
-          #if($discordName)
-          <img src="https://cdn.discordapp.com/avatars/736954747122352208/b1afa8929f24265fa46beff3b5cdfc04.png?size=4096" style="width: 2em;" alt="discord avatar"> <b>$discordName#$discordNumber</b>
-          #if($donator)
-          (donator :D)
-          #end
-          #else
-          No Discord account linked.
-          #end
-        </p>
-        <div>
-          #if($discordName)
-          <button onclick="unlinkDiscord()">Unlink Discord</button>
-          #else
-          <button onclick="linkDiscord()">Link Discord</button>
-          #end
+    <nav class="navbar">
+      <h1 class="nav-title">METEOR</h1>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="/info">Faq</a></li>
+        <li><a href="/account">Account</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+    <script src="/main.js"></script>
+    <div class="section-container">
+      <div class="section-body">
+        <div class="section-title">Manage Account</div>
+          <div class="card-container">
+            <div class="card-outer">
+              <div class="card-inner" id="discord-accounts">
+                <h1>Discord</h1>
+                <p>
+                  #if($discordName)
+                  <img src="https://cdn.discordapp.com/avatars/736954747122352208/b1afa8929f24265fa46beff3b5cdfc04.png?size=4096" style="width: 2em;" alt="discord avatar"> <b>$discordName#$discordNumber</b>
+                  #if($donator)
+                  (donator :D)
+                  #end
+                  #else
+                  No Discord account linked.
+                  #end
+                </p>
+                <div class="button-container">
+                  #if($discordName)
+                  <input type="button" onclick="unlinkDiscord()" value="Unlink Discord">
+                  #else
+                  <input type="button" onclick="linkDiscord()" value="Link Discord">
+                  #end
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+    <div class="section-container" id="mc-accounts">
+      <div class="section-body">
+        <div class="card-container">
+          <div class="card-outer">
+            <div class="card-inner">
+              <h1>Minecraft</h1>
+              <ul>
+                #foreach($mcAccount in $mcAccounts)
+                <li><img src="https://crafatar.com/renders/head/${mcAccount.uuid}?scale=2&overlay" alt="head"> $mcAccount.name <button class="remove" uuid="$mcAccount.uuid"><p>-</p></button></li>
+                #end
+              </ul>
+
+              #if($mcAccounts.size() < $maxMcAccounts)
+              <form action="/addMcAccount" method="post">
+                <input type="text" size="30" placeholder="Username" name="username">
+                <input type="submit" value="Add Account">
+              </form>
+              #end
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-container" id="cape">
+      <div class="section-body">
+        <div class="card-container">
+          <div class="card-outer">
+            <div class="card-inner">
+              <h1>Cape</h1>
+              <ul>
+                #foreach($cape in $capes)
+                  <li class="cape-item">
+                    <img src="$cape.url" style="width: 5em;">
+                    #if($cape.current)
+                    <strong>$cape.title</strong>
+                    #else
+                    <p>$cape.title</p>
+                    #end
+                    #if(!$cape.current)
+                    <button class="select-cape" name="$cape.name">Select</button>
+                    #end
+                  </li>
+                #end
+              </ul>
+              #if($canHaveCustomCape)
+              <form action="/capes/uploadCustom" method="post" enctype="multipart/form-data">
+                <label class="section-sub-head" for="file">Upload custom cape</label>
+                <input type="file" name="file" id="file">
+                <input type="submit" value="Upload">
+              </form>
+
+              #if($custoMCapeError)
+              <p style="color: var(--meteor-main);">$custoMCapeError</p>
+              #end
+
+              #end
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-container">
+      <div class="section-body">
+        <div class="card-container">
+          <div class="card-outer">
+            <div class="card-inner">
+              <h1>Reset Details</h1>
+              <input type="submit" onclick="changeUsername()" value="Change Username"/>
+              <input type="submit" onclick="changeEmail()" value="Change Email"/>
+              <input type="submit" onclick="changePassword()" value="Change Password"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll(".remove-mc-account").forEach(btn => {
+        btn.onclick = () => {
+          fetch("/removeMcAccount?uuid=" + btn.getAttribute("uuid"), { method: "POST" }).then(res => authRequest(res))
+        }
+      })
+
+      document.querySelectorAll(".select-cape").forEach(btn => {
+        btn.onclick = () => {
+          fetch("/selectCape?cape=" + btn.getAttribute("name"), { method: "POST" }).then(res => authRequest(res))
+        }
+      })
+
+      function changeUsername() {
+        window.location.href = "/changeUsername"
+      }
+
+      function changeEmail() {
+        window.location.href = "/changeEmail"
+      }
+
+      function changePassword() {
+        window.location.href = "/changePassword"
+      }
+
+      function logout() {
+        fetch("/logout", { method: "POST" }).then(res => window.location.reload())
+      }
+
+      function linkDiscord() {
+        window.location.href = "/discordAuth"
+      }
+
+      function unlinkDiscord() {
+        fetch("/unlinkDiscord", { method: "POST" }).then(res => authRequest(res))
+      }
+
+      function authRequest(res) {
+        if (res.status === 401) window.location.href = "/login"
+        else window.location.reload()
+      }
+    </script>
+  </body>
 </html>

@@ -11,9 +11,7 @@
 }
 
 .card-inner {
-  border: #00000000;
-  border-style: solid;
-  border-width: 1.5px;
+  border: 1.5px solid #00000000;
   height: 100%;
   padding: 50px;
   border-radius: 12px;
