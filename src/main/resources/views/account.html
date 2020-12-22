@@ -51,10 +51,7 @@
                 <h1>Discord</h1>
                 <p>
                   #if($discordName)
-                  <img src="$discordAvatar" style="width: 2em;" alt="discord avatar"> <b>$discordName#$discordNumber</b>
-                  #if($donator)
-                  (donator :D)
-                  #end
+                  <li class="discord-account"><img src="https://cdn.discordapp.com/avatars/736954747122352208/b1afa8929f24265fa46beff3b5cdfc04.png?size=256" style="width: 2em;" alt="discord avatar"> <b>$discordName#$discordNumber</b></li>
                   #else
                   No Discord account linked.
                   #end
@@ -78,9 +75,9 @@
           <div class="card-outer">
             <div class="card-inner">
               <h1>Minecraft</h1>
-              <ul>
+              <ul class="mc-accounts-list">
                 #foreach($mcAccount in $mcAccounts)
-                <li><img src="https://crafatar.com/renders/head/${mcAccount.uuid}?scale=2&overlay" alt="head"> $mcAccount.name <button class="remove" uuid="$mcAccount.uuid"><p>-</p></button></li>
+                <li class="mc-account-item"><img src="https://crafatar.com/renders/head/${mcAccount.uuid}?scale=2&overlay" alt="head"> $mcAccount.name <button class="remove-mc-account" uuid="$mcAccount.uuid">Remove</button></li>
                 #end
               </ul>
 
