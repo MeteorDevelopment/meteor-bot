@@ -15,12 +15,6 @@ input {
     width: 100% !important;
 }
 
-.remove {
-    color: red;
-    background-color: transparent;
-    border: none;
-}
-
 .select-cape {
     color: var(--text-light);
     background-color: var(--text-dark);
@@ -94,4 +88,32 @@ input {
 
 .cape-item img {
     margin-top: 2vh;
+}
+
+.mc-account-item {
+    display: flex;
+    justify-content: space-around;
+    width: 35%;
+    align-items: center;
+    margin: 0 auto 2vh;
+}
+
+.remove-mc-account {
+    background-color: #cc0000;
+    color: var(--text-light);
+    border: none;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.mc-accounts-list {
+    margin-top: 1vh;
+}
+
+.discord-account {
+    display: flex;
+    justify-content: space-around;
+    width: 25%;
+    align-items: center;
+    margin: 0 auto;
 }
