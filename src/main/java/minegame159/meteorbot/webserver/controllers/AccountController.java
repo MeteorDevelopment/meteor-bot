@@ -272,11 +272,16 @@ public class AccountController {
                     .body(new JSONObject().put("access_token", accessToken))
                     .asJson();
 
+            Account account = Accounts.get(request);
+            account.discordId = userId;
+
             Guild guild = MeteorBot.JDA.getGuildById("689197705683140636");
             guild.addRoleToMember(userId, guild.getRoleById("777248653445300264")).queue();
 
-            Account account = Accounts.get(request);
-            account.discordId = userId;
+            if (guild.retrieveMemberById(userId).complete().getRoles().contains(guild.getRoleById("689205464574984353"))) {
+                account.giveDonator();
+            } else account.giveDonatorRole();
+
             Db.ACCOUNTS.update(account);
 
             response.redirect("/account");

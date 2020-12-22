@@ -39,6 +39,7 @@ public class CapesController {
                 String name = "account_" + account.id;
 
                 File file = new File("capes", name + ".png");
+                file.getParentFile().mkdirs();
                 OutputStream out = new FileOutputStream(file);
                 Utils.copyStream(in, out);
 

@@ -81,6 +81,23 @@ public class Account implements ISerializable {
         return !cape.isEmpty();
     }
 
+    public void giveDonator() {
+        giveDonatorRole();
+
+        if (!donator) {
+            donator = true;
+            canHaveCustomCape = true;
+            cape = "donator";
+        }
+    }
+
+    public void giveDonatorRole() {
+        if (donator && !discordId.isEmpty()) {
+            Guild guild = MeteorBot.JDA.getGuildById("689197705683140636");
+            guild.addRoleToMember(discordId, guild.getRoleById("689205464574984353")).queue();
+        }
+    }
+
     @Override
     public Document serialize() {
         return new Document()
