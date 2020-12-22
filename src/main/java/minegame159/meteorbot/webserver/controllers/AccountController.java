@@ -116,6 +116,12 @@ public class AccountController {
             return null;
         }
 
+        if (newUsername.length() > 16) {
+            Attribs.CHANGE_USERNAME_ERROR.set(request, "Username too long.");
+            response.redirect("/changeUsername");
+            return null;
+        }
+
         if (!LoginController.isLoggedIn(request)) {
             response.redirect("/login");
             return null;
@@ -167,6 +173,12 @@ public class AccountController {
 
         if (newPassword == null || newPassword.isEmpty() || (id == null && (oldPassword == null || oldPassword.isEmpty()))) {
             Attribs.CHANGE_PASSWORD_ERROR.set(request, "Passwords were empty.");
+            response.redirect("/changePassword");
+            return null;
+        }
+
+        if (newPassword.length() > 64) {
+            Attribs.CHANGE_PASSWORD_ERROR.set(request, "Password too long.");
             response.redirect("/changePassword");
             return null;
         }
@@ -228,6 +240,12 @@ public class AccountController {
 
         if (!Accounts.isEmailValid(newEmail)) {
             Attribs.CHANGE_EMAIL_ERROR.set(request, "Email is taken.");
+            response.redirect("/changeEmail");
+            return null;
+        }
+
+        if (newEmail.length() > 64) {
+            Attribs.CHANGE_EMAIL_ERROR.set(request, "Email too long.");
             response.redirect("/changeEmail");
             return null;
         }

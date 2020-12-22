@@ -24,6 +24,7 @@ dependencies {
     implementation 'com.sparkjava:spark-template-velocity:2.7.1'
     implementation 'at.favre.lib:bcrypt:0.9.0'
     implementation 'org.lucee:javamail:1.6.2'
+    implementation 'com.sun.activation:javax.activation:1.2.0'
 }
 
 shadowJar {

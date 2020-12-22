@@ -77,6 +77,24 @@ public class LoginController {
             return null;
         }
 
+        if (email.length() > 64) {
+            Attribs.REGISTER_ERROR.set(request, "Email too long.");
+            response.redirect("/register");
+            return null;
+        }
+
+        if (username.length() > 16) {
+            Attribs.REGISTER_ERROR.set(request, "Username too long.");
+            response.redirect("/register");
+            return null;
+        }
+
+        if (password.length() > 64) {
+            Attribs.REGISTER_ERROR.set(request, "Password too long.");
+            response.redirect("/register");
+            return null;
+        }
+
         String token;
         do token = Utils.generateToken();
         while (REGISTER_MAP.containsKey(token));
