@@ -283,6 +283,11 @@ public class AccountController {
 
             String userId = res.getBody().getObject().getString("id");
 
+            if (Accounts.isDiscordIdUsed(userId)) {
+                response.redirect("/account");
+                return null;
+            }
+
             // Join user to meteor discord
             Unirest.put("https://discord.com/api/guilds/689197705683140636/members/" + userId)
                     .header("Authorization", "Bot " + Config.DISCORD_TOKEN)

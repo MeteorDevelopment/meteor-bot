@@ -50,4 +50,8 @@ public class Accounts {
         if (document == null) return null;
         return new Account(document);
     }
+
+    public static boolean isDiscordIdUsed(String id) {
+        return Db.ACCOUNTS.getAll().filter(eq("discordId", id)).first() != null;
+    }
 }
