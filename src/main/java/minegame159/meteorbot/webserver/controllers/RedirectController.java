@@ -14,7 +14,7 @@ public class RedirectController {
     };
 
     public static Route HANDLE_YOUTUBE = (request, response) -> {
-        response.redirect("https://www.youtube.com/channel/UCqrwGisb68E2N-hA5IpyssA");
+        response.redirect("https://www.youtube.com/channel/UCWfwmiYGlXXunsUc1Zvz8SQ");
         return null;
     };
 
