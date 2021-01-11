@@ -28,7 +28,7 @@ public class AirhornAudioSendHandler extends AudioEventAdapter implements AudioS
         this.frame.setBuffer(buffer);
 
         audioPlayer.addListener(this);
-        Audio.MANAGER.loadItem("https://meteorclient.com/airhorn.ogg", new FunctionalResultHandler(audioPlayer::playTrack, null, null, null));
+        Audio.MANAGER.loadItem("http://meteorclient.com:8082/airhorn.ogg", new FunctionalResultHandler(audioPlayer::playTrack, null, null, null));
     }
 
     @Override
