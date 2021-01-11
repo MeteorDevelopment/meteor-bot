@@ -30,6 +30,10 @@ public class WebServer {
             velocityProperties.put(RuntimeConstants.RESOURCE_LOADER, "file");
             velocityProperties.put(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, new File(System.getProperty("user.dir"), "src/main/resources").getAbsolutePath());
         }
+
+        staticFiles.registerMimeType("png", "image/png");
+        staticFiles.registerMimeType("gif", "image/gif");
+
         Velocity.init(velocityProperties);
         Mail.init();
 

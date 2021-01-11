@@ -12,7 +12,7 @@ public class OkInsultCommand extends Command {
 
         this.name = name;
         if (name.equals("oksquid")) this.name += ".gif";
-        else this.name += ".PNG";
+        else this.name += ".png";
     }
 
     @Override

@@ -28,9 +28,6 @@ public class MeteorBot extends ListenerAdapter {
 
     public static JDA JDA;
 
-    private static final Pattern NIGGER_PATTERN = Pattern.compile("nigger", Pattern.CASE_INSENSITIVE);
-    private static final Pattern NIGGA_PATTERN = Pattern.compile("nigga", Pattern.CASE_INSENSITIVE);
-
     public static boolean PROCESS_DISCORD_EVENTS = true;
 
     public static void main(String[] args) {
