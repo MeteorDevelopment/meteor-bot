@@ -19,8 +19,6 @@ public class OkInsults {
         Commands.add(add("oklibtard"));
         Commands.add(add("okmonkey"));
         Commands.add(add("oknerd"));
-        Commands.add(add("oknigga"));
-        Commands.add(add("oknigger"));
         Commands.add(add("okretard"));
         Commands.add(add("okspook"));
         Commands.add(add("oktranny"));
