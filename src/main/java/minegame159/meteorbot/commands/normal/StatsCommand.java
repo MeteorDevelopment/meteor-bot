@@ -5,6 +5,7 @@ import minegame159.meteorbot.commands.Command;
 import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.DailyStats;
+import minegame159.meteorbot.webserver.WebsiteVisits;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.regex.Pattern;
@@ -35,7 +36,8 @@ public class StatsCommand extends Command {
                 "\n**Joins**: " + dailyStats.joins +
                 "\n**Leaves**: " + dailyStats.leaves +
                 "\n**Total**: " + dailyStats.getTotalJoins() +
-                "\n**Downloads**: " + dailyStats.downloads
+                "\n**Downloads**: " + dailyStats.downloads +
+                "\n**Website Visits:** " + WebsiteVisits.get()
         ).build()).queue();
     }
 }

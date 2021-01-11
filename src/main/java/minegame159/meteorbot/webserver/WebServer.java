@@ -37,13 +37,17 @@ public class WebServer {
 
         Velocity.init(velocityProperties);
         Mail.init();
+        WebsiteVisits.fetch();
 
         port(8082);
 
-        before((request, response) -> LoginController.onRequest());
+        before((request, response) -> {
+            LoginController.onRequest();
+            WebsiteVisits.update();
+        });
 
-        get("/", MainController.SERVER_INDEX);
-        get("/info", MainController.SERVER_INFO);
+        get("/", MainController.SERVE_INDEX);
+        get("/info", MainController.SERVE_INFO);
         get("/download", MainController.HANDLE_DOWNLOAD);
 
         get("/account", AccountController.SERVE_ACCOUNT);
@@ -92,6 +96,8 @@ public class WebServer {
     }
 
     public static void close() {
+        WebsiteVisits.save();
+
         stop();
         awaitStop();
     }

@@ -10,10 +10,7 @@ import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.Account;
 import minegame159.meteorbot.database.documents.Cape;
 import minegame159.meteorbot.utils.Utils;
-import minegame159.meteorbot.webserver.Accounts;
-import minegame159.meteorbot.webserver.Attribs;
-import minegame159.meteorbot.webserver.Mail;
-import minegame159.meteorbot.webserver.WebServer;
+import minegame159.meteorbot.webserver.*;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 import org.apache.velocity.VelocityContext;
@@ -63,6 +60,7 @@ public class AccountController {
 
         context.put("capes", capes);
 
+        WebsiteVisits.increment(request);
         return WebServer.render(context, "views/account.html");
     });
 

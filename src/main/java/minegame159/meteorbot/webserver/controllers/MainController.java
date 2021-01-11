@@ -7,6 +7,7 @@ import minegame159.meteorbot.database.documents.DailyStats;
 import minegame159.meteorbot.database.documents.Stats;
 import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.webserver.WebServer;
+import minegame159.meteorbot.webserver.WebsiteVisits;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import org.apache.velocity.VelocityContext;
 import spark.Route;
@@ -22,7 +23,7 @@ public class MainController {
         DOWNLOADS = Db.GLOBAL.get(Stats.class, Stats.ID).downloads;
     }
 
-    public static Route SERVER_INDEX = (request, response) -> {
+    public static Route SERVE_INDEX = (request, response) -> {
         VelocityContext context = new VelocityContext();
 
         context.put("version", Config.VERSION);
@@ -30,16 +31,18 @@ public class MainController {
         context.put("onlinePlayers", ApiController.getOnlinePlayers());
         context.put("downloads", DOWNLOADS);
 
+        WebsiteVisits.increment(request);
         return WebServer.render(context, "views/index.html");
     };
 
-    public static Route SERVER_INFO = (request, response) -> {
+    public static Route SERVE_INFO = (request, response) -> {
         VelocityContext context = new VelocityContext();
 
         context.put("version", Config.VERSION);
         context.put("mcVersion", Config.MC_VERSION);
         context.put("changelog", Config.CHANGELOG);
 
+        WebsiteVisits.increment(request);
         return WebServer.render(context, "views/info.html");
     };
 
