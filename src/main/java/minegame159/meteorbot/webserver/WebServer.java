@@ -33,6 +33,7 @@ public class WebServer {
 
         staticFiles.registerMimeType("png", "image/png");
         staticFiles.registerMimeType("gif", "image/gif");
+        staticFiles.registerMimeType("ogg", "audio/ogg");
 
         Velocity.init(velocityProperties);
         Mail.init();
