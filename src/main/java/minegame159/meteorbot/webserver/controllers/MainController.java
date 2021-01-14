@@ -15,6 +15,8 @@ import spark.Route;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import static com.mongodb.client.model.Updates.inc;
+
 public class MainController {
     private static int DOWNLOADS;
     private static int updateDownloadsChannelCounter = 0;
@@ -51,9 +53,7 @@ public class MainController {
         long time = System.currentTimeMillis();
         
         if (lastDownloadTime == null || time - lastDownloadTime > 60 * 1000) {
-            Stats stats = Db.GLOBAL.get(Stats.class, Stats.ID);
-            stats.downloads++;
-            Db.GLOBAL.update(stats);
+            Db.GLOBAL.update(Stats.ID, inc("downloads", 1));
 
             DailyStats dailyStats = Db.DAILY_STATS.get(Utils.getDateString());
             if (dailyStats == null) dailyStats = new DailyStats(Utils.getDateString(), 0, 0);

@@ -44,13 +44,20 @@ public class Utils {
         }
     }
 
-    public static String generateToken() {
+    public static String generateToken(boolean small) {
         UUID id = UUID.randomUUID();
         long hi = id.getMostSignificantBits();
         long lo = id.getLeastSignificantBits();
-        byte[] bytes = ByteBuffer.allocate(16).putLong(hi).putLong(lo).array();
+
+        byte[] bytes;
+        if (small) bytes = ByteBuffer.allocate(2).putShort((short) hi).array();
+        else bytes = ByteBuffer.allocate(16).putLong(hi).putLong(lo).array();
+
         BigInteger big = new BigInteger(bytes);
         return big.toString().replace('-','1');
+    }
+    public static String generateToken() {
+        return generateToken(false);
     }
 
     public static EmbedBuilder embedTitle(String title, String format, Object... args) {

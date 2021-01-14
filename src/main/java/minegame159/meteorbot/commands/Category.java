@@ -5,5 +5,6 @@ public enum Category {
     Help,
     Account,
     Other,
-    Moderator
+    Moderator,
+    Tickets
 }

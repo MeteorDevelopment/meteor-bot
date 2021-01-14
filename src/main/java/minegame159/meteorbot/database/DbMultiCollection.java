@@ -2,11 +2,13 @@ package minegame159.meteorbot.database;
 
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
 public class DbMultiCollection {
@@ -26,6 +28,10 @@ public class DbMultiCollection {
         Document document = collection.find(eq("id", id)).first();
         if (document == null) return null;
         return (T) factories.get(klass).apply(document);
+    }
+
+    public void update(String id, Bson update) {
+        collection.updateOne(and(eq("id", id)), update);
     }
 
     public <T extends ISerializable> void update(T obj) {

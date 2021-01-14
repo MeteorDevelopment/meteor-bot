@@ -2,6 +2,7 @@ package minegame159.meteorbot;
 
 import minegame159.meteorbot.commands.Commands;
 import minegame159.meteorbot.database.Db;
+import minegame159.meteorbot.tickets.Tickets;
 import minegame159.meteorbot.utils.Audio;
 import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.webserver.WebServer;
@@ -9,24 +10,30 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.ShutdownEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.dv8tion.jda.internal.utils.JDALogger;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
-import java.util.regex.Pattern;
 
 public class MeteorBot extends ListenerAdapter {
     public static final Logger LOG = JDALogger.getLog("MeteorBot");
 
     public static JDA JDA;
+    public static Guild GUILD;
+    public static Role MOD_ROLE;
 
     public static boolean PROCESS_DISCORD_EVENTS = true;
 
@@ -40,6 +47,7 @@ public class MeteorBot extends ListenerAdapter {
 
             JDABuilder.createDefault(Config.DISCORD_TOKEN)
                     .enableIntents(GatewayIntent.GUILD_MEMBERS)
+                    .enableCache(CacheFlag.EMOTE)
                     .addEventListeners(new MeteorBot())
                     .build();
 
@@ -52,6 +60,11 @@ public class MeteorBot extends ListenerAdapter {
     public void onReady(@Nonnull ReadyEvent event) {
         JDA = event.getJDA();
         event.getJDA().getPresence().setActivity(Activity.playing("Meteor on Crack!"));
+
+        GUILD = JDA.getGuildById(689197705683140636L);
+        MOD_ROLE = GUILD.getRoleById(689197893340758022L);
+
+        Tickets.init();
 
         LOG.info("Meteor Bot started");
     }
@@ -67,6 +80,13 @@ public class MeteorBot extends ListenerAdapter {
         if (event.getAuthor().isBot() || !event.isFromType(ChannelType.TEXT)) return;
 
         Commands.onMessage(event);
+        Tickets.onMessage(event);
+    }
+
+    @Override
+    public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent event) {
+        if (!PROCESS_DISCORD_EVENTS) return;
+        Tickets.onReactionAdd(event);
     }
 
     @Override

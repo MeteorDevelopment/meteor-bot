@@ -27,6 +27,12 @@ dependencies {
     implementation 'com.sun.activation:javax.activation:1.2.0'
 }
 
+compileJava.options.encoding = "UTF-8"
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
 shadowJar {
     classifier = ''
 }

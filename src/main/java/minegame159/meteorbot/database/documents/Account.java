@@ -13,6 +13,8 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mongodb.client.model.Updates.inc;
+
 public class Account implements ISerializable {
     public String id;
     public String email;
@@ -64,8 +66,7 @@ public class Account implements ISerializable {
         this.cape = "";
         this.canHaveCustomCape = false;
 
-        stats.totalAccounts++;
-        Db.GLOBAL.update(stats);
+        Db.GLOBAL.update(Stats.ID, inc("totalAccounts", 1));
     }
 
     public boolean isAdmin() {
