@@ -86,6 +86,10 @@ public class Ticket {
     }
 
     public void onReactionAdd(GuildMessageReactionAddEvent event) {
+        if (event.getReactionEmote().isEmote()) {
+            event.getReaction().clearReactions().queue();
+            return;
+        }
         String emoji = event.getReactionEmote().getEmoji();
 
         if (event.getMessageIdLong() == welcomeMessage.getIdLong()) {

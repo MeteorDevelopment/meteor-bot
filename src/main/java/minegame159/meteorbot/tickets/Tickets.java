@@ -52,15 +52,15 @@ public class Tickets {
 
     public static void onReactionAdd(GuildMessageReactionAddEvent event) {
         if (event.getMember().getUser().isBot()) return;
-        if (event.getReactionEmote().isEmote()) {
-            event.getReaction().clearReactions().queue();
-            return;
-        }
 
         if (event.getMessageIdLong() == SUPPORT_MESSAGE_ID) {
-            if (event.getReactionEmote().getEmoji().equals("\uD83D\uDCE9")) {
+            if (event.getReactionEmote().isEmote()) {
+                event.getReaction().clearReactions().queue();
+            }
+            else if (event.getReactionEmote().getEmoji().equals("\uD83D\uDCE9")) {
                 create(event.getUser());
-            } else {
+            }
+            else {
                 event.getReaction().clearReactions().queue();
             }
         } else {
