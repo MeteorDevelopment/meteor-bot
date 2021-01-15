@@ -1,4 +1,4 @@
-package minegame159.meteorbot.commands.Help;
+package minegame159.meteorbot.commands.help;
 
 import minegame159.meteorbot.commands.Category;
 import minegame159.meteorbot.commands.Command;
