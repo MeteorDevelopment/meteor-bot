@@ -38,6 +38,10 @@ public class Ticket {
             new Problem(
                     "Does it have New Chunks?",
                     "No. New Chunks have been patched after 1.12.2."
+            ),
+            new Problem(
+                    "How do I download this client?",
+                    "Follow the guide on the [Meteor FAQ](https://meteorclient.com/info)."
             )
     };
 
