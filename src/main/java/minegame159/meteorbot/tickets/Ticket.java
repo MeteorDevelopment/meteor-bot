@@ -132,7 +132,8 @@ public class Ticket {
             problem.sendSolution(this);
         }
         else if (stage == Stage.Manual) {
-            channel.sendMessage(embed("You can now talk to the moderators.").build()).queue();
+            channel.sendMessage(embed("You can now talk to the helpers.").build()).queue();
+            channel.sendMessage("<@&799681650752880662>").queue();
         }
     }
 
@@ -144,7 +145,7 @@ public class Ticket {
             sb.append(intToEmoji(i + 1)).append(" - ").append(PROBLEMS[i].msg);
         }
 
-        Message message1 = channel.sendMessage(embedTitle("Problems", sb.toString()).setFooter("React with the number to get a solution or with ❌ to talk to the moderators.").build()).complete();
+        Message message1 = channel.sendMessage(embedTitle("Problems", sb.toString()).setFooter("React with the number to get a solution or with ❌ to talk to the helpers.").build()).complete();
         for (int i = 0; i < PROBLEMS.length; i++) {
             message1.addReaction(intToEmoji(i + 1)).queue();
         }
