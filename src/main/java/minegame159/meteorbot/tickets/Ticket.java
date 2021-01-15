@@ -132,8 +132,7 @@ public class Ticket {
             problem.sendSolution(this);
         }
         else if (stage == Stage.Manual) {
-            channel.sendMessage(embed("You can now talk to the helpers.").build()).queue();
-            channel.sendMessage("<@&799681650752880662>").queue();
+            channel.sendMessage(embed("You can now talk to the helpers.\n\n" + MeteorBot.HELPER_ROLE.getAsMention()).build()).queue();
         }
     }
 

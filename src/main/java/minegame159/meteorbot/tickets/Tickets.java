@@ -80,7 +80,7 @@ public class Tickets {
                 .addMemberPermissionOverride(user.getIdLong(), Permission.VIEW_CHANNEL.getRawValue(), 0)
                 .complete();
 
-        Message message = channel.sendMessage(embedTitle("Meteor Tickets", "Use reactions to select what problem you have and if the automated answer helped you. If nothing works you will be able to talk to the moderators.").setFooter("React with ❌ to close this ticket.").build()).complete();
+        Message message = channel.sendMessage(embedTitle("Meteor Tickets", "Use reactions to select what problem you have and if the automated answer helped you. If nothing works you will be able to talk to the helpers.\n\n" + user.getAsMention()).setFooter("React with ❌ to close this ticket.").build()).complete();
 
         message.addReaction("❌").queue();
 

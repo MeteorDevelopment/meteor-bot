@@ -12,7 +12,7 @@ public class Problem {
     }
 
     public void sendSolution(Ticket ticket) {
-        ticket.channel.sendMessage(embed(solution).setFooter("React with ✅ to close this ticket and ❌ to speak to the moderators.").build()).queue(message -> {
+        ticket.channel.sendMessage(embed(solution).setFooter("React with ✅ to close this ticket and ❌ to speak to the helpers.").build()).queue(message -> {
             message.addReaction("✅").queue();
             message.addReaction("❌").queue();
 
