@@ -76,6 +76,7 @@ public class Tickets {
                 .setParent(CATEGORY)
                 .addRolePermissionOverride(MeteorBot.GUILD.getPublicRole().getIdLong(), 0, Permission.VIEW_CHANNEL.getRawValue())
                 .addRolePermissionOverride(MeteorBot.MOD_ROLE.getIdLong(), Permission.VIEW_CHANNEL.getRawValue(), 0)
+                .addRolePermissionOverride(MeteorBot.HELPER_ROLE.getIdLong(), Permission.VIEW_CHANNEL.getRawValue(), 0)
                 .addMemberPermissionOverride(user.getIdLong(), Permission.VIEW_CHANNEL.getRawValue(), 0)
                 .complete();
 

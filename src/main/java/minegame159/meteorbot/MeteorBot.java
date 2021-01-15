@@ -34,6 +34,7 @@ public class MeteorBot extends ListenerAdapter {
     public static JDA JDA;
     public static Guild GUILD;
     public static Role MOD_ROLE;
+    public static Role HELPER_ROLE;
 
     public static boolean PROCESS_DISCORD_EVENTS = true;
 
@@ -63,6 +64,7 @@ public class MeteorBot extends ListenerAdapter {
 
         GUILD = JDA.getGuildById(689197705683140636L);
         MOD_ROLE = GUILD.getRoleById(689197893340758022L);
+        HELPER_ROLE = GUILD.getRoleById(799392357157830657L);
 
         Tickets.init();
 
