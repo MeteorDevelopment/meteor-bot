@@ -15,6 +15,8 @@ public class MonkyCommand extends Command {
 
     @Override
     public void run(MessageReceivedEvent event) {
+        event.getMessage().delete().queue();
+
         int w = ThreadLocalRandom.current().nextInt(200, 1001);
         int h = ThreadLocalRandom.current().nextInt(200, 1001);
 
