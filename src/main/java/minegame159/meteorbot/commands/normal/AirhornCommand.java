@@ -19,7 +19,7 @@ public class AirhornCommand extends Command {
         event.getMessage().delete().queue();
 
         if (!event.getMember().getVoiceState().inVoiceChannel()) {
-            event.getChannel().sendMessage(Utils.embed("You need to be in a voice channel").build()).queue();
+            event.getChannel().sendMessage(Utils.embed("You need to be in a voice channel.").build()).queue();
             return;
         }
 

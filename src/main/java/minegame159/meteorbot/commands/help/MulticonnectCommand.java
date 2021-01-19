@@ -13,6 +13,6 @@ public class MulticonnectCommand extends Command {
     @Override
     public void run(MessageReceivedEvent event) {
         event.getMessage().delete().queue();
-        event.getChannel().sendMessage(Utils.embed("Use multiconnect if you want to connect to older servers.\nDownload at https://www.curseforge.com/minecraft/mc-mods/multiconnect").build()).queue();
+        event.getChannel().sendMessage(Utils.embed("Use [Multiconnect](https://www.curseforge.com/minecraft/mc-mods/multiconnect) to connect to servers that use versions older than 1.16.3/4/5.").build()).queue();
     }
 }

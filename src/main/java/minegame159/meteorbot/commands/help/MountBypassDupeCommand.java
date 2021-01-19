@@ -13,6 +13,6 @@ public class MountBypassDupeCommand extends Command {
     @Override
     public void run(MessageReceivedEvent event) {
         event.getMessage().delete().queue();
-        event.getChannel().sendMessage(Utils.embed("Mount bypass dupe (aka donkey dupe) requires the server to have a very old version of illegalstacks and thus doesnt work on 99.99%% of servers.").build()).queue();
+        event.getChannel().sendMessage(Utils.embed("The Donkey Dupe/Mount Bypass Dupe requires an **extremely old** version of IllegalStacks (the plugin it works on) and as such will not work on 99% of servers.").build()).queue();
     }
 }

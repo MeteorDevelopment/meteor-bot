@@ -25,7 +25,7 @@ public class Ticket {
             ),
             new Problem(
                     "Is there a 1.12.2 or forge version?",
-                    "No and never will. You can use [Multiconnect](https://www.curseforge.com/minecraft/mc-mods/multiconnect) to connect to 1.12.2 servers."
+                    "No and there never will be. You can use [Multiconnect](https://www.curseforge.com/minecraft/mc-mods/multiconnect) to connect to 1.12.2 servers."
             ),
             new Problem(
                     "Can I use OptiFine?",
@@ -33,11 +33,11 @@ public class Ticket {
             ),
             new Problem(
                     "Where is mount bypass dupe?",
-                    "For mount bypass dupe to work the servers needs a very old version of illegalstacks plugin that almost no servers use. The code for it is still in the client, its just not enabled."
+                    "For mount bypass dupe to work the servers needs a very old version of illegalstacks plugin that almost no servers use. The code for it is still in the client, it's just not enabled."
             ),
             new Problem(
-                    "Does it have New Chunks?",
-                    "No. New Chunks have been patched after 1.12.2."
+                    "Does this client have New Chunks?",
+                    "No. New Chunks has been patched on any version after 1.12.2."
             ),
             new Problem(
                     "How do I download this client?",

@@ -13,6 +13,6 @@ public class BaritoneCommand extends Command {
     @Override
     public void run(MessageReceivedEvent event) {
         event.getMessage().delete().queue();
-        event.getChannel().sendMessage(Utils.embed("Meteor Client has Baritone built in. (Fabritone)\nFabritone's default prefix is '@' but in Meteor you can use 'b' command.\nFor all Baritone commands visit https://github.com/cabaletta/baritone/blob/master/USAGE.md").build()).queue();
+        event.getChannel().sendMessage(Utils.embed("Meteor Client has Baritone built in. (Fabritone)\nFabritone's default prefix is '@' but in Meteor you can use 'b' command.\nFor all Baritone commands visit [Baritone's Usage Page](https://github.com/cabaletta/baritone/blob/master/USAGE.md).").build()).queue();
     }
 }
