@@ -33,9 +33,9 @@ public class StatsCommand extends Command {
 
         event.getChannel().sendMessage(Utils.embed(
                 "**Date**: " + dailyStats.date +
+                "\n**Total**: " + dailyStats.getTotalJoins() +
                 "\n**Joins**: " + dailyStats.joins +
                 "\n**Leaves**: " + dailyStats.leaves +
-                "\n**Total**: " + dailyStats.getTotalJoins() +
                 "\n**Downloads**: " + dailyStats.downloads +
                 "\n**Website Visits:** " + WebsiteVisits.get()
         ).build()).queue();
