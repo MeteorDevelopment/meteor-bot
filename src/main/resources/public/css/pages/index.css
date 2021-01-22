@@ -269,6 +269,12 @@ body {
   padding-bottom: 6vh;
 }
 
+#dev-team .card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #dev-team .card-inner {
   background: var(--card4);
   color: var(--text-alt);
