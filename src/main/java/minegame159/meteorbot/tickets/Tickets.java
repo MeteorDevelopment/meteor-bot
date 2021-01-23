@@ -80,7 +80,7 @@ public class Tickets {
                 .addMemberPermissionOverride(user.getIdLong(), Permission.VIEW_CHANNEL.getRawValue(), 0)
                 .complete();
 
-        channel.sendMessage(user.getAsMention()).queue();
+        channel.sendMessage(user.getAsMention()).queue(message -> message.delete().queue());
         Message message = channel.sendMessage(embedTitle(user.getName() + "' Ticket", "Use reactions to select what problem you have and if the automated answer helped you. If nothing works you will be able to talk to the helpers.").setFooter("React with ❌ to close this ticket.").build()).complete();
 
         message.addReaction("❌").queue();
