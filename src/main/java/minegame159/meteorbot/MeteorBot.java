@@ -8,10 +8,7 @@ import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.webserver.WebServer;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.ShutdownEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
@@ -33,8 +30,9 @@ public class MeteorBot extends ListenerAdapter {
 
     public static JDA JDA;
     public static Guild GUILD;
-    public static Role MOD_ROLE;
-    public static Role HELPER_ROLE;
+    public static Role MOD_ROLE, HELPER_ROLE;
+    public static User MINEGAME, SQUID, SEASNAIL;
+
 
     public static boolean PROCESS_DISCORD_EVENTS = true;
 
@@ -63,6 +61,9 @@ public class MeteorBot extends ListenerAdapter {
         event.getJDA().getPresence().setActivity(Activity.playing("Meteor on Crack!"));
 
         GUILD = JDA.getGuildById(689197705683140636L);
+        MINEGAME = JDA.getUserById(205708530408357898L);
+        SQUID = JDA.getUserById(322777907078627328L);
+        SEASNAIL = JDA.getUserById(736954747122352208L);
         MOD_ROLE = GUILD.getRoleById(689197893340758022L);
         HELPER_ROLE = GUILD.getRoleById(799392357157830657L);
 
