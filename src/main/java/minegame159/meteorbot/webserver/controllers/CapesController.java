@@ -57,7 +57,7 @@ public class CapesController {
                 if (ok) {
                     Cape cape = Db.CAPES.get(name);
                     if (cape == null) {
-                        cape = new Cape(name, "http://meteorclient.com:8082/capes/" + name + ".png");
+                        cape = new Cape(name, "https://meteorclient.com/capes/" + name + ".png");
                         Db.CAPES.add(cape);
 
                         ApiController.updateCapes();

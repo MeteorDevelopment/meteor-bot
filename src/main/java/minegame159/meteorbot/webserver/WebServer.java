@@ -39,7 +39,7 @@ public class WebServer {
         Mail.init();
         WebsiteVisits.fetch();
 
-        port(8082);
+        port(80);
 
         before((request, response) -> {
             LoginController.onRequest();

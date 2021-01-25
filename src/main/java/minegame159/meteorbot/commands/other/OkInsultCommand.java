@@ -18,6 +18,6 @@ public class OkInsultCommand extends Command {
     @Override
     public void run(MessageReceivedEvent event) {
         event.getMessage().delete().queue();
-        event.getChannel().sendMessage("http://meteorclient.com:8082/okinsults/" + name).queue();
+        event.getChannel().sendMessage("https://meteorclient.com/okinsults/" + name).queue();
     }
 }
