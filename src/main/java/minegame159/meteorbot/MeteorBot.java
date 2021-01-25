@@ -61,9 +61,9 @@ public class MeteorBot extends ListenerAdapter {
         event.getJDA().getPresence().setActivity(Activity.playing("Meteor on Crack!"));
 
         GUILD = JDA.getGuildById(689197705683140636L);
-        MINEGAME = JDA.getUserById(205708530408357898L);
-        SQUID = JDA.getUserById(322777907078627328L);
-        SEASNAIL = JDA.getUserById(736954747122352208L);
+        MINEGAME = GUILD.retrieveMemberById(205708530408357898L).complete().getUser();
+        SQUID = GUILD.retrieveMemberById(322777907078627328L).complete().getUser();
+        SEASNAIL = GUILD.retrieveMemberById(736954747122352208L).complete().getUser();
         MOD_ROLE = GUILD.getRoleById(689197893340758022L);
         HELPER_ROLE = GUILD.getRoleById(799392357157830657L);
 

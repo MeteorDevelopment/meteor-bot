@@ -33,6 +33,10 @@ public class MainController {
         context.put("onlinePlayers", ApiController.getOnlinePlayers());
         context.put("downloads", DOWNLOADS);
 
+        context.put("minegame", MeteorBot.MINEGAME.getAvatarUrl());
+        context.put("squid", MeteorBot.SQUID.getAvatarUrl());
+        context.put("seasnail", MeteorBot.SEASNAIL.getAvatarUrl());
+
         WebsiteVisits.increment(request);
         return WebServer.render(context, "views/index.html");
     };
@@ -43,10 +47,6 @@ public class MainController {
         context.put("version", Config.VERSION);
         context.put("mcVersion", Config.MC_VERSION);
         context.put("changelog", Config.CHANGELOG);
-
-        context.put("minegame", MeteorBot.MINEGAME.getAvatarUrl());
-        context.put("squid", MeteorBot.SQUID.getAvatarUrl());
-        context.put("seasnail", MeteorBot.SEASNAIL.getAvatarUrl());
 
         WebsiteVisits.increment(request);
         return WebServer.render(context, "views/info.html");
