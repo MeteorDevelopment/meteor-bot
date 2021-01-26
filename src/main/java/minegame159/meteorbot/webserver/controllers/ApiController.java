@@ -34,12 +34,12 @@ public class ApiController {
     };
 
     public static Route HANDLE_ONLINE_PING = (request, response) -> {
-        PLAYING.put(request.ip(), System.currentTimeMillis());
+        PLAYING.put(Utils.getIp(request), System.currentTimeMillis());
         return "";
     };
 
     public static Route HANDLE_ONLINE_LEAVE = (request, response) -> {
-        PLAYING.remove(request.ip());
+        PLAYING.remove(Utils.getIp(request));
         return "";
     };
 

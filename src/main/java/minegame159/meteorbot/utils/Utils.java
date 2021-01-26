@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import spark.Request;
 
 import java.awt.*;
 import java.io.IOException;
@@ -198,5 +199,11 @@ public class Utils {
 
     public static UUID newUUID(String uuid) {
         return UUID.fromString(uuid.replaceAll("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5"));
+    }
+
+    public static String getIp(Request req) {
+        String ip = req.headers("X-Forwarded-For");
+        if (ip != null) return ip;
+        return req.ip();
     }
 }
