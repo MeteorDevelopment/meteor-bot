@@ -12,6 +12,7 @@ public class BenefitsCommand extends Command {
 
     @Override
     public void run(MessageReceivedEvent event) {
+        event.getMessage().delete().queue();
         event.getChannel().sendMessage(Utils.embed("*Donators get:*\n - An in-game cape [here](https://meteorclient.com/account)\n - A colored name and 8 kit slots on the PVP server.\n - A role in the Meteor Discord and access to 3 new channels.").build()).queue();
     }
 }
