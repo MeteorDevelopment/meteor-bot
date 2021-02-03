@@ -2,20 +2,20 @@ package minegame159.meteorbot.webserver.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
+import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.model.Filters;
 import minegame159.meteorbot.Config;
 import minegame159.meteorbot.MeteorBot;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.Account;
 import minegame159.meteorbot.json.UUIDSerializer;
-import minegame159.meteorbot.json.UsingMeteorRequest;
-import minegame159.meteorbot.json.UsingMeteorResponse;
 import minegame159.meteorbot.utils.Utils;
 import org.bson.Document;
 import spark.Route;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -28,6 +28,12 @@ public class ApiController {
     private static final Map<String, Long> PLAYING = new HashMap<>();
     private static final Map<String, UUID> UUIDS = new HashMap<>();
 
+    private static final Type UUID_LIST_TYPE = new TypeToken<List<UUID>>() {}.getType();
+
+    private static final Gson GSON = new GsonBuilder()
+            .registerTypeAdapter(UUID.class, new UUIDSerializer())
+            .create();
+
     public static Route HANDLE_VERSION = (request, response) -> Config.VERSION;
 
     public static Route HANDLE_CAPE_OWNERS = (request, response) -> {
@@ -39,10 +45,6 @@ public class ApiController {
         response.type("application/json");
         return CAPES;
     };
-
-    private static final Gson GSON = new GsonBuilder()
-            .registerTypeAdapter(UUID.class, new UUIDSerializer())
-            .create();
 
     public static Route HANDLE_TOGGLE_DISCORD = (request, response) -> {
         String token = request.queryParams("token");
@@ -75,25 +77,29 @@ public class ApiController {
     };
 
     public static Route HANDLE_USING_METEOR = (request, response) -> {
-        UsingMeteorRequest req;
+        List<UUID> reqUuids;
         try {
-            req = GSON.fromJson(request.body(), UsingMeteorRequest.class);
-        } catch (JsonIOException ignored) {
+            reqUuids = GSON.fromJson(request.body(), UUID_LIST_TYPE);
+        } catch (Exception ignored) {
+            reqUuids = null;
+        }
+
+        if (reqUuids == null) {
             response.status(400);
             return "";
         }
 
-        UsingMeteorResponse res = new UsingMeteorResponse(req.uuids.size());
-        for (UUID uuid : req.uuids) res.uuids.put(uuid, false);
+        Map<UUID, Boolean> resUuids = new HashMap<>(reqUuids.size());
+        for (UUID uuid : reqUuids) resUuids.put(uuid, false);
 
         for (UUID uuid : UUIDS.values()) {
-            for (UUID resUuid : res.uuids.keySet()) {
-                if (uuid.equals(resUuid)) res.uuids.put(resUuid, true);
+            for (UUID resUuid : resUuids.keySet()) {
+                if (uuid.equals(resUuid)) resUuids.put(resUuid, true);
             }
         }
 
         response.type("application/json");
-        return GSON.toJson(res);
+        return GSON.toJson(resUuids);
     };
 
     public static int getOnlinePlayers() {
