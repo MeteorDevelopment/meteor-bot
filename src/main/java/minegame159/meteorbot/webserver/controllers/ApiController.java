@@ -29,8 +29,16 @@ public class ApiController {
     private static final Map<String, UUID> UUIDS = new HashMap<>();
 
     public static Route HANDLE_VERSION = (request, response) -> Config.VERSION;
-    public static Route HANDLE_CAPE_OWNERS = (request, response) -> CAPE_OWNERS;
-    public static Route HANDLE_CAPES = (request, response) -> CAPES;
+
+    public static Route HANDLE_CAPE_OWNERS = (request, response) -> {
+        response.type("application/json");
+        return CAPE_OWNERS;
+    };
+
+    public static Route HANDLE_CAPES = (request, response) -> {
+        response.type("application/json");
+        return CAPES;
+    };
 
     private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(UUID.class, new UUIDSerializer())
