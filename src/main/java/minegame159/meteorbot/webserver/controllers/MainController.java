@@ -33,9 +33,9 @@ public class MainController {
         context.put("onlinePlayers", ApiController.getOnlinePlayers());
         context.put("downloads", DOWNLOADS);
 
-        context.put("minegame", MeteorBot.MINEGAME.getAvatarUrl());
-        context.put("squid", MeteorBot.SQUID.getAvatarUrl());
-        context.put("seasnail", MeteorBot.SEASNAIL.getAvatarUrl());
+        if (MeteorBot.MINEGAME != null)context.put("minegame", MeteorBot.MINEGAME.getAvatarUrl());
+        if (MeteorBot.SQUID != null) context.put("squid", MeteorBot.SQUID.getAvatarUrl());
+        if (MeteorBot.SEASNAIL != null)context.put("seasnail", MeteorBot.SEASNAIL.getAvatarUrl());
 
         WebsiteVisits.increment(request);
         return WebServer.render(context, "views/index.html");
