@@ -1,16 +1,23 @@
 package minegame159.meteorbot.webserver.controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.mongodb.client.model.Filters;
 import minegame159.meteorbot.Config;
 import minegame159.meteorbot.MeteorBot;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.Account;
+import minegame159.meteorbot.json.UUIDSerializer;
+import minegame159.meteorbot.json.UsingMeteorRequest;
+import minegame159.meteorbot.json.UsingMeteorResponse;
 import minegame159.meteorbot.utils.Utils;
 import org.bson.Document;
 import spark.Route;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import static spark.Spark.halt;
 
@@ -19,10 +26,15 @@ public class ApiController {
     private static String CAPES;
 
     private static final Map<String, Long> PLAYING = new HashMap<>();
+    private static final Map<String, UUID> UUIDS = new HashMap<>();
 
     public static Route HANDLE_VERSION = (request, response) -> Config.VERSION;
     public static Route HANDLE_CAPE_OWNERS = (request, response) -> CAPE_OWNERS;
     public static Route HANDLE_CAPES = (request, response) -> CAPES;
+
+    private static final Gson GSON = new GsonBuilder()
+            .registerTypeAdapter(UUID.class, new UUIDSerializer())
+            .create();
 
     public static Route HANDLE_TOGGLE_DISCORD = (request, response) -> {
         String token = request.queryParams("token");
@@ -34,13 +46,43 @@ public class ApiController {
     };
 
     public static Route HANDLE_ONLINE_PING = (request, response) -> {
-        PLAYING.put(Utils.getIp(request), System.currentTimeMillis());
+        String ip = Utils.getIp(request);
+        String uuid = request.queryParams("uuid");
+
+        PLAYING.put(ip, System.currentTimeMillis());
+        if (uuid != null) UUIDS.put(ip, UUID.fromString(uuid));
+
         return "";
     };
 
     public static Route HANDLE_ONLINE_LEAVE = (request, response) -> {
-        PLAYING.remove(Utils.getIp(request));
+        String ip = Utils.getIp(request);
+        PLAYING.remove(ip);
+        UUIDS.remove(ip);
+
         return "";
+    };
+
+    public static Route HANDLE_USING_METEOR = (request, response) -> {
+        UsingMeteorRequest req;
+        try {
+            req = GSON.fromJson(request.body(), UsingMeteorRequest.class);
+        } catch (JsonIOException ignored) {
+            response.status(400);
+            return "";
+        }
+
+        UsingMeteorResponse res = new UsingMeteorResponse(req.uuids.size());
+        for (UUID uuid : req.uuids) res.uuids.put(uuid, false);
+
+        for (UUID uuid : UUIDS.values()) {
+            for (UUID resUuid : res.uuids.keySet()) {
+                if (uuid.equals(resUuid)) res.uuids.put(resUuid, true);
+            }
+        }
+
+        response.type("application/json");
+        return GSON.toJson(res);
     };
 
     public static int getOnlinePlayers() {
@@ -49,7 +91,15 @@ public class ApiController {
 
     public static void validateOnlinePlayers() {
         long time = System.currentTimeMillis();
-        PLAYING.values().removeIf(aLong -> time - aLong > 6 * 60 * 1000);
+
+        PLAYING.keySet().removeIf(s -> {
+            if (time - PLAYING.get(s) > 6 * 60 * 1000) {
+                UUIDS.remove(s);
+                return true;
+            }
+
+            return false;
+        });
     }
 
     public static void updateCapes() {
