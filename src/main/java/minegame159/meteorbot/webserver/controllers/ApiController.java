@@ -58,7 +58,10 @@ public class ApiController {
         String uuid = request.queryParams("uuid");
 
         PLAYING.put(ip, System.currentTimeMillis());
-        if (uuid != null) UUIDS.put(ip, UUID.fromString(uuid));
+
+        try {
+            if (uuid != null) UUIDS.put(ip, UUID.fromString(uuid));
+        } catch (IllegalArgumentException ignored) {}
 
         return "";
     };
