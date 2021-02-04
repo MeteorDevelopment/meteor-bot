@@ -32,6 +32,7 @@ public class WebServer {
         }
 
         staticFiles.registerMimeType("png", "image/png");
+        staticFiles.registerMimeType("jpg", "image/jpeg");
         staticFiles.registerMimeType("gif", "image/gif");
         staticFiles.registerMimeType("ogg", "audio/ogg");
 
