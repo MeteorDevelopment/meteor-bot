@@ -86,6 +86,7 @@ public class WebServer {
         get("/api/capeowners", ApiController.HANDLE_CAPE_OWNERS);
         get("/api/capes", ApiController.HANDLE_CAPES);
         get("/api/togglediscord", ApiController.HANDLE_TOGGLE_DISCORD);
+        get("/api/online/ping", ApiController.HANDLE_ONLINE_PING); // TODO: Remove later
         post("/api/online/ping", ApiController.HANDLE_ONLINE_PING);
         post("/api/online/leave", ApiController.HANDLE_ONLINE_LEAVE);
         post("/api/online/usingMeteor", ApiController.HANDLE_USING_METEOR);
