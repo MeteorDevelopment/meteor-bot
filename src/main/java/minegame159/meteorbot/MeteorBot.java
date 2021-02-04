@@ -30,9 +30,8 @@ public class MeteorBot extends ListenerAdapter {
 
     public static JDA JDA;
     public static Guild GUILD;
-    public static Role MOD_ROLE, HELPER_ROLE;
+    public static Role MOD_ROLE, HELPER_ROLE, DONATOR_ROLE;
     public static User MINEGAME, SQUID, SEASNAIL;
-
 
     public static boolean PROCESS_DISCORD_EVENTS = true;
 
@@ -61,11 +60,12 @@ public class MeteorBot extends ListenerAdapter {
         event.getJDA().getPresence().setActivity(Activity.playing("Meteor on Crack!"));
 
         GUILD = JDA.getGuildById(689197705683140636L);
+        MOD_ROLE = GUILD.getRoleById(689197893340758022L);
+        HELPER_ROLE = GUILD.getRoleById(799392357157830657L);
+        DONATOR_ROLE = GUILD.getRoleById(689205464574984353L);
         try { MINEGAME = GUILD.retrieveMemberById(205708530408357898L).complete().getUser(); } catch (Exception ignored) {}
         try { SQUID = GUILD.retrieveMemberById(322777907078627328L).complete().getUser(); } catch (Exception ignored) {}
         try { SEASNAIL = GUILD.retrieveMemberById(736954747122352208L).complete().getUser(); } catch (Exception ignored) {}
-        MOD_ROLE = GUILD.getRoleById(689197893340758022L);
-        HELPER_ROLE = GUILD.getRoleById(799392357157830657L);
 
         Tickets.init();
 

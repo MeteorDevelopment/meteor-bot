@@ -3,6 +3,7 @@ package minegame159.meteorbot.database;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.ReplaceOptions;
+import com.mongodb.client.model.UpdateOptions;
 import net.dv8tion.jda.api.entities.ISnowflake;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -25,10 +26,13 @@ public class DbCollection<T extends ISerializable> {
         collection.insertOne(obj.serialize());
     }
 
-    public T get(String id) {
-        Document document = collection.find(eq("id", id)).first();
+    public T get(Bson filter) {
+        Document document = collection.find(filter).first();
         if (document == null) return null;
         return factory.apply(document);
+    }
+    public T get(String id) {
+        return get(eq("id", id));
     }
     public T get(ISnowflake id) {
         return get(id.getId());
