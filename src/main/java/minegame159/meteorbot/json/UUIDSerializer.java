@@ -1,6 +1,7 @@
 package minegame159.meteorbot.json;
 
 import com.google.gson.*;
+import minegame159.meteorbot.utils.Utils;
 
 import java.lang.reflect.Type;
 import java.util.UUID;
@@ -13,6 +14,6 @@ public class UUIDSerializer implements JsonSerializer<UUID>, JsonDeserializer<UU
 
     @Override
     public UUID deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return UUID.fromString(json.getAsString());
+        return Utils.getUuid(json.getAsString());
     }
 }

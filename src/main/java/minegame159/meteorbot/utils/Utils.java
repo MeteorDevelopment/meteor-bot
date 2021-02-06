@@ -32,6 +32,19 @@ import static com.mongodb.client.model.Updates.inc;
 
 public class Utils {
     private static final Color EMBED_COLOR = new Color(204, 0, 0);
+    private static final Pattern pattern = Pattern.compile("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})");
+
+    public static UUID getUuid(String string) throws IllegalArgumentException {
+        try {
+            return UUID.fromString(string);
+        } catch (IllegalArgumentException ignored) {
+            try {
+                return UUID.fromString(pattern.matcher(string).replaceAll("$1-$2-$3-$4-$5"));
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e.getMessage(), e.getCause());
+            }
+        }
+    }
 
     public static void copyStream(InputStream in, OutputStream out) {
         try {

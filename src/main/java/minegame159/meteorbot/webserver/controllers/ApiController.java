@@ -80,7 +80,7 @@ public class ApiController {
         PLAYING.put(ip, System.currentTimeMillis());
 
         try {
-            if (uuid != null) UUIDS.put(ip, UUID.fromString(uuid));
+            if (uuid != null) UUIDS.put(ip, Utils.getUuid(uuid));
             else LOG.warn("Received ping without UUID");
         } catch (IllegalArgumentException ignored) {
             LOG.warn("Received ping with invalid UUID '{}'", uuid);
