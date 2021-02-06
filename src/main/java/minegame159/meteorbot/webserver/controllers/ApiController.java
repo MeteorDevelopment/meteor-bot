@@ -81,7 +81,6 @@ public class ApiController {
 
         try {
             if (uuid != null) UUIDS.put(ip, Utils.getUuid(uuid));
-            else LOG.warn("Received ping without UUID");
         } catch (IllegalArgumentException ignored) {
             LOG.warn("Received ping with invalid UUID '{}'", uuid);
         }
