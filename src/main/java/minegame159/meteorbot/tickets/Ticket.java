@@ -20,10 +20,6 @@ public class Ticket {
                     "You need to put [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) into your mods folder."
             ),
             new Problem(
-                    "Cannot open GUI but it shows in main menu.",
-                    "You need to use Java 11 or lower."
-            ),
-            new Problem(
                     "Is there a 1.12.2 or forge version?",
                     "No and there never will be. You can use [Multiconnect](https://www.curseforge.com/minecraft/mc-mods/multiconnect) to connect to 1.12.2 servers."
             ),
