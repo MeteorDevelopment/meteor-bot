@@ -63,6 +63,8 @@ public class ApiController {
     public static Route HANDLE_STATS = (request, response) -> {
         JsonObject o = new JsonObject();
 
+        o.addProperty("version", Config.VERSION);
+        o.addProperty("mcVersion", Config.MC_VERSION);
         o.addProperty("downloads", MainController.DOWNLOADS);
         o.addProperty("onlinePlayers", PLAYING.size());
         o.addProperty("onlineUuids", UUIDS.size());
