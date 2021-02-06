@@ -18,7 +18,7 @@ import java.io.OutputStream;
 import static com.mongodb.client.model.Updates.inc;
 
 public class MainController {
-    private static int DOWNLOADS;
+    public static int DOWNLOADS;
     private static int updateDownloadsChannelCounter = 0;
 
     public static void init() {

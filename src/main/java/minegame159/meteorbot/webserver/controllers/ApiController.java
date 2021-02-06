@@ -2,6 +2,7 @@ package minegame159.meteorbot.webserver.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.model.Filters;
 import minegame159.meteorbot.Config;
@@ -11,6 +12,8 @@ import minegame159.meteorbot.database.documents.Account;
 import minegame159.meteorbot.json.UUIDSerializer;
 import minegame159.meteorbot.utils.Utils;
 import org.bson.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spark.Route;
 
 import java.lang.reflect.Type;
@@ -22,6 +25,8 @@ import java.util.UUID;
 import static spark.Spark.halt;
 
 public class ApiController {
+    private static final Logger LOG = LoggerFactory.getLogger("API");
+
     private static String CAPE_OWNERS;
     private static String CAPES;
 
@@ -55,6 +60,17 @@ public class ApiController {
         return "Process discord events set to " + MeteorBot.PROCESS_DISCORD_EVENTS;
     };
 
+    public static Route HANDLE_STATS = (request, response) -> {
+        JsonObject o = new JsonObject();
+
+        o.addProperty("downloads", MainController.DOWNLOADS);
+        o.addProperty("onlinePlayers", PLAYING.size());
+        o.addProperty("onlineUuids", UUIDS.size());
+
+        response.type("application/json");
+        return GSON.toJson(o);
+    };
+
     public static Route HANDLE_ONLINE_PING = (request, response) -> {
         String ip = Utils.getIp(request);
         String uuid = request.queryParams("uuid");
@@ -63,7 +79,10 @@ public class ApiController {
 
         try {
             if (uuid != null) UUIDS.put(ip, UUID.fromString(uuid));
-        } catch (IllegalArgumentException ignored) {}
+            else LOG.warn("Received ping without UUID");
+        } catch (IllegalArgumentException ignored) {
+            LOG.warn("Received ping with invalid UUID");
+        }
 
         return "";
     };
