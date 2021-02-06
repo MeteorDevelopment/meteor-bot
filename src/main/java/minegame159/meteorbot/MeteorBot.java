@@ -63,9 +63,9 @@ public class MeteorBot extends ListenerAdapter {
         MOD_ROLE = GUILD.getRoleById(689197893340758022L);
         HELPER_ROLE = GUILD.getRoleById(799392357157830657L);
         DONATOR_ROLE = GUILD.getRoleById(689205464574984353L);
-        try { MINEGAME = GUILD.retrieveMemberById(205708530408357898L).complete().getUser(); } catch (Exception ignored) {}
-        try { SQUID = GUILD.retrieveMemberById(322777907078627328L).complete().getUser(); } catch (Exception ignored) {}
-        try { SEASNAIL = GUILD.retrieveMemberById(736954747122352208L).complete().getUser(); } catch (Exception ignored) {}
+        MINEGAME = JDA.retrieveUserById(205708530408357898L).complete();
+        SQUID = JDA.retrieveUserById(322777907078627328L).complete();
+        SEASNAIL = JDA.retrieveUserById(736954747122352208L).complete();
 
         Tickets.init();
 
