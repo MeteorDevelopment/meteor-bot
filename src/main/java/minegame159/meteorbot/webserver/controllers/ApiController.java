@@ -9,6 +9,7 @@ import minegame159.meteorbot.Config;
 import minegame159.meteorbot.MeteorBot;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.Account;
+import minegame159.meteorbot.database.documents.Stats;
 import minegame159.meteorbot.json.UUIDSerializer;
 import minegame159.meteorbot.utils.Utils;
 import org.bson.Document;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static com.mongodb.client.model.Updates.set;
 import static spark.Spark.halt;
 
 public class ApiController {
@@ -57,7 +59,22 @@ public class ApiController {
 
         MeteorBot.PROCESS_DISCORD_EVENTS = !MeteorBot.PROCESS_DISCORD_EVENTS;
         MeteorBot.LOG.info("Process discord events set to " + MeteorBot.PROCESS_DISCORD_EVENTS);
+
         return "Process discord events set to " + MeteorBot.PROCESS_DISCORD_EVENTS;
+    };
+
+    public static Route HANDLE_SET_DEV_BUILD = (request, response) -> {
+        String token = request.queryParams("token");
+        if (token == null || !token.equals(Config.SERVER_TOKEN)) halt(401);
+
+        String devBuild = request.queryParams("devBuild");
+        if (devBuild != null) {
+            MainController.DEV_BUILD = devBuild;
+
+            Db.GLOBAL.update(Stats.ID, set("devBuild", devBuild));
+        }
+
+        return "";
     };
 
     public static Route HANDLE_STATS = (request, response) -> {
@@ -65,6 +82,7 @@ public class ApiController {
 
         o.addProperty("version", Config.VERSION);
         o.addProperty("mcVersion", Config.MC_VERSION);
+        o.addProperty("devBuild", MainController.DEV_BUILD);
         o.addProperty("downloads", MainController.DOWNLOADS);
         o.addProperty("onlinePlayers", PLAYING.size());
         o.addProperty("onlineUuids", UUIDS.size());

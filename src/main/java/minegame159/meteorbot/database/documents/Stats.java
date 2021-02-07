@@ -11,10 +11,13 @@ public class Stats implements ISerializable {
 
     public long supportMessage;
 
+    public String devBuild;
+
     public Stats(Document document) {
         downloads = document.getInteger("downloads", 0);
         totalAccounts = document.getInteger("totalAccounts", 0);
         supportMessage = document.get("supportMessage", 0L);
+        devBuild = document.get("devBuild", "");
     }
 
     @Override
@@ -23,7 +26,8 @@ public class Stats implements ISerializable {
                 .append("id", ID)
                 .append("downloads", downloads)
                 .append("totalAccounts", totalAccounts)
-                .append("supportMessage", supportMessage);
+                .append("supportMessage", supportMessage)
+                .append("devBuild", devBuild);
     }
 
     @Override

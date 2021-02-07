@@ -19,10 +19,15 @@ import static com.mongodb.client.model.Updates.inc;
 
 public class MainController {
     public static int DOWNLOADS;
+    public static String DEV_BUILD;
+
     private static int updateDownloadsChannelCounter = 0;
 
     public static void init() {
-        DOWNLOADS = Db.GLOBAL.get(Stats.class, Stats.ID).downloads;
+        Stats stats = Db.GLOBAL.get(Stats.class, Stats.ID);
+
+        DOWNLOADS = stats.downloads;
+        DEV_BUILD = stats.devBuild;
     }
 
     public static Route SERVE_INDEX = (request, response) -> {

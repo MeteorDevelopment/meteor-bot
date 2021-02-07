@@ -86,6 +86,7 @@ public class WebServer {
         get("/api/capeowners", ApiController.HANDLE_CAPE_OWNERS);
         get("/api/capes", ApiController.HANDLE_CAPES);
         get("/api/togglediscord", ApiController.HANDLE_TOGGLE_DISCORD);
+        post("/api/setDevBuild", ApiController.HANDLE_SET_DEV_BUILD);
         get("/api/stats", ApiController.HANDLE_STATS);
         get("/api/online/ping", ApiController.HANDLE_ONLINE_PING); // TODO: Remove later
         post("/api/online/ping", ApiController.HANDLE_ONLINE_PING);
