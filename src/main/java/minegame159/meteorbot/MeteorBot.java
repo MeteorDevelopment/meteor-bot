@@ -33,7 +33,11 @@ public class MeteorBot extends ListenerAdapter {
     public static Role MOD_ROLE, HELPER_ROLE, DONATOR_ROLE;
     public static User MINEGAME, SQUID, SEASNAIL;
 
+    public static Emote UWUCAT;
+
     public static boolean PROCESS_DISCORD_EVENTS = true;
+
+    private static final String[] HELLOS = { "Hi", "Hello", "Helo", "Hewo", "Hewwo" };
 
     public static void main(String[] args) {
         try {
@@ -67,6 +71,8 @@ public class MeteorBot extends ListenerAdapter {
         SQUID = JDA.retrieveUserById(322777907078627328L).complete();
         SEASNAIL = JDA.retrieveUserById(736954747122352208L).complete();
 
+        UWUCAT = GUILD.retrieveEmoteById(806473609526509578L).complete();
+
         Tickets.init();
 
         LOG.info("Meteor Bot started");
@@ -81,6 +87,8 @@ public class MeteorBot extends ListenerAdapter {
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         if (!PROCESS_DISCORD_EVENTS) return;
         if (event.getAuthor().isBot() || !event.isFromType(ChannelType.TEXT)) return;
+
+        if (helloMessage(event)) return;
 
         Commands.onMessage(event);
         Tickets.onMessage(event);
@@ -102,5 +110,21 @@ public class MeteorBot extends ListenerAdapter {
     public void onGuildMemberRemove(@Nonnull GuildMemberRemoveEvent event) {
         if (!PROCESS_DISCORD_EVENTS) return;
         Utils.updateMemberCount(event.getGuild(), false);
+    }
+
+    private boolean helloMessage(MessageReceivedEvent event) {
+        String msg = event.getMessage().getContentRaw();
+        if (!msg.startsWith("<@!742092137218179172> ")) return false;
+
+        String rest = msg.substring(23);
+
+        for (String hello : HELLOS) {
+            if (rest.equalsIgnoreCase(hello)) {
+                event.getChannel().sendMessage(hello + " " + event.getAuthor().getAsMention() + " " + UWUCAT.getAsMention()).queue();
+                return true;
+            }
+        }
+
+        return false;
     }
 }
