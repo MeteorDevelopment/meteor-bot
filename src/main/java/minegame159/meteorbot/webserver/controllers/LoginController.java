@@ -182,6 +182,8 @@ public class LoginController {
         }
 
         Attribs.ID.remove(request);
+
+        response.type("text/plain");
         return "";
     };
 

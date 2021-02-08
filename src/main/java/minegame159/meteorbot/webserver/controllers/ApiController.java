@@ -74,6 +74,7 @@ public class ApiController {
             Db.GLOBAL.update(Stats.ID, set("devBuild", devBuild));
         }
 
+        response.type("text/plain");
         return "";
     };
 
@@ -103,6 +104,7 @@ public class ApiController {
             LOG.warn("Received ping with invalid UUID '{}'", uuid);
         }
 
+        response.type("text/plain");
         return "";
     };
 
@@ -111,6 +113,7 @@ public class ApiController {
         PLAYING.remove(ip);
         UUIDS.remove(ip);
 
+        response.type("text/plain");
         return "";
     };
 

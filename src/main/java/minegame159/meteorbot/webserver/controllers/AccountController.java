@@ -67,7 +67,10 @@ public class AccountController {
     public static Route HANDLE_SELECT_CAPE = (request, response) -> {
         String capeName = request.queryParams("cape");
 
-        if (capeName == null) return "";
+        if (capeName == null) {
+            response.type("text/plain");
+            return "";
+        }
 
         if (!LoginController.isLoggedIn(request)) {
             response.status(401);
@@ -93,6 +96,7 @@ public class AccountController {
             }
         }
 
+        response.type("text/plain");
         return "";
     };
 
@@ -327,6 +331,7 @@ public class AccountController {
         account.discordId = "";
         Db.ACCOUNTS.update(account);
 
+        response.type("text/plain");
         return "";
     };
 
@@ -361,6 +366,7 @@ public class AccountController {
             Db.ACCOUNTS.update(account);
         }
 
+        response.type("text/plain");
         return "";
     };
 

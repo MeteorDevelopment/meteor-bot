@@ -82,16 +82,21 @@ public class WebServer {
         get("/capes/:name", CapesController.SERVE_CAPES);
         post("/capes/uploadCustom", CapesController.HANDLE_UPLOAD_CUSTOM);
 
-        get("/api/version", ApiController.HANDLE_VERSION);
-        get("/api/capeowners", ApiController.HANDLE_CAPE_OWNERS);
-        get("/api/capes", ApiController.HANDLE_CAPES);
-        get("/api/togglediscord", ApiController.HANDLE_TOGGLE_DISCORD);
-        post("/api/setDevBuild", ApiController.HANDLE_SET_DEV_BUILD);
-        get("/api/stats", ApiController.HANDLE_STATS);
-        get("/api/online/ping", ApiController.HANDLE_ONLINE_PING); // TODO: Remove later
-        post("/api/online/ping", ApiController.HANDLE_ONLINE_PING);
-        post("/api/online/leave", ApiController.HANDLE_ONLINE_LEAVE);
-        post("/api/online/usingMeteor", ApiController.HANDLE_USING_METEOR);
+        path("/api", () -> {
+            get("/version", ApiController.HANDLE_VERSION);
+            get("/capeowners", ApiController.HANDLE_CAPE_OWNERS);
+            get("/capes", ApiController.HANDLE_CAPES);
+            get("/togglediscord", ApiController.HANDLE_TOGGLE_DISCORD);
+            post("/setDevBuild", ApiController.HANDLE_SET_DEV_BUILD);
+            get("/stats", ApiController.HANDLE_STATS);
+
+            path("/online", () -> {
+                get("/ping", ApiController.HANDLE_ONLINE_PING); // TODO: Remove later
+                post("/ping", ApiController.HANDLE_ONLINE_PING);
+                post("/leave", ApiController.HANDLE_ONLINE_LEAVE);
+                post("/usingMeteor", ApiController.HANDLE_USING_METEOR);
+            });
+        });
     }
 
     public static String render(VelocityContext context, String template) {
