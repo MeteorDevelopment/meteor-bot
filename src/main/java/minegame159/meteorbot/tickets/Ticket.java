@@ -28,8 +28,8 @@ public class Ticket {
                     "OptiFine is a Forge mod. There is a Fabric wrapper for it but it does not work well with other Fabric mods. Here are [OptiFine alternatives](https://gist.github.com/LambdAurora/1f6a4a99af374ce500f250c6b42e8754) for Fabric."
             ),
             new Problem(
-                    "Where is mount bypass dupe?",
-                    "For mount bypass dupe to work the servers needs a very old version of illegalstacks plugin that almost no servers use. The code for it is still in the client, it's just not enabled."
+                    "Where is the mount bypass dupe?",
+                    "For the mount bypass dupe to work the servers needs a very old version of illegalstacks plugin that almost no servers use. The code for it is available in this addon (https://github.com/MeteorDevelopment/meteor-mbd-addon)"
             ),
             new Problem(
                     "Does this client have New Chunks?",
@@ -38,6 +38,10 @@ public class Ticket {
             new Problem(
                     "How do I download this client?",
                     "Follow the guide on the [Meteor FAQ](https://meteorclient.com/info)."
+            ),
+            new Problem(
+                    "Where is the Book Dupe/Player Rollback Dupe?",
+                    "The Player Rollback dupe is **PATCHED** on any server that isn't vanilla. If you still want to try it, then download the latest dev build and download the appropriate addon \n[BookDupe](https://github.com/MeteorDevelopment/meteor-book-dupe-addon/releases/latest)"
             )
     };
 
