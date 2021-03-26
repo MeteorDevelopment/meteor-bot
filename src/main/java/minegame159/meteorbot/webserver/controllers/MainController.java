@@ -7,7 +7,6 @@ import minegame159.meteorbot.database.documents.DailyStats;
 import minegame159.meteorbot.database.documents.Stats;
 import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.webserver.WebServer;
-import minegame159.meteorbot.webserver.WebsiteVisits;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import org.apache.velocity.VelocityContext;
 import spark.Route;
@@ -42,7 +41,6 @@ public class MainController {
         if (MeteorBot.SQUID != null) context.put("squid", MeteorBot.SQUID.getAvatarUrl());
         if (MeteorBot.SEASNAIL != null)context.put("seasnail", MeteorBot.SEASNAIL.getAvatarUrl());
 
-        WebsiteVisits.increment(request);
         return WebServer.render(context, "views/index.html");
     };
 
@@ -53,7 +51,6 @@ public class MainController {
         context.put("mcVersion", Config.MC_VERSION);
         context.put("changelog", Config.CHANGELOG);
 
-        WebsiteVisits.increment(request);
         return WebServer.render(context, "views/info.html");
     };
 

@@ -9,6 +9,7 @@ import minegame159.meteorbot.Config;
 import minegame159.meteorbot.MeteorBot;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.Account;
+import minegame159.meteorbot.database.documents.DailyStats;
 import minegame159.meteorbot.database.documents.Stats;
 import minegame159.meteorbot.json.UUIDSerializer;
 import minegame159.meteorbot.utils.Utils;
@@ -79,6 +80,23 @@ public class ApiController {
     };
 
     public static Route HANDLE_STATS = (request, response) -> {
+        String date = request.queryParams("date");
+
+        response.type("application/json");
+
+        if (date != null) {
+            // Daily stats
+            DailyStats stats = Db.DAILY_STATS.get(date);
+
+            if (stats == null) {
+                response.status(404);
+                return "{\"error\":\"Invalid date.\"}";
+            }
+
+            return GSON.toJson(stats);
+        }
+
+        // Global stats
         JsonObject o = new JsonObject();
 
         o.addProperty("version", Config.VERSION);
@@ -88,7 +106,6 @@ public class ApiController {
         o.addProperty("onlinePlayers", PLAYING.size());
         o.addProperty("onlineUuids", UUIDS.size());
 
-        response.type("application/json");
         return GSON.toJson(o);
     };
 

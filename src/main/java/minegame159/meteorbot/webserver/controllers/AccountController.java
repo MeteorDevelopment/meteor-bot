@@ -60,7 +60,6 @@ public class AccountController {
 
         context.put("capes", capes);
 
-        WebsiteVisits.increment(request);
         return WebServer.render(context, "views/account.html");
     });
 

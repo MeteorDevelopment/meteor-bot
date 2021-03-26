@@ -7,14 +7,12 @@ public class DailyStats implements ISerializable {
     public String date;
     public int joins, leaves;
     public int downloads;
-    public int websiteVisits;
 
     public DailyStats(Document document) {
         date = document.getString("id");
         joins = document.getInteger("joins", 0);
         leaves = document.getInteger("leaves", 0);
         downloads = document.getInteger("downloads", 0);
-        websiteVisits = document.getInteger("websiteVisits", 0);
     }
 
     public DailyStats(String date, int joins, int leaves) {
@@ -22,7 +20,6 @@ public class DailyStats implements ISerializable {
         this.joins = joins;
         this.leaves = leaves;
         this.downloads = 0;
-        this.websiteVisits = 0;
     }
 
     public int getTotalJoins() {
@@ -35,8 +32,7 @@ public class DailyStats implements ISerializable {
                 .append("id", date)
                 .append("joins", joins)
                 .append("leaves", leaves)
-                .append("downloads", downloads)
-                .append("websiteVisits", websiteVisits);
+                .append("downloads", downloads);
     }
 
     @Override

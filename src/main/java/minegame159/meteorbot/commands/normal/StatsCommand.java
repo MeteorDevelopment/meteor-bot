@@ -2,16 +2,15 @@ package minegame159.meteorbot.commands.normal;
 
 import minegame159.meteorbot.commands.Category;
 import minegame159.meteorbot.commands.Command;
-import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.database.documents.DailyStats;
-import minegame159.meteorbot.webserver.WebsiteVisits;
+import minegame159.meteorbot.utils.Utils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.regex.Pattern;
 
 public class StatsCommand extends Command {
-    private static final Pattern DATE_PATTERN = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+    private static final Pattern DATE_PATTERN = Pattern.compile("[0-9]{2}-[0-9]{2}-[0-9]{4}");
 
     public StatsCommand() {
         super(Category.Normal, "Displays today's or specified day's joins and leaves.", "stats");
@@ -36,8 +35,7 @@ public class StatsCommand extends Command {
                 "\n**Total**: " + dailyStats.getTotalJoins() +
                 "\n**Joins**: " + dailyStats.joins +
                 "\n**Leaves**: " + dailyStats.leaves +
-                "\n**Downloads**: " + dailyStats.downloads +
-                "\n**Website Visits:** " + WebsiteVisits.get()
+                "\n**Downloads**: " + dailyStats.downloads
         ).build()).queue();
     }
 }

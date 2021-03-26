@@ -3,7 +3,6 @@ package minegame159.meteorbot;
 import minegame159.meteorbot.commands.Commands;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.tickets.Tickets;
-import minegame159.meteorbot.utils.Audio;
 import minegame159.meteorbot.utils.Utils;
 import minegame159.meteorbot.webserver.WebServer;
 import net.dv8tion.jda.api.JDA;
@@ -43,7 +42,6 @@ public class MeteorBot extends ListenerAdapter {
         try {
             Config.init();
             Db.init();
-            Audio.init();
             Commands.init();
             WebServer.init();
 

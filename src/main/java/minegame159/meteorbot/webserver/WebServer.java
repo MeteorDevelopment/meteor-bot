@@ -38,13 +38,11 @@ public class WebServer {
 
         Velocity.init(velocityProperties);
         Mail.init();
-        WebsiteVisits.fetch();
 
         port(80);
 
         before((request, response) -> {
             LoginController.onRequest();
-            WebsiteVisits.update();
         });
 
         get("/", MainController.SERVE_INDEX);
@@ -106,8 +104,6 @@ public class WebServer {
     }
 
     public static void close() {
-        WebsiteVisits.save();
-
         stop();
         awaitStop();
     }
