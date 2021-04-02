@@ -127,7 +127,7 @@ public class Utils {
         return null;
     }
 
-    public static String getMcUuid(String username) {
+    public static UUID getMcUuid(String username) {
         HttpResponse<JsonNode> response = Unirest
                 .post("https://api.mojang.com/profiles/minecraft")
                 .header("Content-Type", "application/json")
@@ -135,7 +135,7 @@ public class Utils {
                 .asJson();
 
         try {
-            return response.getBody().getArray().getJSONObject(0).getString("id");
+            return getUuid(response.getBody().getArray().getJSONObject(0).getString("id"));
         } catch (Exception ignored) {
             return null;
         }

@@ -3,6 +3,8 @@ package minegame159.meteorbot.utils;
 import kong.unirest.Unirest;
 import minegame159.meteorbot.Config;
 
+import java.util.UUID;
+
 public class PvpServer {
     public static void giveDonator(String uuid) {
         Unirest.post("http://pvp.meteorclient.com:8115/adddonator")
@@ -18,10 +20,10 @@ public class PvpServer {
                 .asEmpty();
     }
 
-    public static void toggleDonator(String uuid) {
+    public static void toggleDonator(UUID uuid) {
         Unirest.post("http://pvp.meteorclient.com:8115/toggledonator")
                 .queryString("token", Config.PVP_SERVER_TOKEN)
-                .queryString("uuid", Utils.newUUID(uuid))
+                .queryString("uuid", uuid)
                 .asEmpty();
     }
 }

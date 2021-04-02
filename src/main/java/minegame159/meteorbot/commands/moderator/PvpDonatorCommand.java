@@ -6,6 +6,8 @@ import minegame159.meteorbot.utils.PvpServer;
 import minegame159.meteorbot.utils.Utils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.util.UUID;
+
 public class PvpDonatorCommand extends Command {
     public PvpDonatorCommand() {
         super(Category.Moderator, "Toggles donator status for specified username on pvp server.", "pvpdonator");
@@ -23,7 +25,7 @@ public class PvpDonatorCommand extends Command {
             return;
         }
 
-        String uuid = Utils.getMcUuid(username);
+        UUID uuid = Utils.getMcUuid(username);
         if (uuid == null) {
             event.getChannel().sendMessage(Utils.embed("The username you entered was wrong.").build()).queue();
             return;

@@ -16,10 +16,7 @@ import net.dv8tion.jda.api.entities.User;
 import org.apache.velocity.VelocityContext;
 import spark.Route;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AccountController {
     public static final Map<String, ChangeEmail> CHANGE_EMAIL_TOKENS = new HashMap<>();
@@ -339,10 +336,10 @@ public class AccountController {
         String username = request.queryParams("username");
 
         if (account.mcAccounts.size() < account.maxMcAccounts && username != null && !username.isEmpty()) {
-            String uuid = Utils.getMcUuid(username);
+            UUID uuid = Utils.getMcUuid(username);
 
             if (uuid != null) {
-                account.mcAccounts.add(uuid);
+                account.mcAccounts.add(uuid.toString());
                 Db.ACCOUNTS.update(account);
             }
         }
