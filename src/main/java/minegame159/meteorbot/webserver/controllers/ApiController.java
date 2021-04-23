@@ -116,7 +116,8 @@ public class ApiController {
         PLAYING.put(ip, System.currentTimeMillis());
 
         try {
-            if (uuid != null) UUIDS.put(ip, Utils.getUuid(uuid));
+            if (uuid == null) UUIDS.remove(ip);
+            else UUIDS.put(ip, Utils.getUuid(uuid));
         } catch (IllegalArgumentException ignored) {
             LOG.warn("Received ping with invalid UUID '{}'", uuid);
         }
