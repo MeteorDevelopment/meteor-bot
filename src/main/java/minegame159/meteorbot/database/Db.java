@@ -24,7 +24,7 @@ public class Db {
 
         DAILY_STATS = new DbCollection<>("join-stats", DailyStats::new);
         CAPES = new DbCollection<>("capes", Cape::new);
-        ACCOUNTS = new DbCollection<>("accounts", Account::new);
+        ACCOUNTS = new DbCollection<>("accounts-old", Account::new);
         TICKETS = new DbCollection<>("tickets", DbTicket::new);
         GLOBAL = new DbMultiCollection("global");
 
