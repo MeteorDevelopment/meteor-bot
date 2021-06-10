@@ -34,7 +34,7 @@ public class ApiController {
     private static String CAPES;
 
     private static final Map<String, Long> PLAYING = new HashMap<>();
-    private static final Map<String, UUID> UUIDS = new HashMap<>();
+    //private static final Map<String, UUID> UUIDS = new HashMap<>();
 
     private static final Type UUID_LIST_TYPE = new TypeToken<List<UUID>>() {}.getType();
 
@@ -104,23 +104,23 @@ public class ApiController {
         o.addProperty("devBuild", MainController.DEV_BUILD);
         o.addProperty("downloads", MainController.DOWNLOADS);
         o.addProperty("onlinePlayers", PLAYING.size());
-        o.addProperty("onlineUuids", UUIDS.size());
+        //o.addProperty("onlineUuids", UUIDS.size());
 
         return GSON.toJson(o);
     };
 
     public static Route HANDLE_ONLINE_PING = (request, response) -> {
         String ip = Utils.getIp(request);
-        String uuid = request.queryParams("uuid");
+        //String uuid = request.queryParams("uuid");
 
         PLAYING.put(ip, System.currentTimeMillis());
 
-        try {
+        /*try {
             if (uuid == null) UUIDS.remove(ip);
             else UUIDS.put(ip, Utils.getUuid(uuid));
         } catch (IllegalArgumentException ignored) {
             LOG.warn("Received ping with invalid UUID '{}'", uuid);
-        }
+        }*/
 
         response.type("text/plain");
         return "";
@@ -129,14 +129,14 @@ public class ApiController {
     public static Route HANDLE_ONLINE_LEAVE = (request, response) -> {
         String ip = Utils.getIp(request);
         PLAYING.remove(ip);
-        UUIDS.remove(ip);
+        //UUIDS.remove(ip);
 
         response.type("text/plain");
         return "";
     };
 
     public static Route HANDLE_USING_METEOR = (request, response) -> {
-        List<UUID> reqUuids;
+        /*List<UUID> reqUuids;
         try {
             reqUuids = GSON.fromJson(request.body(), UUID_LIST_TYPE);
         } catch (Exception ignored) {
@@ -158,7 +158,10 @@ public class ApiController {
         }
 
         response.type("application/json");
-        return GSON.toJson(resUuids);
+        return GSON.toJson(resUuids);*/
+
+        response.type("application/json");
+        return "{}";
     };
 
     public static int getOnlinePlayers() {
@@ -170,7 +173,7 @@ public class ApiController {
 
         PLAYING.keySet().removeIf(s -> {
             if (time - PLAYING.get(s) > 6 * 60 * 1000) {
-                UUIDS.remove(s);
+                //UUIDS.remove(s);
                 return true;
             }
 
