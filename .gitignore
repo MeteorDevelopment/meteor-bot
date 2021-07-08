@@ -1,10 +1,5 @@
 .gradle
 .idea
 build
-
-capes
-
 private-config.properties
-gmail_credentials.json
-tokens
 .DS_Store

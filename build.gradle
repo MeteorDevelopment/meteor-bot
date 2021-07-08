@@ -1,32 +1,29 @@
 plugins {
     id 'java'
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '6.0.0'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
-group 'minegame159.meteorbot'
-version '0.1.0'
+group 'meteordevelopment.meteorbot'
+version '0.2'
 mainClassName = group + '.MeteorBot'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_16
 
 repositories {
     mavenCentral()
-    jcenter()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
 }
 
 dependencies {
-    implementation 'net.dv8tion:JDA:4.2.0_168'
-    implementation 'ch.qos.logback:logback-classic:1.2.3'
-    implementation 'org.mongodb:mongodb-driver-sync:4.1.0-beta2'
-    implementation 'com.konghq:unirest-java:3.11.02'
+    implementation 'net.dv8tion:JDA:4.3.0_277'
+    implementation 'org.mongodb:mongodb-driver-sync:4.3.0-beta4'
+    implementation 'com.konghq:unirest-java:3.11.09'
     implementation 'org.reflections:reflections:0.9.12'
     implementation 'com.sparkjava:spark-core:2.9.3'
-    implementation 'com.sparkjava:spark-template-velocity:2.7.1'
-    implementation 'at.favre.lib:bcrypt:0.9.0'
-    implementation 'org.lucee:javamail:1.6.2'
-    implementation 'com.sun.activation:javax.activation:1.2.0'
 }
 
 compileJava.options.encoding = "UTF-8"
