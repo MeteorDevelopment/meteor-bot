@@ -30,7 +30,7 @@ public class RouletteCommand extends Command {
                 .build()
             ).mentionRepliedUser(false).queue();
 
-            member.ban(25, "Ban rouletted").queue();
+            member.ban(0, "Ban rouletted").queue();
         } else {
             event.getMessage().reply(new EmbedBuilder()
                 .setAuthor(String.format("%s#%s survived a roulette!", member.getUser().getName(), member.getUser().getDiscriminator()), null, member.getUser().getEffectiveAvatarUrl())
@@ -57,7 +57,7 @@ public class RouletteCommand extends Command {
                 .build()
             ).mentionRepliedUser(false).queue();
 
-            member.ban(25, "Ban rouletted").queue();
+            member.ban(0, "Ban rouletted").queue();
         } else {
             event.replyEmbeds(new EmbedBuilder()
                 .setAuthor(String.format("%s#%s survived a roulette!", member.getUser().getName(), member.getUser().getDiscriminator()), null, member.getUser().getEffectiveAvatarUrl())
