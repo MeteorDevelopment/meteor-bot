@@ -17,14 +17,16 @@ public class Config {
             in.close();
 
             DISCORD_TOKEN = properties.getProperty("discordToken");
-            MPVP_TOKEN = properties.getProperty("mcToken");
+            MPVP_TOKEN = properties.getProperty("mpvpToken");
             MONGO_URL = properties.getProperty("mongoUrl");
-            VERSION = properties.getProperty("version");
+            VERSION = properties.getProperty("meteorVersion");
             MC_VERSION = properties.getProperty("mcVersion");
 
             MeteorBot.LOG.info("Loaded config");
         } catch (IOException e) {
+            MeteorBot.LOG.info("Failed to load config");
             e.printStackTrace();
+            System.exit(0);
         }
     }
 }

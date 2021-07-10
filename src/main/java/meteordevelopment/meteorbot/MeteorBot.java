@@ -9,10 +9,9 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageUpdateEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -27,8 +26,11 @@ import java.util.Random;
 import java.util.regex.Pattern;
 
 public class MeteorBot extends ListenerAdapter {
+    private static final String[] HELLOS = {"Hi", "Hello", "Helo", "Hewo", "Hewwo", "Hai", "Ello", "Hey"};
+
     public static final Logger LOG = JDALogger.getLog("MeteorBot");
-    private static final String[] HELLOS = {"Hi", "Hello", "Helo", "Hewo", "Hewwo", "Hai", "Ello"};
+
+    // Discord stuff
     public static JDA CORE;
     public static Guild GUILD;
     public static GuildChannel DONATOR_CHAT;
@@ -85,9 +87,9 @@ public class MeteorBot extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-        if (event.getAuthor().isBot() || !event.isFromType(ChannelType.TEXT)) return;
+        if (event.getAuthor().isBot() || event.getChannel().getType() != ChannelType.TEXT || event.getGuild() != MeteorBot.GUILD) return;
 
-        if (!Utils.isStaff(event.getMember()) && inviteFilter(event)) {
+        if (!Utils.isStaff(event.getMember()) && inviteFilter(event.getMessage().getContentRaw())) {
             event.getMessage().delete().queue();
             event.getChannel().sendMessage(event.getMessage().getMember().getAsMention() + " please don't send discord invites here :palm_tree:").queue();
             return;
@@ -96,47 +98,6 @@ public class MeteorBot extends ListenerAdapter {
         if (helloMessage(event)) return;
 
         Commands.onMessage(event);
-    }
-
-    @Override
-    public void onSlashCommand(@Nonnull SlashCommandEvent event) {
-        if (event.getUser().isBot() || event.getChannel().getType() != ChannelType.TEXT) return;
-
-        Commands.onSlashCommand(event);
-    }
-
-    @Override
-    public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent event) {
-        Tickets.onReactionAdd(event);
-    }
-
-    @Override
-    public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
-//        Utils.updateMemberCount(event.getGuild(), true);
-    }
-
-    @Override
-    public void onGuildMemberRemove(@Nonnull GuildMemberRemoveEvent event) {
-//        Utils.updateMemberCount(event.getGuild(), false);
-    }
-
-    @Override
-    public void onGuildMemberRoleAdd(@NotNull GuildMemberRoleAddEvent event) {
-        if (event.getRoles().contains(DONATOR_ROLE)) {
-            Database.addDonor(event.getUser().getId());
-        }
-    }
-
-    @Override
-    public void onGuildMemberRoleRemove(@NotNull GuildMemberRoleRemoveEvent event) {
-        if (event.getRoles().contains(DONATOR_ROLE)) {
-            Database.removeDonor(event.getUser().getId());
-        }
-    }
-
-    private boolean inviteFilter(MessageReceivedEvent event) {
-        return !event.getMessage().getContentRaw().equals("discord.gg/meteor")
-            && Pattern.compile("(https?://)?(www.)?(discord.(gg|io|me|li)|discordapp.com/invite)/[^\\s/]+?(?=\\b)").matcher(event.getMessage().getContentRaw()).find();
     }
 
     private boolean helloMessage(MessageReceivedEvent event) {
@@ -154,5 +115,41 @@ public class MeteorBot extends ListenerAdapter {
         }
 
         return false;
+    }
+
+    @Override
+    public void onMessageUpdate(@NotNull MessageUpdateEvent event) {
+        if (event.getAuthor().isBot() || event.getChannel().getType() != ChannelType.TEXT || event.getGuild() != MeteorBot.GUILD) return;
+
+        if (!Utils.isStaff(event.getMember()) && inviteFilter(event.getMessage().getContentRaw())) {
+            event.getMessage().delete().queue();
+            event.getChannel().sendMessage(event.getMessage().getMember().getAsMention() + " please don't send discord invites here :palm_tree:").queue();
+        }
+    }
+
+    private boolean inviteFilter(String content) {
+        return !content.equals("discord.gg/meteor") && Pattern.compile("(https?://)?(www.)?(discord.(gg|io|me|li)|discordapp.com/invite)/[^\\s/]+?(?=\\b)").matcher(content).find();
+    }
+
+    @Override
+    public void onSlashCommand(@Nonnull SlashCommandEvent event) {
+        if (event.getUser().isBot() || event.getChannel().getType() != ChannelType.TEXT || event.getGuild() != MeteorBot.GUILD) return;
+
+        Commands.onSlashCommand(event);
+    }
+
+    @Override
+    public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent event) {
+        Tickets.onReactionAdd(event);
+    }
+
+    @Override
+    public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
+//        Utils.updateMemberCount(event.getGuild(), true);
+    }
+
+    @Override
+    public void onGuildMemberRemove(@Nonnull GuildMemberRemoveEvent event) {
+//        Utils.updateMemberCount(event.getGuild(), false);
     }
 }

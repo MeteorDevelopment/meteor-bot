@@ -30,12 +30,14 @@ public class DonatorCommand extends Command {
         Member member = event.getMessage().getMentionedMembers().get(0);
 
         if (Utils.isDonator(member)) {
-            event.getMessage().reply("They are already a donator.").mentionRepliedUser(false).queue();
-            return;
+            event.getGuild().removeRoleFromMember(member, MeteorBot.DONATOR_ROLE).queue(unused -> Database.removeDonor(event.getMember().getId()));
         }
-
-        event.getGuild().addRoleToMember(member, MeteorBot.DONATOR_ROLE).queue(unused -> MeteorBot.GUILD.getTextChannelById(MeteorBot.DONATOR_CHAT.getId()).sendMessage(member.getAsMention() + " thanks for donating to Meteor " + MeteorBot.UWUCAT.getAsMention() + ". You can go to https://meteorclient.com and create an account, link your Discord and Minecraft accounts to get a cape (and upload your own!).").queue());
-        Database.addDonor(member.getId());
+        else {
+            event.getGuild().addRoleToMember(member, MeteorBot.DONATOR_ROLE).queue(unused -> {
+                MeteorBot.GUILD.getTextChannelById(MeteorBot.DONATOR_CHAT.getId()).sendMessage(member.getAsMention() + " thanks for donating to Meteor " + MeteorBot.UWUCAT.getAsMention() + ". You can go to https://meteorclient.com and create an account, link your Discord and Minecraft accounts to get a cape (and upload your own!).").queue();
+                Database.addDonor(event.getMember().getId());
+            });
+        }
     }
 
     @Override
@@ -56,13 +58,17 @@ public class DonatorCommand extends Command {
             return;
         }
 
-        if (!Utils.isDonator(member)) {
-            event.getGuild().addRoleToMember(member, MeteorBot.DONATOR_ROLE).queue();
-            MeteorBot.GUILD.getTextChannelById(MeteorBot.DONATOR_CHAT.getId()).sendMessage(member.getAsMention() + " thanks for donating to Meteor " + MeteorBot.UWUCAT.getAsMention() + ". You can go to https://meteorclient.com and create an account, link your Discord and Minecraft accounts to get a cape (and upload your own!).").queue();
+        if (Utils.isDonator(member)) {
+            event.getGuild().removeRoleFromMember(member, MeteorBot.DONATOR_ROLE).queue(unused -> Database.removeDonor(event.getMember().getId()));
+        }
+        else {
+            event.getGuild().addRoleToMember(member, MeteorBot.DONATOR_ROLE).queue(unused -> {
+                MeteorBot.GUILD.getTextChannelById(MeteorBot.DONATOR_CHAT.getId()).sendMessage(member.getAsMention() + " thanks for donating to Meteor " + MeteorBot.UWUCAT.getAsMention() + ". You can go to https://meteorclient.com and create an account, link your Discord and Minecraft accounts to get a cape (and upload your own!).").queue();
+                Database.addDonor(event.getMember().getId());
+            });
+
         }
 
         event.reply("done :)").mentionRepliedUser(false).setEphemeral(true).queue();
-
-        Database.addDonor(member.getId());
     }
 }

@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import kong.unirest.Unirest;
 import meteordevelopment.meteorbot.Config;
 import meteordevelopment.meteorbot.MeteorBot;
 import meteordevelopment.meteorbot.database.documents.DbDailyStats;
@@ -12,6 +13,7 @@ import meteordevelopment.meteorbot.database.documents.DbTicket;
 import org.bson.Document;
 
 import java.util.Collections;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
@@ -52,13 +54,15 @@ public class Database {
         boolean admin = account.getBoolean("admin", false);
         accounts.updateOne(eq("discord_id", discordId), set("max_mc_accounts", admin ? 5 : 1));
 
-//        List<String> mcAccounts = account.getList("mc_accounts", String.class);
-//        if (mcAccounts == null) return;
-//
-//        mcAccounts.forEach(uuid -> Unirest.post("http://pvp.meteorclient.com:8115/adddonor")
-//                .queryString("token", Config.MPVP_TOKEN)
-//                .queryString("uuid", uuid)
-//                .asEmpty());
+        List<String> mcAccounts = account.getList("mc_accounts", String.class);
+        if (mcAccounts == null || mcAccounts.isEmpty()) return;
+
+        for (String uuid : mcAccounts) {
+            Unirest.post("http://pvp.meteorclient.com:25807/adddonor")
+                .queryString("token", Config.MPVP_TOKEN)
+                .queryString("uuid", uuid)
+                .asEmpty();
+        }
     }
 
     public static void removeDonor(String discordId) {
@@ -74,12 +78,14 @@ public class Database {
 
         accounts.updateOne(eq("discord_id", discordId), set("mc_accounts", Collections.emptyList()));
 
-//        List<String> mcAccounts = account.getList("mc_accounts", String.class);
-//        if (mcAccounts == null) return;
-//
-//        mcAccounts.forEach(uuid -> Unirest.post("http://pvp.meteorclient.com:8115/removedonor")
-//                .queryString("token", Config.MPVP_TOKEN)
-//                .queryString("uuid", uuid)
-//                .asEmpty());
+        List<String> mcAccounts = account.getList("mc_accounts", String.class);
+        if (mcAccounts == null || mcAccounts.isEmpty()) return;
+
+        for (String uuid : mcAccounts) {
+            Unirest.post("http://pvp.meteorclient.com:25807/removedonor")
+                .queryString("token", Config.MPVP_TOKEN)
+                .queryString("uuid", uuid)
+                .asEmpty();
+        }
     }
 }
