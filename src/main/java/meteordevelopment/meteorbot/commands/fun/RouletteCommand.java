@@ -1,6 +1,5 @@
 package meteordevelopment.meteorbot.commands.fun;
 
-import meteordevelopment.meteorbot.MeteorBot;
 import meteordevelopment.meteorbot.Utils;
 import meteordevelopment.meteorbot.commands.Command;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -50,7 +49,6 @@ public class RouletteCommand extends Command {
         Member member = event.getMember();
 
         if (random.nextInt(10) == 0) {
-
             event.replyEmbeds(new EmbedBuilder()
                 .setAuthor(String.format("%s#%s got rouletted", member.getUser().getName(), member.getUser().getDiscriminator()), null, member.getUser().getEffectiveAvatarUrl())
                 .setColor(Utils.EMBED_COLOR)
