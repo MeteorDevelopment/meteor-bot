@@ -79,7 +79,7 @@ public class MainController {
 
         String devBuild = request.queryParams("devBuild");
         if (devBuild != null) {
-            response.redirect("https://" + devBuild + "-309730396-gh.circle-artifacts.com/0/build/libs/meteor-client-" + Config.VERSION + "-" + devBuild + ".jar");
+            response.redirect("https://" + devBuild + "-309730396-gh.circle-artifacts.com/0/build/libs/meteor-client-" + Config.DEV_BUILD_VERSION + "-" + devBuild + ".jar");
             return null;
         } else {
             response.header("Content-Disposition", "attachment; filename=meteor-client-" + Config.VERSION + ".jar");

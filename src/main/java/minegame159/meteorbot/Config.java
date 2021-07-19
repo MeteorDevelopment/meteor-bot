@@ -3,6 +3,7 @@ package minegame159.meteorbot;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import minegame159.meteorbot.utils.Version;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Config {
     public static String GMAIL_PASSWORD;
 
     // Public
-    public static String VERSION;
+    public static String VERSION, DEV_BUILD_VERSION;
     public static String MC_VERSION;
     public static List<String> CHANGELOG;
 
@@ -45,6 +46,7 @@ public class Config {
             reader.close();
 
             VERSION = json.get("version").getAsString();
+            DEV_BUILD_VERSION = new Version(VERSION).increment().toString();
             MC_VERSION = json.get("mcVersion").getAsString();
 
             CHANGELOG = new ArrayList<>();
