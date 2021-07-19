@@ -16,10 +16,6 @@ import static minegame159.meteorbot.utils.Utils.embedTitle;
 public class Ticket {
     public static final Problem[] PROBLEMS = {
             new Problem(
-                    "Launcher crashes with 'can't find fabric'.",
-                    "You need to put [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) into your mods folder."
-            ),
-            new Problem(
                     "Is there a 1.12.2 or forge version?",
                     "No and there never will be. You can use [Multiconnect](https://www.curseforge.com/minecraft/mc-mods/multiconnect) to connect to 1.12.2 servers."
             ),
