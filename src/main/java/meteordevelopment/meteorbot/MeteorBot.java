@@ -3,10 +3,12 @@ package meteordevelopment.meteorbot;
 import meteordevelopment.meteorbot.commands.Commands;
 import meteordevelopment.meteorbot.database.Database;
 import meteordevelopment.meteorbot.tickets.Tickets;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.guild.GuildBanEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -23,6 +25,7 @@ import org.slf4j.Logger;
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 import java.util.Random;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MeteorBot extends ListenerAdapter {
@@ -35,6 +38,7 @@ public class MeteorBot extends ListenerAdapter {
     public static Guild GUILD;
     public static GuildChannel DONATOR_CHAT;
     public static TextChannel SUPPORT;
+    public static GuildChannel LOGS_CHANNEL;
     public static Category TICKETS;
     public static Role DEV_ROLE, MOD_ROLE, HELPER_ROLE, DONATOR_ROLE, MUTED_ROLE;
     public static Emote UWUCAT, FABRIC, GITHUB, METEOR, MODRINTH;
@@ -66,6 +70,7 @@ public class MeteorBot extends ListenerAdapter {
 
         DONATOR_CHAT = GUILD.getGuildChannelById(862376330695016488L);
         SUPPORT = GUILD.getTextChannelById(862489308497313822L);
+        LOGS_CHANNEL = GUILD.getTextChannelById(861351437997178953L);
 
         DEV_ROLE = GUILD.getRoleById(862116295272038400L);
         MOD_ROLE = GUILD.getRoleById(862116323387637829L);
@@ -90,6 +95,19 @@ public class MeteorBot extends ListenerAdapter {
         if (event.getAuthor().isBot() || event.getChannel().getType() != ChannelType.TEXT || event.getGuild() != MeteorBot.GUILD) return;
 
         if (!Utils.isStaff(event.getMember()) && inviteFilter(event.getMessage().getContentRaw())) {
+            // Logging
+            EmbedBuilder logEmbed = new EmbedBuilder()
+                .setAuthor(String.format("%s#%s sent an invite in #%s!", event.getMember().getUser().getName(), event.getMember().getUser().getDiscriminator(), event.getChannel().getName()),
+                    null, event.getMember().getUser().getEffectiveAvatarUrl())
+                .setColor(Utils.EMBED_COLOR);
+            StringBuilder sb = new StringBuilder();
+            Matcher matcher = Pattern.compile("(https?://)?(www.)?(discord.(gg|io|me|li)|discordapp.com/invite)/[^\\s/]+?(?=\\b)").matcher(event.getMessage().getContentRaw());
+            while (matcher.find()) sb.append(matcher.group()).append("\n");
+            logEmbed.addField("**Invites**", sb.toString(), false);
+
+            event.getGuild().getTextChannelById(LOGS_CHANNEL.getId()).sendMessage(logEmbed.build()).queue();
+
+
             event.getMessage().delete().queue();
             event.getChannel().sendMessage(event.getMessage().getMember().getAsMention() + " please don't send discord invites here :palm_tree:").queue();
             return;

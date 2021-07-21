@@ -41,6 +41,15 @@ public class WarnCommand extends Command {
         int count = Database.MUTES.get(member.getId()) != null ? Database.MUTES.get(member.getId()).count : 1;
 
         if (count > 4) {
+            // Logging
+            EmbedBuilder logEmbed = new EmbedBuilder()
+                .setAuthor(String.format("%s#%s was banned", member.getUser().getName(), member.getUser().getDiscriminator(), event.getChannel().getName()), null, member.getUser().getEffectiveAvatarUrl())
+                .addField("**Reason**", "Passed warn limit (5)", false)
+                .addField("**Action by**", String.format("%s#%s", event.getAuthor().getName(), event.getAuthor().getDiscriminator()), false)
+                .setColor(Utils.EMBED_COLOR);
+            event.getGuild().getTextChannelById(MeteorBot.LOGS_CHANNEL.getId()).sendMessage(logEmbed.build()).queue();
+
+
             EmbedBuilder embed = new EmbedBuilder()
                     .setAuthor(String.format("%s#%s has been banned", member.getUser().getName(), member.getUser().getDiscriminator()), null, member.getUser().getEffectiveAvatarUrl())
                     .setDescription("**Reason:** Passed warn limit (5)")
@@ -69,6 +78,18 @@ public class WarnCommand extends Command {
         if (!reason.isBlank()) embed.setDescription(String.format("**Reason:** %s", reason));
 
         event.getMessage().reply(embed.build()).mentionRepliedUser(false).queue();
+
+        // Logging
+
+        EmbedBuilder logEmbed = new EmbedBuilder()
+            .setAuthor(String.format("%s#%s was warned in #%s", member.getUser().getName(), member.getUser().getDiscriminator(), event.getChannel().getName()), null, member.getUser().getEffectiveAvatarUrl())
+            .setColor(Utils.EMBED_COLOR);
+        if (!reason.isBlank()) logEmbed.addField("**Reason**", reason, false);
+        logEmbed.addField("**Warns**", String.valueOf(count), false);
+        logEmbed.addField("**Action by**", String.format("%s#%s", event.getAuthor().getName(), event.getAuthor().getDiscriminator()), true);
+        logEmbed.addField("**Muted until**", String.valueOf(Instant.ofEpochSecond(Instant.now().getEpochSecond() + duration)), false);
+
+        event.getGuild().getTextChannelById(MeteorBot.LOGS_CHANNEL.getId()).sendMessage(logEmbed.build()).queue();
     }
 
     @Override
@@ -91,6 +112,16 @@ public class WarnCommand extends Command {
         int count = Database.MUTES.get(member.getId()) != null ? Database.MUTES.get(member.getId()).count : 1;
 
         if (count > 4) {
+            // Logging
+
+            EmbedBuilder logEmbed = new EmbedBuilder()
+                .setAuthor(String.format("%s#%s was banned", member.getUser().getName(), member.getUser().getDiscriminator(), event.getChannel().getName()), null, member.getUser().getEffectiveAvatarUrl())
+                .addField("**Reason**", "Passed warn limit (5)", false)
+                .addField("**Action by**", String.format("%s#%s", event.getOption("author").getAsUser().getName(), event.getOption("author").getAsUser().getDiscriminator()), false)
+                .setColor(Utils.EMBED_COLOR);
+            event.getGuild().getTextChannelById(MeteorBot.LOGS_CHANNEL.getId()).sendMessage(logEmbed.build()).queue();
+
+
             EmbedBuilder embed = new EmbedBuilder()
                     .setAuthor(String.format("%s#%s has been banned", member.getUser().getName(), member.getUser().getDiscriminator()), null, member.getUser().getEffectiveAvatarUrl())
                     .setDescription("**Reason:** Passed warn limit (5)")
@@ -118,5 +149,17 @@ public class WarnCommand extends Command {
         if (!reason.isBlank()) embed.setDescription(String.format("**Reason:** %s", reason));
 
         event.replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
+
+        // Logging
+
+        EmbedBuilder logEmbed = new EmbedBuilder()
+            .setAuthor(String.format("%s#%s was warned in #%s", member.getUser().getName(), member.getUser().getDiscriminator(), event.getChannel().getName()), null, member.getUser().getEffectiveAvatarUrl())
+            .setColor(Utils.EMBED_COLOR);
+        if (!reason.isBlank()) logEmbed.addField("**Reason**", reason, false);
+        logEmbed.addField("**Warns**", String.valueOf(count), false);
+        logEmbed.addField("**Action by**", String.format("%s#%s", event.getOption("author").getAsUser().getName(), event.getOption("author").getAsUser().getDiscriminator()), true);
+        logEmbed.addField("**Muted until**", String.valueOf(Instant.ofEpochSecond(Instant.now().getEpochSecond() + duration)), false);
+
+        event.getGuild().getTextChannelById(MeteorBot.LOGS_CHANNEL.getId()).sendMessage(logEmbed.build()).queue();
     }
 }
