@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 
+import java.time.Instant;
 import java.util.Random;
 
 public class RouletteCommand extends Command {
@@ -30,6 +31,13 @@ public class RouletteCommand extends Command {
             ).mentionRepliedUser(false).queue();
 
             member.ban(0, "Ban rouletted").queue();
+
+            // Logging
+            EmbedBuilder logEmbed = new EmbedBuilder()
+                .setAuthor(String.format("%s#%s was rouletted in #%s", member.getUser().getName(), member.getUser().getDiscriminator(), event.getChannel().getName()), null, member.getUser().getEffectiveAvatarUrl())
+                .setColor(Utils.EMBED_COLOR);
+
+            event.getGuild().getTextChannelById(MeteorBot.LOGS_CHANNEL.getId()).sendMessage(logEmbed.build()).queue();
         } else {
             event.getMessage().reply(new EmbedBuilder()
                 .setAuthor(String.format("%s#%s survived a roulette!", member.getUser().getName(), member.getUser().getDiscriminator()), null, member.getUser().getEffectiveAvatarUrl())
@@ -56,6 +64,13 @@ public class RouletteCommand extends Command {
             ).mentionRepliedUser(false).queue();
 
             member.ban(0, "Ban rouletted").queue();
+
+            // Logging
+            EmbedBuilder logEmbed = new EmbedBuilder()
+                .setAuthor(String.format("%s#%s was rouletted in #%s", member.getUser().getName(), member.getUser().getDiscriminator(), event.getChannel().getName()), null, member.getUser().getEffectiveAvatarUrl())
+                .setColor(Utils.EMBED_COLOR);
+
+            event.getGuild().getTextChannelById(MeteorBot.LOGS_CHANNEL.getId()).sendMessage(logEmbed.build()).queue();
         } else {
             event.replyEmbeds(new EmbedBuilder()
                 .setAuthor(String.format("%s#%s survived a roulette!", member.getUser().getName(), member.getUser().getDiscriminator()), null, member.getUser().getEffectiveAvatarUrl())
