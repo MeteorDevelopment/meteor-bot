@@ -8,20 +8,20 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class Mail {
-    private static final String ADDRESS = "meteorclient@gmail.com";
+    private static final String ADDRESS = "noreply@meteorclient.com";
     private static Session SESSION;
 
     public static void init() {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.host", "smtp.zoho.eu");
         props.put("mail.smtp.port", "587");
 
         SESSION = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(ADDRESS, Config.GMAIL_PASSWORD);
+                return new PasswordAuthentication(ADDRESS, Config.MAIL_PASSWORD);
             }
         });
     }

@@ -17,7 +17,7 @@ public class Config {
     public static String MONGO_URL;
     public static String SERVER_TOKEN;
     public static String PVP_SERVER_TOKEN;
-    public static String GMAIL_PASSWORD;
+    public static String MAIL_PASSWORD;
 
     // Public
     public static String VERSION, DEV_BUILD_VERSION;
@@ -38,7 +38,7 @@ public class Config {
             MONGO_URL = properties.getProperty("mongo_url");
             SERVER_TOKEN = properties.getProperty("server_token");
             PVP_SERVER_TOKEN = properties.getProperty("pvp_server_token");
-            GMAIL_PASSWORD = properties.getProperty("gmail_password");
+            MAIL_PASSWORD = properties.getProperty("mail_password");
 
             // Public config
             Reader reader = new FileReader("config.json");
