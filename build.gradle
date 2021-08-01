@@ -22,10 +22,6 @@ dependencies {
     implementation 'org.mongodb:mongodb-driver-sync:4.1.0-beta2'
     implementation 'com.konghq:unirest-java:3.11.02'
     implementation 'org.reflections:reflections:0.9.12'
-    implementation 'com.sparkjava:spark-core:2.9.3'
-    implementation 'com.sparkjava:spark-template-velocity:2.7.1'
-    implementation 'at.favre.lib:bcrypt:0.9.0'
-    implementation 'org.lucee:javamail:1.6.2'
     implementation 'com.sun.activation:javax.activation:1.2.0'
 }
 

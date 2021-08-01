@@ -12,9 +12,6 @@ import org.bson.Document;
 public class Db {
     private static MongoDatabase db;
 
-    public static DbCollection<DailyStats> DAILY_STATS;
-    public static DbCollection<Cape> CAPES;
-    public static DbCollection<Account> ACCOUNTS;
     public static DbCollection<DbTicket> TICKETS;
     public static DbMultiCollection GLOBAL;
 
@@ -22,9 +19,6 @@ public class Db {
         MongoClient client = MongoClients.create(Config.MONGO_URL);
         db = client.getDatabase("meteor-bot");
 
-        DAILY_STATS = new DbCollection<>("join-stats", DailyStats::new);
-        CAPES = new DbCollection<>("capes", Cape::new);
-        ACCOUNTS = new DbCollection<>("accounts-old", Account::new);
         TICKETS = new DbCollection<>("tickets", DbTicket::new);
         GLOBAL = new DbMultiCollection("global");
 

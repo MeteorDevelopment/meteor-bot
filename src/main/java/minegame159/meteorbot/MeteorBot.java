@@ -1,19 +1,18 @@
 package minegame159.meteorbot;
 
+import kong.unirest.Unirest;
 import minegame159.meteorbot.commands.Commands;
 import minegame159.meteorbot.database.Db;
 import minegame159.meteorbot.tickets.Tickets;
-import minegame159.meteorbot.utils.Utils;
-import minegame159.meteorbot.webserver.WebServer;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.ReadyEvent;
-import net.dv8tion.jda.api.events.ShutdownEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
@@ -34,8 +33,6 @@ public class MeteorBot extends ListenerAdapter {
 
     public static Emote UWUCAT;
 
-    public static boolean PROCESS_DISCORD_EVENTS = true;
-
     private static final String[] HELLOS = { "Hi", "Hello", "Helo", "Hewo", "Hewwo" };
 
     public static void main(String[] args) {
@@ -43,7 +40,6 @@ public class MeteorBot extends ListenerAdapter {
             Config.init();
             Db.init();
             Commands.init();
-            WebServer.init();
 
             JDABuilder.createDefault(Config.DISCORD_TOKEN)
                     .enableIntents(GatewayIntent.GUILD_MEMBERS)
@@ -77,13 +73,7 @@ public class MeteorBot extends ListenerAdapter {
     }
 
     @Override
-    public void onShutdown(@Nonnull ShutdownEvent event) {
-        WebServer.close();
-    }
-
-    @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-        if (!PROCESS_DISCORD_EVENTS) return;
         if (event.getAuthor().isBot() || !event.isFromType(ChannelType.TEXT)) return;
 
         if (helloMessage(event)) return;
@@ -94,20 +84,22 @@ public class MeteorBot extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent event) {
-        if (!PROCESS_DISCORD_EVENTS) return;
         Tickets.onReactionAdd(event);
     }
 
     @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
-        if (!PROCESS_DISCORD_EVENTS) return;
-        Utils.updateMemberCount(event.getGuild(), true);
+        Unirest.post("https://meteorclient.com/api/discord/userJoined")
+                .header("Authorization", Config.TOKEN)
+                .queryString("id", event.getMember().getId())
+                .asEmpty();
     }
 
     @Override
     public void onGuildMemberRemove(@Nonnull GuildMemberRemoveEvent event) {
-        if (!PROCESS_DISCORD_EVENTS) return;
-        Utils.updateMemberCount(event.getGuild(), false);
+        Unirest.post("https://meteorclient.com/api/discord/userJoined")
+                .header("Authorization", Config.TOKEN)
+                .asEmpty();
     }
 
     private boolean helloMessage(MessageReceivedEvent event) {

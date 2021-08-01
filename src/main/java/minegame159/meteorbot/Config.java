@@ -1,32 +1,19 @@
 package minegame159.meteorbot;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import minegame159.meteorbot.utils.Version;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
-    // Private
     public static String DISCORD_TOKEN;
     public static String DISCORD_SECRET;
     public static String MONGO_URL;
     public static String SERVER_TOKEN;
-    public static String PVP_SERVER_TOKEN;
-    public static String MAIL_PASSWORD;
-
-    // Public
-    public static String VERSION, DEV_BUILD_VERSION;
-    public static String MC_VERSION;
-    public static List<String> CHANGELOG;
+    public static String TOKEN;
 
     public static void init() {
         try {
-            // Private config
             Properties properties = new Properties();
 
             InputStream in = new FileInputStream("private-config.properties");
@@ -37,22 +24,7 @@ public class Config {
             DISCORD_SECRET = properties.getProperty("discord_secret");
             MONGO_URL = properties.getProperty("mongo_url");
             SERVER_TOKEN = properties.getProperty("server_token");
-            PVP_SERVER_TOKEN = properties.getProperty("pvp_server_token");
-            MAIL_PASSWORD = properties.getProperty("mail_password");
-
-            // Public config
-            Reader reader = new FileReader("config.json");
-            JsonObject json = (JsonObject) JsonParser.parseReader(reader);
-            reader.close();
-
-            VERSION = json.get("version").getAsString();
-            DEV_BUILD_VERSION = new Version(VERSION).increment().toString();
-            MC_VERSION = json.get("mcVersion").getAsString();
-
-            CHANGELOG = new ArrayList<>();
-            for (JsonElement e : json.getAsJsonArray("changelog")) {
-                CHANGELOG.add(e.getAsString());
-            }
+            TOKEN = properties.getProperty("token");
 
             MeteorBot.LOG.info("Loaded config");
         } catch (IOException e) {

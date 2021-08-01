@@ -1,9 +1,9 @@
 package minegame159.meteorbot.commands.normal;
 
+import kong.unirest.Unirest;
+import kong.unirest.json.JSONObject;
 import minegame159.meteorbot.commands.Category;
 import minegame159.meteorbot.commands.Command;
-import minegame159.meteorbot.database.Db;
-import minegame159.meteorbot.database.documents.DailyStats;
 import minegame159.meteorbot.utils.Utils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -24,18 +24,16 @@ public class StatsCommand extends Command {
         if (split.length >= 2 && DATE_PATTERN.matcher(split[1]).matches()) date = split[1];
         else date = Utils.getDateString();
 
-        DailyStats dailyStats = Db.DAILY_STATS.get(date);
-
-        if (dailyStats == null) {
-            dailyStats = new DailyStats(date, 0, 0);
-        }
+        JSONObject json = Unirest.get("https://meteorclient.com/api/stats")
+                .queryString("date", date)
+                .asJson().getBody().getObject();
 
         event.getChannel().sendMessage(Utils.embed(
-                "**Date**: " + dailyStats.date +
-                "\n**Total**: " + dailyStats.getTotalJoins() +
-                "\n**Joins**: " + dailyStats.joins +
-                "\n**Leaves**: " + dailyStats.leaves +
-                "\n**Downloads**: " + dailyStats.downloads
+                "**Date**: " + json.getString("date") +
+                "\n**Total**: " + (json.getInt("joins") - json.getInt("leaves")) +
+                "\n**Joins**: " + json.getInt("joins") +
+                "\n**Leaves**: " + json.getInt("leaves") +
+                "\n**Downloads**: " + json.getInt("downloads")
         ).build()).queue();
     }
 }
