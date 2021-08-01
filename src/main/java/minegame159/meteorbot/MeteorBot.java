@@ -12,7 +12,6 @@ import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
@@ -28,8 +27,7 @@ public class MeteorBot extends ListenerAdapter {
 
     public static JDA JDA;
     public static Guild GUILD;
-    public static Role MOD_ROLE, HELPER_ROLE, DONATOR_ROLE;
-    public static User MINEGAME, SQUID, SEASNAIL;
+    public static Role MOD_ROLE, HELPER_ROLE;
 
     public static Emote UWUCAT;
 
@@ -60,14 +58,11 @@ public class MeteorBot extends ListenerAdapter {
         GUILD = JDA.getGuildById(689197705683140636L);
         MOD_ROLE = GUILD.getRoleById(689197893340758022L);
         HELPER_ROLE = GUILD.getRoleById(799392357157830657L);
-        DONATOR_ROLE = GUILD.getRoleById(689205464574984353L);
-        MINEGAME = JDA.retrieveUserById(205708530408357898L).complete();
-        SQUID = JDA.retrieveUserById(322777907078627328L).complete();
-        SEASNAIL = JDA.retrieveUserById(736954747122352208L).complete();
 
         UWUCAT = GUILD.retrieveEmoteById(806473609526509578L).complete();
 
         Tickets.init();
+        InfoChannels.init();
 
         LOG.info("Meteor Bot started");
     }
