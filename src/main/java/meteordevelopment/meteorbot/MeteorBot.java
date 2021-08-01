@@ -1,6 +1,7 @@
 package meteordevelopment.meteorbot;
 
 import kong.unirest.Unirest;
+import kong.unirest.json.JSONObject;
 import meteordevelopment.meteorbot.commands.Commands;
 import meteordevelopment.meteorbot.database.Db;
 import meteordevelopment.meteorbot.tickets.Tickets;
@@ -12,6 +13,7 @@ import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
@@ -75,6 +77,34 @@ public class MeteorBot extends ListenerAdapter {
 
         Commands.onMessage(event);
         Tickets.onMessage(event);
+    }
+
+    @Override
+    public void onPrivateMessageReceived(@NotNull PrivateMessageReceivedEvent event) {
+        String message = event.getMessage().getContentRaw();
+        if (!message.startsWith(".link ")) return;
+
+        String[] split = message.split(" ");
+        String token = null;
+
+        if (split.length > 1) {
+            token = split[1];
+        }
+
+        if (token == null) return;
+
+        JSONObject json = Unirest.post("https://meteorclient.com/api/account/linkDiscord")
+            .header("Authorization", Config.TOKEN)
+            .queryString("id", event.getAuthor().getId())
+            .queryString("token", token)
+            .asJson().getBody().getObject();
+
+        if (json.has("error")) {
+            event.getChannel().sendMessage("Failed to link your Discord account. Try generating a new token by refreshing the account page and clicking the link button again.").queue();
+        }
+        else {
+            event.getChannel().sendMessage("Successfully linked your Discord account.").queue();
+        }
     }
 
     @Override
