@@ -9,7 +9,6 @@ public class Config {
     public static String DISCORD_TOKEN;
     public static String DISCORD_SECRET;
     public static String MONGO_URL;
-    public static String SERVER_TOKEN;
     public static String TOKEN;
 
     public static void init() {
@@ -23,7 +22,6 @@ public class Config {
             DISCORD_TOKEN = properties.getProperty("discord_token");
             DISCORD_SECRET = properties.getProperty("discord_secret");
             MONGO_URL = properties.getProperty("mongo_url");
-            SERVER_TOKEN = properties.getProperty("server_token");
             TOKEN = properties.getProperty("token");
 
             MeteorBot.LOG.info("Loaded config");
