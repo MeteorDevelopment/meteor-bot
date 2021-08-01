@@ -24,6 +24,7 @@ dependencies {
     implementation 'com.konghq:unirest-java:3.11.12'
     implementation 'org.reflections:reflections:0.9.12'
     implementation 'com.sparkjava:spark-core:2.9.3'
+    implementation 'ch.qos.logback:logback-classic:1.2.5'
 }
 
 compileJava.options.encoding = "UTF-8"
