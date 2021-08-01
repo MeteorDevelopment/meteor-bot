@@ -17,7 +17,7 @@ public class InfoChannels {
 
             double minutes = delta / 1000.0 / 60;
 
-            if (minutes >= 3) {
+            if (minutes >= 5) {
                 lastTime = time;
 
                 int downloads = Unirest.get("https://meteorclient.com/api/stats").asJson().getBody().getObject().getInt("downloads");
