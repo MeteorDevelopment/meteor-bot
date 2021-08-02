@@ -122,7 +122,7 @@ public class MeteorBot extends ListenerAdapter {
 
     @Override
     public void onGuildMemberRemove(@Nonnull GuildMemberRemoveEvent event) {
-        Unirest.post("https://meteorclient.com/api/discord/userJoined")
+        Unirest.post("https://meteorclient.com/api/discord/userLeft")
                 .header("Authorization", Config.TOKEN)
                 .asEmpty();
     }
