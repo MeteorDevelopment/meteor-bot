@@ -13,6 +13,6 @@ public class FabricCommand extends Command {
     @Override
     public void run(MessageReceivedEvent event) {
         event.getMessage().delete().queue();
-        event.getChannel().sendMessage(Utils.embed("Meteor Client requires Fabric Loader and Fabric API.\n Download the [Fabric Loader](https://fabricmc.net/use) and install and run it.\n Download the [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and put it in your .minecraft/mods folder.").build()).queue();
+        event.getChannel().sendMessage(Utils.embed("Meteor Client requires Fabric Loader and Fabric API.\n Download the [Fabric Loader](https://fabricmc.net/use) and install and run it.\n Download the [Fabric API](https://modrinth.com/mod/fabric-api) and put it in your .minecraft/mods folder.").build()).queue();
     }
 }

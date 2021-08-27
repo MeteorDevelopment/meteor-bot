@@ -13,6 +13,6 @@ public class FpsCommand extends Command {
     @Override
     public void run(MessageReceivedEvent event) {
         event.getMessage().delete().queue();
-        event.getChannel().sendMessage(Utils.embed("If you want better performance while playing with Fabric download these 3 mods:\n[Sodium](https://www.curseforge.com/minecraft/mc-mods/sodium)\n[Phosphor](https://www.curseforge.com/minecraft/mc-mods/phosphor)\n[Lithium](https://www.curseforge.com/minecraft/mc-mods/lithium)").build()).queue();
+        event.getChannel().sendMessage(Utils.embed("If you want better performance while playing with Fabric download these 3 mods:\n[Sodium](https://modrinth.com/mod/sodium)\n[Phosphor](https://modrinth.com/mod/phosphor)\n[Lithium](https://modrinth.com/mod/lithium)").build()).queue();
     }
 }

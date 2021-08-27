@@ -33,7 +33,7 @@ public class Ticket {
             ),
             new Problem(
                     "How do I download this client?",
-                    "Follow the guide on the [Meteor FAQ](https://meteorclient.com/info)."
+                    "Follow the guide on the [Meteor FAQ](https://github.com/MeteorDevelopment/meteor-client/wiki/Installation)."
             ),
             new Problem(
                     "Where is the Book Dupe/Player Rollback Dupe?",
