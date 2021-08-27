@@ -17,7 +17,7 @@ public class Ticket {
     public static final Problem[] PROBLEMS = {
             new Problem(
                     "Is there a 1.12.2 or forge version?",
-                    "No and there never will be. You can use [Multiconnect](https://www.curseforge.com/minecraft/mc-mods/multiconnect) to connect to 1.12.2 servers."
+                    "No and there never will be. You can use [Multiconnect](https://modrinth.com/mod/multiconnect) to connect to 1.12.2 servers."
             ),
             new Problem(
                     "Can I use OptiFine?",
