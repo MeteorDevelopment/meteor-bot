@@ -16,16 +16,16 @@ import static meteordevelopment.meteorbot.utils.Utils.embedTitle;
 public class Ticket {
     public static final Problem[] PROBLEMS = {
             new Problem(
-                    "Is there a 1.12.2 or forge version?",
-                    "No and there never will be. You can use [Multiconnect](https://modrinth.com/mod/multiconnect) to connect to 1.12.2 servers."
+                    "Can I use meteor for older versions? (1.17/1.16.5/1.12.2/1.8.9)",
+                    "Meteor is written for the latest stable release of Minecraft. You can use [Multiconnect](https://modrinth.com/mod/multiconnect) if you want to connect to servers running other versions of Minecraft."
             ),
             new Problem(
-                    "Can I use OptiFine?",
-                    "OptiFine is a Forge mod. There is a Fabric wrapper for it but it does not work well with other Fabric mods. Here are [OptiFine alternatives](https://gist.github.com/LambdAurora/1f6a4a99af374ce500f250c6b42e8754) for Fabric."
+                    "Can I use OptiFine with Meteor?",
+                    "OptiFine is a Forge mod. There is a Fabric wrapper for it but it does not work well with other Fabric mods and will never work with Meteor. Here are [OptiFine alternatives](https://gist.github.com/LambdAurora/1f6a4a99af374ce500f250c6b42e8754) for Fabric."
             ),
             new Problem(
-                    "Where is the mount bypass dupe?",
-                    "For the mount bypass dupe to work the servers needs a very old version of illegalstacks plugin that almost no servers use. The code for it is available in this addon (https://github.com/MeteorDevelopment/meteor-mbd-addon)"
+                    "How do I dupe with Meteor?",
+                    "Finding dupes isn't an easy task. Public dupes get patched very quickly so alot of dupes are kept private. For this reason, Meteor has no built in duping modules/features."
             ),
             new Problem(
                     "Does this client have New Chunks?",
@@ -36,8 +36,12 @@ public class Ticket {
                     "Follow the guide on the [Meteor FAQ](https://github.com/MeteorDevelopment/meteor-client/wiki/Installation)."
             ),
             new Problem(
-                    "Where is the Book Dupe/Player Rollback Dupe?",
-                    "The Player Rollback dupe is **PATCHED** on any server that isn't vanilla. If you still want to try it, then download the latest dev build and download the appropriate addon \n[BookDupe](https://github.com/MeteorDevelopment/meteor-book-dupe-addon/releases/latest)"
+                    "How to use the proxy system?",
+                    "It works just like a normal socks proxy. If you don't know what a proxy is, then I suggest you [google it](https://letmegooglethat.com/?q=proxy) and find out."
+            ),
+            new Problem(
+                    "Why can't I talk in the Meteor Discord?",
+                    "Due to the amount of users in the discord server increasing, public channels have been closed to only users who have roles. You can get a role by creating an account [here](https://meteorclient.com/account)"
             )
     };
 
