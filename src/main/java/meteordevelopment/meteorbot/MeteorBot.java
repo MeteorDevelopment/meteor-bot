@@ -127,6 +127,7 @@ public class MeteorBot extends ListenerAdapter {
         Unirest.post("https://meteorclient.com/api/discord/userLeft")
                 .header("Authorization", Config.TOKEN)
                 .asEmpty();
+        Tickets.onMemberRemove(event);
     }
 
     private boolean helloMessage(MessageReceivedEvent event) {
