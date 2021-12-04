@@ -1,9 +1,11 @@
 package meteordevelopment.meteorbot.tickets;
 
+import meteordevelopment.meteorbot.MeteorBot;
 import meteordevelopment.meteorbot.database.Db;
 import meteordevelopment.meteorbot.database.documents.DbTicket;
-import meteordevelopment.meteorbot.MeteorBot;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -97,7 +99,12 @@ public class Ticket {
         String emoji = event.getReactionEmote().getEmoji();
 
         if (event.getMessageIdLong() == welcomeMessage.getIdLong()) {
-            if (emoji.equals("❌")) close();
+            if (emoji.equals("❌")) {
+                event.getUser().openPrivateChannel().queue(channel -> {
+                    sendClosingMessage(channel, event.getUser(), "*Closed via reaction*");
+                });
+                close();
+            }
         }
         else if (message != null && event.getMessageIdLong() == message.getIdLong()) {
             if (stage == Stage.Problem) {
@@ -114,7 +121,12 @@ public class Ticket {
                 }
             }
             else if (stage == Stage.Solution) {
-                if (emoji.equals("✅")) close();
+                if (emoji.equals("✅")) {
+                    event.getUser().openPrivateChannel().queue(channel -> {
+                        sendClosingMessage(channel, event.getUser(), "*Issue resolved by user*");
+                    });
+                    close();
+                }
                 else if (emoji.equals("❌")) setStage(Stage.Manual);
             }
         }
@@ -197,5 +209,22 @@ public class Ticket {
     public void close() {
         channel.delete().queue();
         Tickets.remove(this);
+    }
+
+    // channel parameter exists in case a logging system is introduced in the future
+    // where it can be used to also sends a closing message to the log channel
+    public void sendClosingMessage(MessageChannel channel, User closedBy, String reason) {
+        EmbedBuilder builder = new EmbedBuilder();
+        builder.setTitle("Ticket closed");
+        builder.addField("Ticket", channel.getName(),true);
+        builder.addField("Closed By", closedBy.getAsTag(),true);
+
+        builder.addField(
+            "Reason",
+            reason == null || reason.isEmpty() || reason.isBlank() ? "*No Reason Given*" : reason,
+            true
+        );
+
+        channel.sendMessage(builder.build()).queue();
     }
 }
