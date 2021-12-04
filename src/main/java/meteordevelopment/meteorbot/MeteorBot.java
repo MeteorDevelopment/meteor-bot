@@ -29,7 +29,7 @@ public class MeteorBot extends ListenerAdapter {
 
     public static JDA JDA;
     public static Guild GUILD;
-    public static Role MOD_ROLE, HELPER_ROLE, DONATOR_ROLE;
+    public static Role MOD_ROLE, HELPER_ROLE, DONATOR_ROLE, MUTE_ROLE;
 
     public static Emote UWUCAT;
 
@@ -58,6 +58,7 @@ public class MeteorBot extends ListenerAdapter {
         event.getJDA().getPresence().setActivity(Activity.playing("Meteor on Crack!"));
 
         GUILD = JDA.getGuildById(689197705683140636L);
+        MUTE_ROLE = GUILD.getRoleById(741016178155192432L);
         MOD_ROLE = GUILD.getRoleById(689197893340758022L);
         HELPER_ROLE = GUILD.getRoleById(799392357157830657L);
         DONATOR_ROLE = GUILD.getRoleById(689205464574984353L);
