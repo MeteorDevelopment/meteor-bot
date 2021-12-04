@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import org.bson.Document;
@@ -51,8 +52,15 @@ public class Tickets {
         ticket.onMessage(event);
     }
 
+    public static void onMemberRemove(GuildMemberRemoveEvent event) {
+        for (Ticket ticket: Tickets.tickets) {
+            if (ticket.user.getId().equals(event.getUser().getId())) ticket.close();
+        }
+    }
+
     public static void onReactionAdd(GuildMessageReactionAddEvent event) {
         if (event.getMember().getUser().isBot()) return;
+
         if (event.getMember().getRoles().contains(MUTE_ROLE)) return;
 
         if (event.getMessageIdLong() == SUPPORT_MESSAGE_ID) {
