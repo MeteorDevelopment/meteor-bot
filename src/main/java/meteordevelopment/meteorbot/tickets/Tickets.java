@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mongodb.client.model.Updates.set;
+import static meteordevelopment.meteorbot.MeteorBot.MUTE_ROLE;
 import static meteordevelopment.meteorbot.utils.Utils.embedTitle;
 
 public class Tickets {
@@ -52,6 +53,7 @@ public class Tickets {
 
     public static void onReactionAdd(GuildMessageReactionAddEvent event) {
         if (event.getMember().getUser().isBot()) return;
+        if (event.getMember().getRoles().contains(MUTE_ROLE)) return;
 
         if (event.getMessageIdLong() == SUPPORT_MESSAGE_ID) {
             if (event.getReactionEmote().isEmote()) {
