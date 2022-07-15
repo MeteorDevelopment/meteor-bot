@@ -1,8 +1,7 @@
-package meteordevelopment.meteorbot.commands.normal;
+package meteordevelopment.meteorbot.command.commands;
 
 import kong.unirest.Unirest;
-import meteordevelopment.meteorbot.commands.Category;
-import meteordevelopment.meteorbot.commands.Command;
+import meteordevelopment.meteorbot.command.Command;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -10,7 +9,7 @@ import java.awt.*;
 
 public class CatCommand extends Command {
     public CatCommand() {
-        super(Category.Normal, "cat moment", "cat");
+        super("cat");
     }
 
     @Override

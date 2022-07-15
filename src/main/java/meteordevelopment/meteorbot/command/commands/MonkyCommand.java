@@ -1,7 +1,6 @@
-package meteordevelopment.meteorbot.commands.normal;
+package meteordevelopment.meteorbot.command.commands;
 
-import meteordevelopment.meteorbot.commands.Category;
-import meteordevelopment.meteorbot.commands.Command;
+import meteordevelopment.meteorbot.command.Command;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -10,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MonkyCommand extends Command {
     public MonkyCommand() {
-        super(Category.Normal, "monky moment", "monky");
+        super("monky");
     }
 
     @Override

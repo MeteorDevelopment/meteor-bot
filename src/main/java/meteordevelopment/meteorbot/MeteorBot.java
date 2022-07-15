@@ -2,9 +2,7 @@ package meteordevelopment.meteorbot;
 
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONObject;
-import meteordevelopment.meteorbot.commands.Commands;
-import meteordevelopment.meteorbot.database.Db;
-import meteordevelopment.meteorbot.tickets.Tickets;
+import meteordevelopment.meteorbot.command.Commands;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.*;
@@ -12,7 +10,6 @@ import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -29,8 +26,7 @@ public class MeteorBot extends ListenerAdapter {
 
     public static JDA JDA;
     public static Guild GUILD;
-    public static Role MOD_ROLE, HELPER_ROLE, DONATOR_ROLE, MUTE_ROLE;
-
+    public static Role DONATOR_ROLE;
     public static Emote UWUCAT;
 
     private static final String[] HELLOS = { "Hi", "Hello", "Helo", "Hewo", "Hewwo" };
@@ -38,7 +34,6 @@ public class MeteorBot extends ListenerAdapter {
     public static void main(String[] args) {
         try {
             Config.init();
-            Db.init();
             Commands.init();
 
             JDABuilder.createDefault(Config.DISCORD_TOKEN)
@@ -58,14 +53,10 @@ public class MeteorBot extends ListenerAdapter {
         event.getJDA().getPresence().setActivity(Activity.playing("Meteor on Crack!"));
 
         GUILD = JDA.getGuildById(689197705683140636L);
-        MUTE_ROLE = GUILD.getRoleById(741016178155192432L);
-        MOD_ROLE = GUILD.getRoleById(689197893340758022L);
-        HELPER_ROLE = GUILD.getRoleById(799392357157830657L);
-        DONATOR_ROLE = GUILD.getRoleById(689205464574984353L);
 
+        DONATOR_ROLE = GUILD.getRoleById(689205464574984353L);
         UWUCAT = GUILD.retrieveEmoteById(806473609526509578L).complete();
 
-        Tickets.init();
         InfoChannels.init();
 
         LOG.info("Meteor Bot started");
@@ -74,11 +65,8 @@ public class MeteorBot extends ListenerAdapter {
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         if (event.getAuthor().isBot() || !event.isFromType(ChannelType.TEXT)) return;
-
         if (helloMessage(event)) return;
-
         Commands.onMessage(event);
-        Tickets.onMessage(event);
     }
 
     @Override
@@ -96,7 +84,7 @@ public class MeteorBot extends ListenerAdapter {
         if (token == null) return;
 
         JSONObject json = Unirest.post("https://meteorclient.com/api/account/linkDiscord")
-            .header("Authorization", Config.TOKEN)
+            .header("Authorization", Config.BACKEND_TOKEN)
             .queryString("id", event.getAuthor().getId())
             .queryString("token", token)
             .asJson().getBody().getObject();
@@ -110,14 +98,9 @@ public class MeteorBot extends ListenerAdapter {
     }
 
     @Override
-    public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent event) {
-        Tickets.onReactionAdd(event);
-    }
-
-    @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
         Unirest.post("https://meteorclient.com/api/discord/userJoined")
-                .header("Authorization", Config.TOKEN)
+                .header("Authorization", Config.BACKEND_TOKEN)
                 .queryString("id", event.getMember().getId())
                 .asEmpty();
     }
@@ -125,9 +108,8 @@ public class MeteorBot extends ListenerAdapter {
     @Override
     public void onGuildMemberRemove(@Nonnull GuildMemberRemoveEvent event) {
         Unirest.post("https://meteorclient.com/api/discord/userLeft")
-                .header("Authorization", Config.TOKEN)
+                .header("Authorization", Config.BACKEND_TOKEN)
                 .asEmpty();
-        Tickets.onMemberRemove(event);
     }
 
     private boolean helloMessage(MessageReceivedEvent event) {
