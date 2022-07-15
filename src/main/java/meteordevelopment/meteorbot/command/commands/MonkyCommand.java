@@ -1,10 +1,10 @@
 package meteordevelopment.meteorbot.command.commands;
 
 import meteordevelopment.meteorbot.command.Command;
+import meteordevelopment.meteorbot.utils.Utils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MonkyCommand extends Command {
@@ -20,7 +20,7 @@ public class MonkyCommand extends Command {
         int h = ThreadLocalRandom.current().nextInt(200, 1001);
 
         event.getChannel().sendMessage(new EmbedBuilder()
-                .setColor(new Color(204, 0,0))
+                .setColor(Utils.COLOR)
                 .setImage("https://www.placemonkeys.com/" + w + "/" + h + "?random")
                 .build()).queue();
     }
