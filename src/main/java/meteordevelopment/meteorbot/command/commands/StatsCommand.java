@@ -1,19 +1,21 @@
-package meteordevelopment.meteorbot.commands.normal;
+package meteordevelopment.meteorbot.command.commands;
 
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONObject;
-import meteordevelopment.meteorbot.commands.Category;
-import meteordevelopment.meteorbot.commands.Command;
+import meteordevelopment.meteorbot.command.Command;
 import meteordevelopment.meteorbot.utils.Utils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 public class StatsCommand extends Command {
     private static final Pattern DATE_PATTERN = Pattern.compile("[0-9]{2}-[0-9]{2}-[0-9]{4}");
 
     public StatsCommand() {
-        super(Category.Normal, "Displays today's or specified day's joins and leaves.", "stats");
+        super("stats");
     }
 
     @Override
@@ -22,17 +24,23 @@ public class StatsCommand extends Command {
 
         String date;
         if (split.length >= 2 && DATE_PATTERN.matcher(split[1]).matches()) date = split[1];
-        else date = Utils.getDateString();
+        else {
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            calendar.setTime(new Date());
+            date = String.format("%02d-%02d-%d", calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+        }
 
         JSONObject json = Unirest.get("https://meteorclient.com/api/stats")
                 .queryString("date", date)
                 .asJson().getBody().getObject();
 
+        int joins = json.getInt("joins"), leaves = json.getInt("leaves");
+
         event.getChannel().sendMessage(Utils.embed(
                 "**Date**: " + json.getString("date") +
-                "\n**Total**: " + (json.getInt("joins") - json.getInt("leaves")) +
-                "\n**Joins**: " + json.getInt("joins") +
-                "\n**Leaves**: " + json.getInt("leaves") +
+                "\n**Joins**: " + joins +
+                "\n**Leaves**: " + leaves +
+                "\n**Gained**: " + (joins - leaves) +
                 "\n**Downloads**: " + json.getInt("downloads")
         ).build()).queue();
     }

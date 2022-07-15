@@ -1,7 +1,7 @@
 package meteordevelopment.meteorbot;
 
 import kong.unirest.Unirest;
-import meteordevelopment.meteorbot.utils.Utils;
+import net.dv8tion.jda.api.entities.VoiceChannel;
 
 public class InfoChannels {
     public static void init() {
@@ -22,8 +22,8 @@ public class InfoChannels {
 
                 int downloads = Unirest.get("https://meteorclient.com/api/stats").asJson().getBody().getObject().getInt("downloads");
 
-                Utils.findVoiceChannel(MeteorBot.GUILD, "Member Count:").getManager().setName("Member Count: " + MeteorBot.GUILD.getMemberCount()).queue();
-                Utils.findVoiceChannel(MeteorBot.GUILD, "Downloads:").getManager().setName("Downloads: " + downloads).queue();
+                findVoiceChannel("Member Count:").getManager().setName("Member Count: " + MeteorBot.GUILD.getMemberCount()).queue();
+                findVoiceChannel("Downloads:").getManager().setName("Downloads: " + downloads).queue();
             }
 
             try {
@@ -32,5 +32,13 @@ public class InfoChannels {
                 e.printStackTrace();
             }
         }
+    }
+
+    private static VoiceChannel findVoiceChannel(String startsWith) {
+        for (VoiceChannel channel : MeteorBot.GUILD.getVoiceChannelCache()) {
+            if (channel.getName().startsWith(startsWith)) return channel;
+        }
+
+        return null;
     }
 }
