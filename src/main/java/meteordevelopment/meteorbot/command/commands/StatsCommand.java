@@ -1,9 +1,8 @@
 package meteordevelopment.meteorbot.command.commands;
 
-import kong.unirest.Unirest;
 import kong.unirest.json.JSONObject;
 import meteordevelopment.meteorbot.command.Command;
-import meteordevelopment.meteorbot.utils.Utils;
+import meteordevelopment.meteorbot.Utils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Calendar;
@@ -30,9 +29,9 @@ public class StatsCommand extends Command {
             date = String.format("%02d-%02d-%d", calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
         }
 
-        JSONObject json = Unirest.get("https://meteorclient.com/api/stats")
-                .queryString("date", date)
-                .asJson().getBody().getObject();
+        JSONObject json = Utils.apiGet("stats", false)
+            .queryString("date", date)
+            .asJson().getBody().getObject();
 
         int joins = json.getInt("joins"), leaves = json.getInt("leaves");
 

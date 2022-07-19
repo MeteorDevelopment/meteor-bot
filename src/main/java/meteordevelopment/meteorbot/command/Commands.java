@@ -1,7 +1,9 @@
 package meteordevelopment.meteorbot.command;
 
 import meteordevelopment.meteorbot.MeteorBot;
-import meteordevelopment.meteorbot.command.commands.*;
+import meteordevelopment.meteorbot.command.commands.CatCommand;
+import meteordevelopment.meteorbot.command.commands.MonkyCommand;
+import meteordevelopment.meteorbot.command.commands.StatsCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.HashMap;

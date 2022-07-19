@@ -8,6 +8,7 @@ import java.util.Properties;
 public class Config {
     public static String DISCORD_TOKEN;
     public static String BACKEND_TOKEN;
+    public static String API_PATH;
 
     public static void init() {
         try {
@@ -19,6 +20,7 @@ public class Config {
 
             DISCORD_TOKEN = properties.getProperty("discord_token");
             BACKEND_TOKEN = properties.getProperty("token");
+            API_PATH = properties.getProperty("api_path");
 
             MeteorBot.LOG.info("Loaded config");
         } catch (IOException e) {
