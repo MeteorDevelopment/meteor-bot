@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -26,7 +27,8 @@ public class MeteorBot extends ListenerAdapter {
 
     public static JDA JDA;
     public static Guild GUILD;
-    public static Role DONATOR_ROLE;
+    public static Role DEV_ROLE, DONOR_ROLE;
+    public static TextChannel DONATOR_CHAT;
     public static Emote UWUCAT;
 
     private static final String[] HELLOS = { "Hi", "Hello", "Helo", "Hewo", "Hewwo" };
@@ -41,8 +43,8 @@ public class MeteorBot extends ListenerAdapter {
                     .enableCache(CacheFlag.EMOTE)
                     .addEventListeners(new MeteorBot())
                     .build();
-
-        } catch (LoginException e) {
+        }
+        catch (LoginException e) {
             e.printStackTrace();
         }
     }
@@ -50,11 +52,13 @@ public class MeteorBot extends ListenerAdapter {
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
         JDA = event.getJDA();
-        event.getJDA().getPresence().setActivity(Activity.playing("Meteor on Crack!"));
+        event.getJDA().getPresence().setActivity(Activity.playing("Meteor Client"));
 
         GUILD = JDA.getGuildById(689197705683140636L);
 
-        DONATOR_ROLE = GUILD.getRoleById(689205464574984353L);
+        DONATOR_CHAT = GUILD.getTextChannelById(713429344135020554L);
+        DEV_ROLE = GUILD.getRoleById(689198253753106480L);
+        DONOR_ROLE = GUILD.getRoleById(689205464574984353L);
         UWUCAT = GUILD.retrieveEmoteById(806473609526509578L).complete();
 
         InfoChannels.init();
@@ -112,11 +116,17 @@ public class MeteorBot extends ListenerAdapter {
                 .asEmpty();
     }
 
+    @Override
+    public void onGuildMemberRoleAdd(@NotNull GuildMemberRoleAddEvent event) {
+        if (!event.getRoles().contains(DONOR_ROLE)) return;
+        DONATOR_CHAT.sendMessage(event.getMember().getAsMention() + " thanks for donating to Meteor and supporting the " + DEV_ROLE.getAsMention() +  " team.").queue();
+    }
+
     private boolean helloMessage(MessageReceivedEvent event) {
         String msg = event.getMessage().getContentRaw();
-        if (!msg.startsWith("<@!742092137218179172> ")) return false;
+        if (!msg.startsWith("<") || !event.getMessage().getMentionedUsers().contains(JDA.getSelfUser())) return false;
 
-        String rest = msg.substring(23);
+        String rest = msg.substring(22);
 
         for (String hello : HELLOS) {
             if (rest.equalsIgnoreCase(hello)) {

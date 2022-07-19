@@ -12,7 +12,6 @@ public class Commands {
 
     public static void init() {
         add(new CatCommand());
-        add(new DonatorCommand());
         add(new MonkyCommand());
         add(new StatsCommand());
 
