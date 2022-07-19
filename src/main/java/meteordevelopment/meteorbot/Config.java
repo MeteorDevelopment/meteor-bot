@@ -20,7 +20,7 @@ public class Config {
 
             DISCORD_TOKEN = properties.getProperty("discord_token");
             BACKEND_TOKEN = properties.getProperty("token");
-            API_PATH = properties.getProperty("api_path");
+            API_PATH = properties.getProperty("api_base");
 
             MeteorBot.LOG.info("Loaded config");
         } catch (IOException e) {
