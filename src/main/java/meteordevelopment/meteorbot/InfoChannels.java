@@ -1,6 +1,5 @@
 package meteordevelopment.meteorbot;
 
-import kong.unirest.Unirest;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 
 public class InfoChannels {
@@ -20,7 +19,7 @@ public class InfoChannels {
             if (minutes >= 5) {
                 lastTime = time;
 
-                int downloads = Unirest.get("https://meteorclient.com/api/stats").asJson().getBody().getObject().getInt("downloads");
+                int downloads = Utils.apiGet("stats", false).asJson().getBody().getObject().getInt("downloads");
 
                 findVoiceChannel("Member Count:").getManager().setName("Member Count: " + MeteorBot.GUILD.getMemberCount()).queue();
                 findVoiceChannel("Downloads:").getManager().setName("Downloads: " + downloads).queue();
