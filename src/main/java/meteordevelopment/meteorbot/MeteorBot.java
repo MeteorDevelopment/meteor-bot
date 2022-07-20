@@ -1,6 +1,5 @@
 package meteordevelopment.meteorbot;
 
-import kong.unirest.Unirest;
 import kong.unirest.json.JSONObject;
 import meteordevelopment.meteorbot.command.Commands;
 import net.dv8tion.jda.api.JDA;
@@ -26,7 +25,6 @@ public class MeteorBot extends ListenerAdapter {
 
     public static JDA JDA;
     public static Guild GUILD;
-    public static Role DONATOR_ROLE;
     public static Emote UWUCAT;
 
     private static final String[] HELLOS = { "Hi", "Hello", "Helo", "Hewo", "Hewwo" };
@@ -37,12 +35,12 @@ public class MeteorBot extends ListenerAdapter {
             Commands.init();
 
             JDABuilder.createDefault(Config.DISCORD_TOKEN)
-                    .enableIntents(GatewayIntent.GUILD_MEMBERS)
-                    .enableCache(CacheFlag.EMOTE)
-                    .addEventListeners(new MeteorBot())
-                    .build();
-
-        } catch (LoginException e) {
+                .enableIntents(GatewayIntent.GUILD_MEMBERS)
+                .enableCache(CacheFlag.EMOTE)
+                .addEventListeners(new MeteorBot())
+                .build();
+        }
+        catch (LoginException e) {
             e.printStackTrace();
         }
     }
@@ -50,11 +48,8 @@ public class MeteorBot extends ListenerAdapter {
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
         JDA = event.getJDA();
-        event.getJDA().getPresence().setActivity(Activity.playing("Meteor on Crack!"));
-
+        JDA.getPresence().setActivity(Activity.playing("Meteor Client"));
         GUILD = JDA.getGuildById(689197705683140636L);
-
-        DONATOR_ROLE = GUILD.getRoleById(689205464574984353L);
         UWUCAT = GUILD.retrieveEmoteById(806473609526509578L).complete();
 
         InfoChannels.init();
@@ -83,8 +78,7 @@ public class MeteorBot extends ListenerAdapter {
 
         if (token == null) return;
 
-        JSONObject json = Unirest.post("https://meteorclient.com/api/account/linkDiscord")
-            .header("Authorization", Config.BACKEND_TOKEN)
+        JSONObject json = Utils.apiPost("account/linkDiscord")
             .queryString("id", event.getAuthor().getId())
             .queryString("token", token)
             .asJson().getBody().getObject();
@@ -99,24 +93,21 @@ public class MeteorBot extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
-        Unirest.post("https://meteorclient.com/api/discord/userJoined")
-                .header("Authorization", Config.BACKEND_TOKEN)
-                .queryString("id", event.getMember().getId())
-                .asEmpty();
+        Utils.apiPost("discord/userJoined")
+            .queryString("id", event.getMember().getId())
+            .asEmpty();
     }
 
     @Override
     public void onGuildMemberRemove(@Nonnull GuildMemberRemoveEvent event) {
-        Unirest.post("https://meteorclient.com/api/discord/userLeft")
-                .header("Authorization", Config.BACKEND_TOKEN)
-                .asEmpty();
+        Utils.apiPost("discord/userLeft").asEmpty();
     }
 
     private boolean helloMessage(MessageReceivedEvent event) {
         String msg = event.getMessage().getContentRaw();
-        if (!msg.startsWith("<@!742092137218179172> ")) return false;
+        if (!msg.startsWith("<") || !event.getMessage().getMentionedUsers().contains(JDA.getSelfUser())) return false;
 
-        String rest = msg.substring(23);
+        String rest = msg.substring(22);
 
         for (String hello : HELLOS) {
             if (rest.equalsIgnoreCase(hello)) {
