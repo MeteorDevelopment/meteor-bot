@@ -19,6 +19,10 @@ import org.slf4j.Logger;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MeteorBot extends ListenerAdapter {
     public static final Logger LOG = JDALogger.getLog("MeteorBot");
@@ -33,6 +37,7 @@ public class MeteorBot extends ListenerAdapter {
         try {
             Config.init();
             Commands.init();
+            Uptime.init();
 
             JDABuilder.createDefault(Config.DISCORD_TOKEN)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)

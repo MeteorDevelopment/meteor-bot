@@ -20,7 +20,6 @@ repositories {
 
 dependencies {
     implementation 'net.dv8tion:JDA:4.3.0_277'
-    implementation 'org.mongodb:mongodb-driver-sync:4.3.0'
     implementation 'com.konghq:unirest-java:3.11.12'
     implementation 'org.reflections:reflections:0.9.12'
     implementation 'com.sparkjava:spark-core:2.9.3'

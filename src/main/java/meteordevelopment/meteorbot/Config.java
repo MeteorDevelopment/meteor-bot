@@ -9,6 +9,7 @@ public class Config {
     public static String DISCORD_TOKEN;
     public static String BACKEND_TOKEN;
     public static String API_PATH;
+    public static String UPTIME_URL;
 
     public static void init() {
         try {
@@ -21,6 +22,7 @@ public class Config {
             DISCORD_TOKEN = properties.getProperty("discord_token");
             BACKEND_TOKEN = properties.getProperty("token");
             API_PATH = properties.getProperty("api_base");
+            UPTIME_URL = properties.getProperty("uptime_url");
 
             MeteorBot.LOG.info("Loaded config");
         } catch (IOException e) {
