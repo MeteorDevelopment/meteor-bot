@@ -13,7 +13,10 @@ public class Uptime {
         }
 
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
-            Unirest.get(Config.UPTIME_URL).asEmpty();
+            String url = Config.UPTIME_URL;
+            if (url.endsWith("ping=")) url += MeteorBot.JDA.getGatewayPing();
+
+            Unirest.get(url).asEmpty();
         }, 0, 60, TimeUnit.SECONDS);
     }
 }

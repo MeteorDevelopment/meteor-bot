@@ -4,7 +4,10 @@ import kong.unirest.json.JSONObject;
 import meteordevelopment.meteorbot.command.Commands;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
@@ -19,10 +22,6 @@ import org.slf4j.Logger;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class MeteorBot extends ListenerAdapter {
     public static final Logger LOG = JDALogger.getLog("MeteorBot");
@@ -37,7 +36,6 @@ public class MeteorBot extends ListenerAdapter {
         try {
             Config.init();
             Commands.init();
-            Uptime.init();
 
             JDABuilder.createDefault(Config.DISCORD_TOKEN)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
@@ -58,6 +56,7 @@ public class MeteorBot extends ListenerAdapter {
         UWUCAT = GUILD.retrieveEmoteById(806473609526509578L).complete();
 
         InfoChannels.init();
+        Uptime.init();
 
         LOG.info("Meteor Bot started");
     }

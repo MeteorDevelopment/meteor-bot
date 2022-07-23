@@ -16,7 +16,7 @@ public class InfoChannels {
 
             double minutes = delta / 1000.0 / 60;
 
-            if (minutes >= 5) {
+            if (minutes >= 10) {
                 lastTime = time;
 
                 int downloads = Utils.apiGet("stats", false).asJson().getBody().getObject().getInt("downloads");
