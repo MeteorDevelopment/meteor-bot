@@ -22,10 +22,22 @@ import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 
 public class MeteorBot extends ListenerAdapter {
-    public static String DISCORD_TOKEN = System.getenv("DISCORD_TOKEN");
-    public static String BACKEND_TOKEN = System.getenv("BACKEND_TOKEN");
-    public static String API_PATH = System.getenv("API_PATH");
-    public static String UPTIME_URL = System.getenv("UPTIME_URL");
+    public static String DISCORD_TOKEN;
+    public static String BACKEND_TOKEN;
+    public static String API_BASE;
+    public static String UPTIME_URL;
+
+    static {
+        DISCORD_TOKEN = System.getenv("DISCORD_TOKEN");
+        BACKEND_TOKEN = System.getenv("BACKEND_TOKEN");
+        API_BASE = System.getenv("API_BASE");
+        UPTIME_URL = System.getenv("UPTIME_URL");
+
+        if (DISCORD_TOKEN == null || BACKEND_TOKEN == null || API_BASE == null || UPTIME_URL == null) {
+            MeteorBot.LOG.error("Environment variables defined incorrectly.");
+            System.exit(0);
+        }
+    }
 
     private static final String[] HELLOS = { "Hi", "Hello", "Helo", "Hewo", "Hewwo", "Howdy", "Bonjour" };
     public static final Logger LOG = JDALogger.getLog("MeteorBot");
