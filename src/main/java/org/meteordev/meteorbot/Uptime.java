@@ -1,12 +1,16 @@
-package meteordevelopment.meteorbot;
+package org.meteordev.meteorbot;
 
 import kong.unirest.Unirest;
+import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import javax.annotation.Nonnull;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class Uptime {
-    public static void init() {
+public class Uptime extends ListenerAdapter {
+    @Override
+    public void onReady(@Nonnull ReadyEvent event) {
         if (Config.UPTIME_URL == null) {
             MeteorBot.LOG.warn("Uptime URL not configured, uptime requests will not be made");
             return;

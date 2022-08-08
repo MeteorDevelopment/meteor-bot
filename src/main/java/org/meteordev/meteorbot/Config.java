@@ -1,4 +1,4 @@
-package meteordevelopment.meteorbot;
+package org.meteordev.meteorbot;
 
 import java.io.FileInputStream;
 import java.io.IOException;

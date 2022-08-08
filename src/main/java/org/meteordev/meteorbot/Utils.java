@@ -1,4 +1,4 @@
-package meteordevelopment.meteorbot;
+package org.meteordev.meteorbot;
 
 import kong.unirest.GetRequest;
 import kong.unirest.HttpRequestWithBody;
