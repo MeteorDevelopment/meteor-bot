@@ -22,14 +22,14 @@ public class Utils {
     }
 
     public static GetRequest apiGet(String path, boolean auth) {
-        GetRequest req = Unirest.get(Config.API_PATH + path);
-        if (auth) req.header("Authorization", Config.BACKEND_TOKEN);
+        GetRequest req = Unirest.get(MeteorBot.API_PATH + path);
+        if (auth) req.header("Authorization", MeteorBot.BACKEND_TOKEN);
         return req;
     }
 
     public static HttpRequestWithBody apiPost(String path) {
-        HttpRequestWithBody req = Unirest.post(Config.API_PATH + path);
-        req.header("Authorization", Config.BACKEND_TOKEN);
+        HttpRequestWithBody req = Unirest.post(MeteorBot.API_PATH + path);
+        req.header("Authorization", MeteorBot.BACKEND_TOKEN);
         return req;
     }
 }
