@@ -1,5 +1,5 @@
 .gradle
 .idea
 build
-private-config.properties
 .DS_Store
+.env

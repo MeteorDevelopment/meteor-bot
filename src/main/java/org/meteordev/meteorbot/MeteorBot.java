@@ -1,5 +1,6 @@
 package org.meteordev.meteorbot;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.meteordev.meteorbot.command.Commands;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -22,10 +23,10 @@ import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 
 public class MeteorBot extends ListenerAdapter {
-    public static String DISCORD_TOKEN = System.getenv("DISCORD_TOKEN");
-    public static String BACKEND_TOKEN = System.getenv("BACKEND_TOKEN");
-    public static String API_BASE = System.getenv("API_BASE");
-    public static String UPTIME_URL = System.getenv("UPTIME_URL");
+    public static String DISCORD_TOKEN;
+    public static String BACKEND_TOKEN;
+    public static String API_BASE;
+    public static String UPTIME_URL;
 
     private static final String[] HELLOS = { "Hi", "Hello", "Helo", "Hewo", "Hewwo", "Howdy", "Bonjour" };
     public static final Logger LOG = JDALogger.getLog("MeteorBot");
@@ -37,6 +38,15 @@ public class MeteorBot extends ListenerAdapter {
     public static long MOD_LOG_ID = 847134083431792701L;
     public static Emoji UWUCAT;
     public static long UWUCAT_ID = 806473609526509578L;
+
+    static {
+        Dotenv dotenv = Dotenv.load();
+
+        DISCORD_TOKEN = dotenv.get("DISCORD_TOKEN");
+        BACKEND_TOKEN = dotenv.get("BACKEND_TOKEN");
+        API_BASE = dotenv.get("API_BASE");
+        UPTIME_URL = dotenv.get("UPTIME_URL");
+    }
 
     public static void main(String[] args) {
         if (DISCORD_TOKEN == null || BACKEND_TOKEN == null || API_BASE == null || UPTIME_URL == null) {
