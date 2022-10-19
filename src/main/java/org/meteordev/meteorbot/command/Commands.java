@@ -27,6 +27,9 @@ public class Commands extends ListenerAdapter {
         add(new LinkCommand());
         add(new MuteCommand());
         add(new UnmuteCommand());
+        add(new LogsCommand());
+        add(new FaqCommand());
+        add(new InstallationCommand());
 
         List<CommandData> commandData = new ArrayList<>();
 
