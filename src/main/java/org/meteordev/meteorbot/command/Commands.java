@@ -30,6 +30,7 @@ public class Commands extends ListenerAdapter {
         add(new LogsCommand());
         add(new FaqCommand());
         add(new InstallationCommand());
+        add(new OldVersionCommand());
 
         List<CommandData> commandData = new ArrayList<>();
 
