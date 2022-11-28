@@ -44,7 +44,7 @@ public class StatsCommand extends Command {
             return;
         }
 
-        JSONObject json = Utils.apiGet("stats", false)
+        JSONObject json = Utils.apiGet("stats")
             .queryString("date", date)
             .asJson().getBody().getObject();
 

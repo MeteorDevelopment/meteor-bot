@@ -1,7 +1,7 @@
 plugins {
-    id "java"
-    id "application"
     id "com.github.johnrengelman.shadow" version "7.0.0"
+    id "application"
+    id "java"
 }
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
@@ -13,9 +13,9 @@ repositories {
 }
 
 dependencies {
-    implementation "net.dv8tion:JDA:5.0.0-alpha.17"
-    implementation "com.konghq:unirest-java:3.13.10"
-    implementation "ch.qos.logback:logback-classic:1.2.11"
+    implementation "net.dv8tion:JDA:5.0.0-alpha.22"
+    implementation "com.konghq:unirest-java:3.13.13"
+    implementation "ch.qos.logback:logback-classic:1.4.5"
     implementation "io.github.cdimascio:dotenv-java:2.2.4"
 }
 

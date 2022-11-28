@@ -1,13 +1,13 @@
 package org.meteordev.meteorbot.command.commands;
 
 import kong.unirest.Unirest;
-import org.meteordev.meteorbot.command.Command;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import org.meteordev.meteorbot.command.Command;
 
-public class CatCommand extends Command {
-    public CatCommand() {
-        super("cat", "gato");
+public class DogCommand extends Command {
+    public DogCommand() {
+        super("dog", "dawg");
     }
 
     @Override
@@ -17,8 +17,8 @@ public class CatCommand extends Command {
 
     @Override
     public void run(SlashCommandInteractionEvent event) {
-        Unirest.get("https://aws.random.cat/meow").asJsonAsync(response -> {
-            event.reply(response.getBody().getObject().getString("file")).queue();
+        Unirest.get("https://some-random-api.ml/animal/dog").asJsonAsync(response -> {
+            event.reply(response.getBody().getObject().getString("image")).queue();
         });
     }
 }

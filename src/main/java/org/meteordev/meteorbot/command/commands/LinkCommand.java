@@ -1,13 +1,13 @@
 package org.meteordev.meteorbot.command.commands;
 
 import kong.unirest.json.JSONObject;
-import org.meteordev.meteorbot.Utils;
-import org.meteordev.meteorbot.command.Command;
-import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import org.meteordev.meteorbot.Utils;
+import org.meteordev.meteorbot.command.Command;
 
 public class LinkCommand extends Command {
     public LinkCommand() {

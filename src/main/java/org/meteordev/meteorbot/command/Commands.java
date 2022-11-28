@@ -1,10 +1,8 @@
 package org.meteordev.meteorbot.command;
 
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 import org.jetbrains.annotations.NotNull;
@@ -24,13 +22,16 @@ public class Commands extends ListenerAdapter {
         add(new CatCommand());
         add(new MonkyCommand());
         add(new StatsCommand());
-        add(new LinkCommand());
+        if (MeteorBot.BACKEND_TOKEN != null) add(new LinkCommand());
         add(new MuteCommand());
         add(new UnmuteCommand());
         add(new LogsCommand());
         add(new FaqCommand());
         add(new InstallationCommand());
         add(new OldVersionCommand());
+        add(new CapyCommand());
+        add(new PandaCommand());
+        add(new DogCommand());
 
         List<CommandData> commandData = new ArrayList<>();
 
@@ -38,7 +39,7 @@ public class Commands extends ListenerAdapter {
             commandData.add(command.build(new CommandDataImpl(command.name, command.description)));
         }
 
-        MeteorBot.JDA.updateCommands().addCommands(commandData).complete();
+        MeteorBot.BOT.updateCommands().addCommands(commandData).complete();
 
         MeteorBot.LOG.info("Loaded {} commands", commands.size());
     }
@@ -53,20 +54,5 @@ public class Commands extends ListenerAdapter {
         if (command == null) return;
 
         command.run(event);
-    }
-
-    public static Member parseMember(SlashCommandInteractionEvent event) {
-        OptionMapping memberOption = event.getOption("member");
-        if (memberOption == null || memberOption.getAsMember() == null) {
-            event.reply("Couldn't find that member.").setEphemeral(true).queue();
-            return null;
-        }
-
-        Member member = memberOption.getAsMember();
-        if (member == null) {
-            event.reply("Couldn't find that member.").setEphemeral(true).queue();
-        }
-
-        return member;
     }
 }
