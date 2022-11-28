@@ -95,7 +95,7 @@ public class MeteorBot extends ListenerAdapter {
         }
 
         if (!found) {
-            event.getMessage().addReaction(content.toLowerCase().contains(" cope ") ? COPE_NN : Emoji.fromUnicode("\uD83D\uDC4B")).queue();
+            event.getMessage().addReaction(content.toLowerCase().contains("cope") ? COPE_NN : Emoji.fromUnicode("\uD83D\uDC4B")).queue();
         }
     }
 
