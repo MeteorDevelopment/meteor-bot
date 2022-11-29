@@ -14,7 +14,6 @@ public abstract class Command {
     }
 
     public abstract SlashCommandData build(SlashCommandData data);
-
     public abstract void run(SlashCommandInteractionEvent event);
 
     public static Member parseMember(SlashCommandInteractionEvent event) {

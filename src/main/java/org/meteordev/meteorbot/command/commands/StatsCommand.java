@@ -1,12 +1,12 @@
 package org.meteordev.meteorbot.command.commands;
 
 import kong.unirest.json.JSONObject;
-import org.meteordev.meteorbot.Utils;
-import org.meteordev.meteorbot.command.Command;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import org.meteordev.meteorbot.Utils;
+import org.meteordev.meteorbot.command.Command;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -44,9 +44,7 @@ public class StatsCommand extends Command {
             return;
         }
 
-        JSONObject json = Utils.apiGet("stats")
-            .queryString("date", date)
-            .asJson().getBody().getObject();
+        JSONObject json = Utils.apiGet("stats").queryString("date", date).asJson().getBody().getObject();
 
         if (json == null || json.has("error")) {
             event.reply("Failed to fetch stats for this date.").setEphemeral(true).queue();
@@ -55,12 +53,6 @@ public class StatsCommand extends Command {
 
         int joins = json.getInt("joins"), leaves = json.getInt("leaves");
 
-        event.replyEmbeds(Utils.embed(
-            "**Date**: " + json.getString("date") +
-                "\n**Joins**: " + joins +
-                "\n**Leaves**: " + leaves +
-                "\n**Gained**: " + (joins - leaves) +
-                "\n**Downloads**: " + json.getInt("downloads")
-        ).build()).queue();
+        event.replyEmbeds(Utils.embed("**Date**: " + json.getString("date") + "\n**Joins**: " + joins + "\n**Leaves**: " + leaves + "\n**Gained**: " + (joins - leaves) + "\n**Downloads**: " + json.getInt("downloads")).build()).queue();
     }
 }

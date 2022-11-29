@@ -17,6 +17,10 @@ import java.util.Map;
 public class Commands extends ListenerAdapter {
     private static final Map<String, Command> commands = new HashMap<>();
 
+    public static void add(Command command) {
+        commands.put(command.name, command);
+    }
+
     @Override
     public void onReady(@NotNull ReadyEvent event) {
         add(new CatCommand());
@@ -42,10 +46,6 @@ public class Commands extends ListenerAdapter {
         MeteorBot.BOT.updateCommands().addCommands(commandData).complete();
 
         MeteorBot.LOG.info("Loaded {} commands", commands.size());
-    }
-
-    public static void add(Command command) {
-        commands.put(command.name, command);
     }
 
     @Override

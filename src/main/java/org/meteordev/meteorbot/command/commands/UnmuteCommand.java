@@ -15,8 +15,7 @@ public class UnmuteCommand extends Command {
 
     @Override
     public SlashCommandData build(SlashCommandData data) {
-        return data
-            .addOption(OptionType.USER, "member", "The member to unmute.", true)
+        return data.addOption(OptionType.USER, "member", "The member to unmute.", true)
             .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS));
     }
 

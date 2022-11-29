@@ -1,8 +1,8 @@
 package org.meteordev.meteorbot.command.commands;
 
-import org.meteordev.meteorbot.command.Command;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import org.meteordev.meteorbot.command.Command;
 
 import java.util.concurrent.ThreadLocalRandom;
 
