@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 public class MeteorBot extends ListenerAdapter {
     public static String DISCORD_TOKEN, BACKEND_TOKEN, UPTIME_URL; // Private env vars
     public static String API_BASE, GUILD_ID, MEMBER_COUNT_ID, DOWNLOAD_COUNT_ID, COPE_NN_ID; // Public env vars
-    private static final String[] HELLOS = { "hi", "hello", "howdy", "bonjour", "ciao", "hej", "hola" };
+    private static final String[] HELLOS = { "hi", "hello", "howdy", "bonjour", "ciao", "hej", "hola", "yo" };
 
     public static final Logger LOG = JDALogger.getLog("Meteor Bot");
 
@@ -56,7 +56,7 @@ public class MeteorBot extends ListenerAdapter {
             .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.MESSAGE_CONTENT)
             .setMemberCachePolicy(MemberCachePolicy.ALL)
             .enableCache(CacheFlag.EMOJI)
-            .addEventListeners(new MeteorBot(), new Commands(), new Uptime(), new InfoChannels())
+            .addEventListeners(new MeteorBot(), new Commands(), new Uptime(), new InfoChannels(), new UsernameScanner())
             .build();
     }
 
@@ -73,8 +73,6 @@ public class MeteorBot extends ListenerAdapter {
 
         COPE_NN = SERVER.getEmojiById(COPE_NN_ID);
 
-        SERVER.findMembers(m -> !m.isPending()).onSuccess(res -> LOG.info("Cached all {} members.", res.size()));
-
         LOG.info("Meteor Bot started");
     }
 
@@ -88,7 +86,7 @@ public class MeteorBot extends ListenerAdapter {
         boolean found = false;
 
         for (String hello : HELLOS) {
-            if (content.toLowerCase().contains(" %s ".formatted(hello))) {
+            if (content.toLowerCase().contains(hello)) {
                 found = true;
                 event.getMessage().reply(hello + " :)").queue();
             }
