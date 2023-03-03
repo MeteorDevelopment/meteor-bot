@@ -36,6 +36,7 @@ public class Commands extends ListenerAdapter {
         add(new CapyCommand());
         add(new PandaCommand());
         add(new DogCommand());
+        add(new AddonCommand());
 
         List<CommandData> commandData = new ArrayList<>();
 
