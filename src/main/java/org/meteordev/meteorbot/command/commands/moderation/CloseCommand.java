@@ -28,7 +28,9 @@ public class CloseCommand extends Command {
             return;
         }
 
-        event.getChannel().asThreadChannel().getManager().setLocked(true).setArchived(true).queue();
-        event.reply("This post is now locked.").queue();
+        event.reply("This post is now locked.").queue(hook -> {
+            event.getChannel().asThreadChannel().getManager().setLocked(true).setArchived(true).queue();
+        });
+
     }
 }
