@@ -1,4 +1,4 @@
-package org.meteordev.meteorbot.command.commands;
+package org.meteordev.meteorbot.command.commands.moderation;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;

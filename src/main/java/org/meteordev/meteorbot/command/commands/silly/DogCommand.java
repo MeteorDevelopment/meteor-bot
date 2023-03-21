@@ -1,13 +1,13 @@
-package org.meteordev.meteorbot.command.commands;
+package org.meteordev.meteorbot.command.commands.silly;
 
 import kong.unirest.Unirest;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import org.meteordev.meteorbot.command.Command;
 
-public class CapyCommand extends Command {
-    public CapyCommand() {
-        super("capybara", "pulls up");
+public class DogCommand extends Command {
+    public DogCommand() {
+        super("dog", "dawg");
     }
 
     @Override
@@ -17,8 +17,8 @@ public class CapyCommand extends Command {
 
     @Override
     public void run(SlashCommandInteractionEvent event) {
-        Unirest.get("https://api.capy.lol/v1/capybara?json=true").asJsonAsync(response -> {
-            event.reply(response.getBody().getObject().getJSONObject("data").getString("url")).queue();
+        Unirest.get("https://some-random-api.ml/animal/dog").asJsonAsync(response -> {
+            event.reply(response.getBody().getObject().getString("image")).queue();
         });
     }
 }

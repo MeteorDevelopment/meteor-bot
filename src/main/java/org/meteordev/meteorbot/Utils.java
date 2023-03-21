@@ -19,6 +19,9 @@ public class Utils {
 
     private static final List<String> suffixes = List.of("k", "m", "b", "t");
 
+    private static final String API_BASE = System.getenv("API_BASE");
+    private static final String BACKEND_TOKEN = System.getenv("BACKEND_TOKEN");
+
     public static long parseAmount(String parse) {
         Matcher matcher = TIME_PATTERN.matcher(parse);
         if (!matcher.matches() || matcher.groupCount() != 2) return -1;
@@ -85,12 +88,12 @@ public class Utils {
     }
 
     public static GetRequest apiGet(String path) {
-        return Unirest.get(MeteorBot.API_BASE + path);
+        return Unirest.get(API_BASE + path);
     }
 
     public static HttpRequestWithBody apiPost(String path) {
-        HttpRequestWithBody req = Unirest.post(MeteorBot.API_BASE + path);
-        req.header("Authorization", MeteorBot.BACKEND_TOKEN);
+        HttpRequestWithBody req = Unirest.post(API_BASE + path);
+        req.header("Authorization", BACKEND_TOKEN);
         return req;
     }
 }

@@ -8,6 +8,15 @@ import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 import org.jetbrains.annotations.NotNull;
 import org.meteordev.meteorbot.MeteorBot;
 import org.meteordev.meteorbot.command.commands.*;
+import org.meteordev.meteorbot.command.commands.help.FaqCommand;
+import org.meteordev.meteorbot.command.commands.help.InstallationCommand;
+import org.meteordev.meteorbot.command.commands.help.LogsCommand;
+import org.meteordev.meteorbot.command.commands.help.OldVersionCommand;
+import org.meteordev.meteorbot.command.commands.moderation.BanCommand;
+import org.meteordev.meteorbot.command.commands.moderation.CloseCommand;
+import org.meteordev.meteorbot.command.commands.moderation.MuteCommand;
+import org.meteordev.meteorbot.command.commands.moderation.UnmuteCommand;
+import org.meteordev.meteorbot.command.commands.silly.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +45,8 @@ public class Commands extends ListenerAdapter {
         add(new CapyCommand());
         add(new PandaCommand());
         add(new DogCommand());
+        add(new BanCommand());
+        add(new CloseCommand());
 
         List<CommandData> commandData = new ArrayList<>();
 

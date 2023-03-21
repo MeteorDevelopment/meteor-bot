@@ -2,7 +2,11 @@ FROM eclipse-temurin:18-alpine
 
 WORKDIR /app
 
-COPY . .
+COPY gradle ./gradle
+COPY src ./src
+COPY build.gradle .
+COPY gradlew .
+COPY settings.gradle .
 
 RUN ./gradlew build
 

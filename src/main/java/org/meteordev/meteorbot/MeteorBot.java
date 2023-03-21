@@ -1,6 +1,5 @@
 package org.meteordev.meteorbot;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -14,7 +13,6 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.dv8tion.jda.internal.utils.JDALogger;
 import org.jetbrains.annotations.NotNull;
@@ -22,39 +20,27 @@ import org.meteordev.meteorbot.command.Commands;
 import org.slf4j.Logger;
 
 public class MeteorBot extends ListenerAdapter {
-    public static final Logger LOG = JDALogger.getLog("Meteor Bot");
     private static final String[] HELLOS = { "hi", "hello", "howdy", "bonjour", "ciao", "hej", "hola", "yo" };
-    public static String DISCORD_TOKEN, BACKEND_TOKEN, UPTIME_URL; // Private env vars
-    public static String API_BASE, GUILD_ID, MEMBER_COUNT_ID, DOWNLOAD_COUNT_ID, COPE_NN_ID; // Public env vars
+
+    public static final Logger LOG = JDALogger.getLog("Meteor Bot");
+    public static final String BACKEND_TOKEN = System.getenv("BACKEND_TOKEN");
+
     public static JDA BOT;
     public static Guild SERVER;
     public static RichCustomEmoji COPE_NN;
 
-    static {
-        Dotenv privateEnv = Dotenv.load();
-        DISCORD_TOKEN = privateEnv.get("DISCORD_TOKEN");
-        BACKEND_TOKEN = privateEnv.get("BACKEND_TOKEN");
-        UPTIME_URL = privateEnv.get("UPTIME_URL");
-
-        Dotenv publicEnv = Dotenv.configure().filename("public.env").load();
-        API_BASE = publicEnv.get("API_BASE") == null ? "https://meteorclient.com/api/" : publicEnv.get("API_BASE");
-        GUILD_ID = publicEnv.get("GUILD_ID");
-        MEMBER_COUNT_ID = publicEnv.get("MEMBER_COUNT_ID");
-        DOWNLOAD_COUNT_ID = publicEnv.get("DOWNLOAD_COUNT_ID");
-        COPE_NN_ID = publicEnv.get("COPE_NN_ID");
-    }
-
     public static void main(String[] args) {
-        if (DISCORD_TOKEN == null) {
+        String token = System.getenv("DISCORD_TOKEN");
+
+        if (token == null) {
             MeteorBot.LOG.error("Must specify discord bot token.");
-            System.exit(0);
+            return;
         }
 
-        JDABuilder.createDefault(DISCORD_TOKEN)
+        JDABuilder.createDefault(token)
             .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.MESSAGE_CONTENT)
-            .setMemberCachePolicy(MemberCachePolicy.ALL)
             .enableCache(CacheFlag.EMOJI)
-            .addEventListeners(new MeteorBot(), new Commands(), new Uptime(), new InfoChannels(), new UsernameScanner())
+            .addEventListeners(new MeteorBot(), new Commands(), new Uptime(), new InfoChannels())
             .build();
     }
 
@@ -63,13 +49,13 @@ public class MeteorBot extends ListenerAdapter {
         BOT = event.getJDA();
         BOT.getPresence().setActivity(Activity.playing("Meteor Client"));
 
-        SERVER = BOT.getGuildById(GUILD_ID);
+        SERVER = BOT.getGuildById(System.getenv("GUILD_ID"));
         if (SERVER == null) {
             MeteorBot.LOG.error("Couldn't find the specified server.");
             System.exit(0);
         }
 
-        COPE_NN = SERVER.getEmojiById(COPE_NN_ID);
+        COPE_NN = SERVER.getEmojiById(System.getenv("COPE_NN_ID"));
 
         LOG.info("Meteor Bot started");
     }

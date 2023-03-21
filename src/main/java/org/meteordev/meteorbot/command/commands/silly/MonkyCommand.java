@@ -1,4 +1,4 @@
-package org.meteordev.meteorbot.command.commands;
+package org.meteordev.meteorbot.command.commands.silly;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
