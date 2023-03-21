@@ -22,5 +22,4 @@ tasks.withType(JavaCompile).configureEach {
 
 shadowJar {
     setMainClassName("org.meteordev.meteorbot.MeteorBot")
-    setArchiveClassifier("")
 }

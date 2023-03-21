@@ -10,4 +10,4 @@ COPY settings.gradle .
 
 RUN ./gradlew build
 
-CMD [ "java", "-jar", "build/libs/meteor-bot.jar" ]
+CMD [ "java", "-jar", "build/libs/meteor-bot-all.jar" ]
