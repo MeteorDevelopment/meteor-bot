@@ -16,12 +16,14 @@ public class BanCommand extends Command {
 
     @Override
     public SlashCommandData build(SlashCommandData data) {
-        return data.addOption(OptionType.USER, "member", "The member to ban.", true);
+        return data
+            .addOption(OptionType.USER, "member", "The member to ban.", true)
+            .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS));
     }
 
     @Override
     public void run(SlashCommandInteractionEvent event) {
-        if (event.getMember().hasPermission(Permission.BAN_MEMBERS)) {
+        if (!event.getMember().hasPermission(Permission.BAN_MEMBERS)) {
             event.reply("You don't have permission to ban members.").setEphemeral(true).queue();
             return;
         }
