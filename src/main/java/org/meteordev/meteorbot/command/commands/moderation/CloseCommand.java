@@ -23,6 +23,13 @@ public class CloseCommand extends Command {
             return;
         }
 
+        if (event.getMember().getId() == event.getChannel().asThreadChannel().getOwnerId()) { 
+            event.reply("This post is now locked.").queue(hook -> {
+                event.getChannel().asThreadChannel().getManager().setLocked(true).setArchived(true).queue();
+            });
+            return;
+        }
+
         if (!event.getMember().hasPermission(Permission.MANAGE_THREADS)) {
             event.reply("You don't have permission to lock threads.").setEphemeral(true).queue();
             return;
@@ -31,6 +38,5 @@ public class CloseCommand extends Command {
         event.reply("This post is now locked.").queue(hook -> {
             event.getChannel().asThreadChannel().getManager().setLocked(true).setArchived(true).queue();
         });
-
     }
 }
