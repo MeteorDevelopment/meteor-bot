@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import org.meteordev.meteorbot.command.Command;
 
 public class AddonCommand extends Command {
-    private static final String message = "You can get addons from https://anticope.ml/addons? \n To install addons you place their jar file in your mods folder alongside meteor client. You can use multiple addons however they may have incompatibilities. \n What does this addon do? Ask the addon's devs not us, we dont make them.";
+    private static final String message = "You can get addons from https://anticope.ml/addons? \n To install addons you place their jar file in your mods folder alongside meteor client. You can use multiple addons however they may have incompatibilities. \n What does this addon do? Ask the addon's devs not us, we dont make them. Have a problem with the addon? Go ask the addon's devs.";
 
     public AddonCommand() {
         super("addons", "to install addons");
