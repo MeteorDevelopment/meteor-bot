@@ -1,4 +1,4 @@
-FROM eclipse-temurin:18-alpine
+FROM webhippie/temurin:18
 
 WORKDIR /app
 
