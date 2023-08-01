@@ -10,4 +10,4 @@ COPY settings.gradle .
 
 RUN ./gradlew build
 
-CMD [ "java", "-jar", "build/libs/meteor-bot-all.jar" ]
+ENTRYPOINT java $JAVA_OPTS -jar build/libs/meteor-bot-all.jar
