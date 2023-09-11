@@ -1,9 +1,15 @@
 package org.meteordev.meteorbot;
 
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.Channel;
 import net.dv8tion.jda.api.entities.channel.concrete.ThreadChannel;
 import net.dv8tion.jda.api.events.channel.ChannelCreateEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 import java.util.Arrays;
 
@@ -59,6 +65,23 @@ public class AutoThreadReply extends ListenerAdapter {
             }
         }
         if (!replyToThread) return;
-        startMessage.replyEmbeds(Utils.embedTitle(issue, solution).build()).queue();
+        startMessage.replyEmbeds(Utils.embedTitle(issue, solution).build())
+            .addActionRow(
+                Button.danger("lock", "Lock Thread")
+            )
+            .queue();
+    }
+
+    @Override
+    public void onButtonInteraction(ButtonInteractionEvent event) {
+        ThreadChannel thread = event.getChannel().asThreadChannel();
+        Member buttonPresser = event.getMember();
+        Member threadOwner = thread.getOwner();
+        if (!(buttonPresser == threadOwner || buttonPresser.hasPermission(Permission.MANAGE_THREADS))) {
+            event.reply("You don't have permission to lock this thread").setEphemeral(true).queue();
+            return;
+        }
+        thread.getManager().setLocked(true).queue();
+        event.reply("This post is now locked.").queue();
     }
 }
