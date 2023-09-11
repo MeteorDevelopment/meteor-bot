@@ -55,7 +55,6 @@ public class AutoThreadReply extends ListenerAdapter {
 
         for (int index = 0; index < supportAutoReplyList.length; index++) {
             String[] currentList = supportAutoReplyList[index];
-            System.out.println(Arrays.toString(currentList) + lContent);
             if (Arrays.stream(currentList).anyMatch(lContent::contains)) {
                 String[] issueAndSolution = supportAutoReplyListIndex[index];
                 replyToThread = true;
@@ -65,9 +64,10 @@ public class AutoThreadReply extends ListenerAdapter {
             }
         }
         if (!replyToThread) return;
-        startMessage.replyEmbeds(Utils.embedTitle(issue, solution).build())
+        startMessage.replyEmbeds(Utils.embedTitle(issue, solution + "\n\nIf this is not the issue, you may delete this message").build())
             .addActionRow(
-                Button.danger("lock", "Lock Thread")
+                Button.danger("lock", "Lock Thread"),
+                Button.primary("delete", "Delete This Message")
             )
             .queue();
     }
@@ -77,11 +77,25 @@ public class AutoThreadReply extends ListenerAdapter {
         ThreadChannel thread = event.getChannel().asThreadChannel();
         Member buttonPresser = event.getMember();
         Member threadOwner = thread.getOwner();
-        if (!(buttonPresser == threadOwner || buttonPresser.hasPermission(Permission.MANAGE_THREADS))) {
-            event.reply("You don't have permission to lock this thread").setEphemeral(true).queue();
-            return;
+
+        switch (event.getComponentId()) {
+            case "lock" -> {
+                if (!(buttonPresser == threadOwner || buttonPresser.hasPermission(Permission.MANAGE_THREADS))) {
+                    event.reply("You don't have permission to lock this thread").setEphemeral(true).queue();
+                    return;
+                }
+                thread.getManager().setLocked(true).queue();
+                event.reply("This post is now locked.").queue();
+            }
+
+            case "delete" -> {
+                if (!(buttonPresser == threadOwner || buttonPresser.hasPermission(Permission.MANAGE_THREADS))) {
+                    event.reply("You don't have permission to delete this image").setEphemeral(true).queue();
+                    return;
+                }
+                event.getMessage().delete().queue();
+            }
         }
-        thread.getManager().setLocked(true).queue();
-        event.reply("This post is now locked.").queue();
+
     }
 }
