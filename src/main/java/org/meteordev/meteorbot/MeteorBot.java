@@ -19,9 +19,6 @@ import org.jetbrains.annotations.NotNull;
 import org.meteordev.meteorbot.command.Commands;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MeteorBot extends ListenerAdapter {
     private static final String[] HELLOS = { "hi", "hello", "howdy", "bonjour", "ciao", "hej", "hola", "yo" };
 
