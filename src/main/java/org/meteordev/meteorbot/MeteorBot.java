@@ -19,6 +19,9 @@ import org.jetbrains.annotations.NotNull;
 import org.meteordev.meteorbot.command.Commands;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MeteorBot extends ListenerAdapter {
     private static final String[] HELLOS = { "hi", "hello", "howdy", "bonjour", "ciao", "hej", "hola", "yo" };
 
@@ -40,7 +43,7 @@ public class MeteorBot extends ListenerAdapter {
         JDABuilder.createDefault(token)
             .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.MESSAGE_CONTENT)
             .enableCache(CacheFlag.EMOJI)
-            .addEventListeners(new MeteorBot(), new Commands(), new Uptime(), new InfoChannels())
+            .addEventListeners(new MeteorBot(), new Commands(), new Uptime(), new InfoChannels(), new AutoThreadReply())
             .build();
     }
 
