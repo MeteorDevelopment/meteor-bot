@@ -5,6 +5,8 @@ import net.dv8tion.jda.api.entities.channel.concrete.ThreadChannel;
 import net.dv8tion.jda.api.events.channel.ChannelCreateEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.util.Arrays;
+
 public class AutoThreadReply extends ListenerAdapter {
 
 
@@ -47,14 +49,12 @@ public class AutoThreadReply extends ListenerAdapter {
 
         for (int index = 0; index < supportAutoReplyList.length; index++) {
             String[] currentList = supportAutoReplyList[index];
-            for (String word : currentList) {
-                if (lContent.contains(word)) {
-                    String[] issueAndSolution = supportAutoReplyListIndex[index];
-                    replyToThread = true;
-                    issue = issueAndSolution[0];
-                    solution = issueAndSolution[1];
-                    break;
-                }
+            if (Arrays.stream(currentList).anyMatch(lContent::contains)) {
+                String[] issueAndSolution = supportAutoReplyListIndex[index];
+                replyToThread = true;
+                issue = issueAndSolution[0];
+                solution = issueAndSolution[1];
+                break;
             }
         }
         if (!replyToThread) return;
