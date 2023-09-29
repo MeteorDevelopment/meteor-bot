@@ -19,7 +19,6 @@ public class AutoThreadReply extends ListenerAdapter {
     private final String[][] supportAutoReplyList = {
         {"donutsmp", "donut smp", "hypixel"},
         {"vulcan", " ncp ", " aac "},
-        {"adfocus", "adfoc.us", "weird site", "cant download", "can't download", "let me download"},
         {"1.19.3", "1.19.2", "1.18.2", "1.17.1", "1.12.2", "1.8.9"},
         {"general chat", "in general", "<#689197706169942135>"},
         {"hurtcam", "hurt cam"},
@@ -33,7 +32,6 @@ public class AutoThreadReply extends ListenerAdapter {
         */
         {"Using Meteor on servers that don't allow it", "Do not use Meteor on servers that don't allow it (#info-and-rules Rule 3)"},
         {"Bypassing Anti-Cheats", "Do not use Meteor on servers that don't allow it (#info-and-rules Rule 3)"},
-        {"AdFocus when downloading", "Press the 'skip' button in the top right corner - [image](https://cdn.discordapp.com/attachments/959511986587185162/1150379744395800657/image.png)"},
         {"Meteor on unsupported versions", "Use the latest version with the latest version of [VaFabricPlus](<https://github.com/ViaVersion/ViaFabricPlus/releases>)"},
         {"Not able to talk in #general", "Please read the \"Why can’t I talk in the Meteor Discord?\" section in the [FAQ](<https://meteorclient.com/faq>)"},
         {"NoHurtCam", "NoHurtCam is a vanilla feature. You can enable it under Accessibility Settings > Damage Tilt > 0%%"},
