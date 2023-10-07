@@ -17,8 +17,8 @@ public class DogCommand extends Command {
 
     @Override
     public void run(SlashCommandInteractionEvent event) {
-        Unirest.get("https://some-random-api.ml/animal/dog").asJsonAsync(response -> {
-            event.reply(response.getBody().getObject().getString("image")).queue();
+        Unirest.get("https://some-random-api.ml/img/dog").asJsonAsync(response -> {
+            event.reply(response.getBody().getObject().getString("link")).queue();
         });
     }
 }
