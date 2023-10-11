@@ -21,7 +21,7 @@ public class PandaCommand extends Command {
     public void run(SlashCommandInteractionEvent event) {
         String animal = ThreadLocalRandom.current().nextBoolean() ? "red_panda" : "panda";
 
-        Unirest.get("https://some-random-api.com/animal/" + animal).asJsonAsync(response -> {
+        Unirest.get("https://some-random-api.com/img/" + animal).asJsonAsync(response -> {
             event.reply(response.getBody().getObject().getString("link")).queue();
         });
     }
