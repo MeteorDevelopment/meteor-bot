@@ -40,7 +40,7 @@ public class MeteorBot extends ListenerAdapter {
         JDABuilder.createDefault(token)
             .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.MESSAGE_CONTENT)
             .enableCache(CacheFlag.EMOJI)
-            .addEventListeners(new MeteorBot(), new Commands(), new Uptime(), new InfoChannels())
+            .addEventListeners(new MeteorBot(), new Commands(), new Uptime(), new InfoChannels(), new AutoThreadReply())
             .build();
     }
 

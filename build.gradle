@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    implementation "net.dv8tion:JDA:5.0.0-beta.6"
+    implementation "net.dv8tion:JDA:5.0.0-beta.13"
     implementation "com.konghq:unirest-java:3.14.2:standalone"
     implementation "ch.qos.logback:logback-classic:1.4.6"
 }
