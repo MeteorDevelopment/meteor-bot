@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BanCommand extends Command {
     public BanCommand() {
-        super("ban", "bans a member");
+        super("ban", "Bans a member");
     }
 
     @Override

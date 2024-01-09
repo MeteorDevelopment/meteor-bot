@@ -8,12 +8,13 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 public abstract class Command {
     public final String name, description;
 
-    public Command(String name, String description) {
+    protected Command(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
     public abstract SlashCommandData build(SlashCommandData data);
+
     public abstract void run(SlashCommandInteractionEvent event);
 
     public static Member parseMember(SlashCommandInteractionEvent event) {
@@ -24,9 +25,7 @@ public abstract class Command {
         }
 
         Member member = memberOption.getAsMember();
-        if (member == null) {
-            event.reply("Couldn't find that member.").setEphemeral(true).queue();
-        }
+        if (member == null) event.reply("Couldn't find that member.").setEphemeral(true).queue();
 
         return member;
     }

@@ -6,7 +6,7 @@ public class FaqCommand extends HelpCommand {
     public FaqCommand() {
         super(
             "faq",
-            "tells someone to read the faq",
+            "Tells someone to read the faq",
             "The FAQ answers your question, please read it.",
             Button.link("https://meteorclient.com/faq", "FAQ")
         );
