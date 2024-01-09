@@ -14,7 +14,7 @@ import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 public class StatsCommand extends Command {
-    private static final Pattern DATE_PATTERN = Pattern.compile("[0-9]{2}-[0-9]{2}-[0-9]{4}");
+    private static final Pattern DATE_PATTERN = Pattern.compile("\\d{2}-\\d{2}-\\d{4}");
 
     public StatsCommand() {
         super("stats", "Shows various stats about Meteor.");
@@ -32,11 +32,10 @@ public class StatsCommand extends Command {
 
         if (option != null && DATE_PATTERN.matcher(option.getAsString()).matches()) {
             date = option.getAsString();
-        }
-        else {
+        } else {
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             calendar.setTime(new Date());
-            date = String.format("%02d-%02d-%d", calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+            date = "%02d-%02d-%d".formatted(calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
         }
 
         if (date == null) {
@@ -53,6 +52,6 @@ public class StatsCommand extends Command {
 
         int joins = json.getInt("joins"), leaves = json.getInt("leaves");
 
-        event.replyEmbeds(Utils.embed("**Date**: " + json.getString("date") + "\n**Joins**: " + joins + "\n**Leaves**: " + leaves + "\n**Gained**: " + (joins - leaves) + "\n**Downloads**: " + json.getInt("downloads")).build()).queue();
+        event.replyEmbeds(Utils.embed("**Date**: %s\n**Joins**: %d\n**Leaves**: %d\n**Gained**: %d\n**Downloads**: %d".formatted(json.getString("date"), joins, leaves, joins - leaves, json.getInt("downloads"))).build()).queue();
     }
 }

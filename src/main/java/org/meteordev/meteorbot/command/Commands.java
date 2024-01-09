@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 import org.jetbrains.annotations.NotNull;
+import org.meteordev.meteorbot.Env;
 import org.meteordev.meteorbot.MeteorBot;
 import org.meteordev.meteorbot.command.commands.LinkCommand;
 import org.meteordev.meteorbot.command.commands.StatsCommand;
@@ -25,10 +26,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Commands extends ListenerAdapter {
-    private static final Map<String, Command> commands = new HashMap<>();
+    private static final Map<String, Command> BOT_COMMANDS = new HashMap<>();
 
     public static void add(Command command) {
-        commands.put(command.name, command);
+        BOT_COMMANDS.put(command.name, command);
     }
 
     @Override
@@ -46,28 +47,28 @@ public class Commands extends ListenerAdapter {
         add(new CapyCommand());
         add(new CatCommand());
         add(new DogCommand());
-        add(new MonkyCommand());
+        add(new MonkeyCommand());
         add(new PandaCommand());
 
         add(new StatsCommand());
-        if (MeteorBot.BACKEND_TOKEN != null) {
+        if (Env.BACKEND_TOKEN.value != null) {
             add(new LinkCommand());
         }
 
         List<CommandData> commandData = new ArrayList<>();
 
-        for (Command command : commands.values()) {
+        for (Command command : BOT_COMMANDS.values()) {
             commandData.add(command.build(new CommandDataImpl(command.name, command.description)));
         }
 
-        MeteorBot.BOT.updateCommands().addCommands(commandData).complete();
+        event.getJDA().updateCommands().addCommands(commandData).complete();
 
-        MeteorBot.LOG.info("Loaded {} commands", commands.size());
+        MeteorBot.LOG.info("Loaded {} commands", BOT_COMMANDS.size());
     }
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        Command command = commands.get(event.getName());
+        Command command = BOT_COMMANDS.get(event.getName());
         if (command == null) return;
 
         command.run(event);

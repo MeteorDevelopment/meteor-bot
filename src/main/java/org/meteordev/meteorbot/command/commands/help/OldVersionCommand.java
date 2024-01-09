@@ -6,9 +6,9 @@ public class OldVersionCommand extends HelpCommand {
     public OldVersionCommand() {
         super(
             "old-versions",
-            "tells someone how to play on old versions",
-            "We **do not** support old versions of Meteor **or** Minecraft **no matter what!**\nIf you want to play on older servers, use ViaFabricPlus with the latest version of Meteor.",
-            Button.link("https://modrinth.com/mod/viafabricplus", "ViaFabricPlus")
+            "Tells someone how to play on old versions",
+            "Please read the old versions guide before asking more questions.",
+            Button.link("https://meteorclient.com/faq/old-versions", "Guide")
         );
     }
 }

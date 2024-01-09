@@ -9,18 +9,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Uptime extends ListenerAdapter {
-    private static final String UPTIME_URL = System.getenv("UPTIME_URL");
-
     @Override
     public void onReady(@NotNull ReadyEvent event) {
-        if (UPTIME_URL == null) {
+        if (Env.UPTIME_URL.value == null) {
             MeteorBot.LOG.warn("Uptime URL not configured, uptime requests will not be made");
             return;
         }
 
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
-            String url = UPTIME_URL;
-            if (url.endsWith("ping=")) url += MeteorBot.BOT.getGatewayPing();
+            String url = Env.UPTIME_URL.value;
+            if (url.endsWith("ping=")) url += event.getJDA().getGatewayPing();
 
             Unirest.get(url).asEmpty();
         }, 0, 60, TimeUnit.SECONDS);

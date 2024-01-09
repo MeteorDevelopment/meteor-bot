@@ -20,18 +20,15 @@ import org.meteordev.meteorbot.command.Commands;
 import org.slf4j.Logger;
 
 public class MeteorBot extends ListenerAdapter {
-    private static final String[] HELLOS = { "hi", "hello", "howdy", "bonjour", "ciao", "hej", "hola", "yo" };
+    private static final String[] HELLOS = {"hi", "hello", "howdy", "bonjour", "ciao", "hej", "hola", "yo"};
 
     public static final Logger LOG = JDALogger.getLog("Meteor Bot");
-    public static final String BACKEND_TOKEN = System.getenv("BACKEND_TOKEN");
 
-    public static JDA BOT;
-    public static Guild SERVER;
-    public static RichCustomEmoji COPE_NN;
+    private Guild server;
+    private RichCustomEmoji copeEmoji;
 
     public static void main(String[] args) {
-        String token = System.getenv("DISCORD_TOKEN");
-
+        String token = Env.DISCORD_TOKEN.value;
         if (token == null) {
             MeteorBot.LOG.error("Must specify discord bot token.");
             return;
@@ -46,51 +43,47 @@ public class MeteorBot extends ListenerAdapter {
 
     @Override
     public void onReady(ReadyEvent event) {
-        BOT = event.getJDA();
-        BOT.getPresence().setActivity(Activity.playing("Meteor Client"));
+        JDA bot = event.getJDA();
+        bot.getPresence().setActivity(Activity.playing("Meteor Client"));
 
-        SERVER = BOT.getGuildById(System.getenv("GUILD_ID"));
-        if (SERVER == null) {
+        server = bot.getGuildById(Env.GUILD_ID.value);
+        if (server == null) {
             MeteorBot.LOG.error("Couldn't find the specified server.");
-            System.exit(0);
+            System.exit(1);
         }
 
-        COPE_NN = SERVER.getEmojiById(System.getenv("COPE_NN_ID"));
+        copeEmoji = server.getEmojiById(Env.COPE_NN_ID.value);
 
         LOG.info("Meteor Bot started");
     }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (!event.isFromType(ChannelType.TEXT) || !event.isFromGuild() || !event.getGuild().equals(SERVER)) return;
+        if (!event.isFromType(ChannelType.TEXT) || !event.isFromGuild() || !event.getGuild().equals(server)) return;
 
         String content = event.getMessage().getContentRaw();
-        if (!content.contains(BOT.getSelfUser().getAsMention())) return;
-
-        boolean found = false;
+        if (!content.contains(event.getJDA().getSelfUser().getAsMention())) return;
 
         for (String hello : HELLOS) {
             if (content.toLowerCase().contains(hello)) {
-                found = true;
                 event.getMessage().reply(hello + " :)").queue();
+                return;
             }
         }
 
-        if (!found) {
-            event.getMessage().addReaction(content.toLowerCase().contains("cope") ? COPE_NN : Emoji.fromUnicode("\uD83D\uDC4B")).queue();
-        }
+        event.getMessage().addReaction(content.toLowerCase().contains("cope") ? copeEmoji : Emoji.fromUnicode("\uD83D\uDC4B")).queue();
     }
 
     @Override
     public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
-        if (BACKEND_TOKEN == null) return;
+        if (Env.BACKEND_TOKEN.value == null) return;
 
         Utils.apiPost("discord/userJoined").queryString("id", event.getMember().getId()).asEmpty();
     }
 
     @Override
     public void onGuildMemberRemove(@NotNull GuildMemberRemoveEvent event) {
-        if (BACKEND_TOKEN == null) return;
+        if (Env.BACKEND_TOKEN.value == null) return;
 
         Utils.apiPost("discord/userLeft").asEmpty();
     }

@@ -6,7 +6,7 @@ public class LogsCommand extends HelpCommand {
     public LogsCommand() {
         super(
             "logs",
-            "tells someone how to find their logs",
+            "Tells someone how to find their logs",
             "Please read the guide for sending logs before asking more questions.",
             Button.link("https://meteorclient.com/faq/getting-log", "Guide")
         );

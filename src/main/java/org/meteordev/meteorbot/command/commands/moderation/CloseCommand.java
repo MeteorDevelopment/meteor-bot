@@ -8,7 +8,7 @@ import org.meteordev.meteorbot.command.Command;
 
 public class CloseCommand extends Command {
     public CloseCommand() {
-        super("close", "locks the current forum post");
+        super("close", "Locks the current forum post");
     }
 
     @Override

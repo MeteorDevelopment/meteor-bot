@@ -6,9 +6,9 @@ import org.meteordev.meteorbot.command.Command;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class MonkyCommand extends Command {
-    public MonkyCommand() {
-        super("monky", "Sends a swag monkey.");
+public class MonkeyCommand extends Command {
+    public MonkeyCommand() {
+        super("monkey", "Sends a swag monkey.");
     }
 
     @Override

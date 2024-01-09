@@ -8,10 +8,10 @@ import net.dv8tion.jda.api.interactions.components.ItemComponent;
 import org.meteordev.meteorbot.command.Command;
 
 public abstract class HelpCommand extends Command {
-    protected ItemComponent[] components;
+    protected final ItemComponent[] components;
     protected final String message;
 
-    public HelpCommand(String name, String description, String message, ItemComponent... components) {
+    protected HelpCommand(String name, String description, String message, ItemComponent... components) {
         super(name, description);
 
         this.message = message;
